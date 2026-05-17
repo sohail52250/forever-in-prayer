@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>In Loving Memory</title>
+
+<style>
+  body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    background: radial-gradient(circle at top, #0b1430, #04060f);
+    color:white;
+    overflow-x:hidden;
+  }
+
+  /* STARS */
+  .star{
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:white;
+    border-radius:50%;
+    opacity:0.4;
+    animation: twinkle 3s infinite alternate;
+  }
+
+  @keyframes twinkle{
+    from {opacity:0.2;}
+    to {opacity:0.8;}
+  }
+
+  /* PARTICLES */
+  .particle{
+    position:absolute;
+    width:5px;
+    height:5px;
+    background:white;
+    border-radius:50%;
+    opacity:0.2;
+    animation: float linear infinite;
+  }
+
+  @keyframes float{
+    from { transform: translateY(100vh); }
+    to { transform: translateY(-10vh); }
+  }
+
+  .container{
+    position:relative;
+    z-index:2;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
+    text-align:center;
+  }
+
+  .card{
+    max-width:800px;
+    padding:40px;
+    background: rgba(10, 15, 35, 0.75);
+    border-radius:25px;
+    backdrop-filter: blur(12px);
+    box-shadow:0 20px 70px rgba(0,0,0,0.7);
+  }
+
+  h1{
+    font-size:34px;
+    margin-bottom:10px;
+  }
+
+  .arabic-name{
+    font-size:22px;
+    color:#e2e8f0;
+    margin-bottom:10px;
+    direction:rtl;
+  }
+
+  .names{
+    font-size:18px;
+    color:#cbd5e1;
+    margin-bottom:20px;
+  }
+
+  p{
+    color:#cbd5e1;
+    line-height:1.7;
+    font-size:15px;
+  }
+
+  button{
+    margin-top:20px;
+    padding:14px 40px;
+    border:none;
+    border-radius:30px;
+    background:white;
+    color:black;
+    font-weight:bold;
+    cursor:pointer;
+  }
+
+  button:hover{
+    background:#d1d5db;
+  }
+
+  #status{
+    margin-top:20px;
+    color:#cbd5e1;
+    font-size:14px;
+  }
+
+  .duaBox{
+    margin-top:20px;
+    font-size:16px;
+    line-height:1.8;
+    color:#e2e8f0;
+  }
+
+  .duaArabic{
+    direction:rtl;
+    font-size:18px;
+    margin-bottom:10px;
+  }
+
+  /* DUA WALL */
+  .wall{
+    margin-top:40px;
+    text-align:left;
+  }
+
+  .wall h3{
+    text-align:center;
+  }
+
+  textarea{
+    width:100%;
+    padding:10px;
+    border-radius:10px;
+    border:none;
+    margin-top:10px;
+  }
+
+  .msg{
+    background:#111a33;
+    padding:10px;
+    margin-top:10px;
+    border-radius:10px;
+  }
+</style>
+</head>
+
+<body>
+
+<script>
+/* STARS */
+for(let i=0;i<80;i++){
+  let s=document.createElement("div");
+  s.className="star";
+  s.style.left=Math.random()*100+"vw";
+  s.style.top=Math.random()*100+"vh";
+  s.style.animationDuration=(1+Math.random()*3)+"s";
+  document.body.appendChild(s);
+}
+
+/* PARTICLES */
+for(let i=0;i<30;i++){
+  let p=document.createElement("div");
+  p.className="particle";
+  p.style.left=Math.random()*100+"vw";
+  p.style.animationDuration=(5+Math.random()*10)+"s";
+  document.body.appendChild(p);
+}
+</script>
+
+<div class="container">
+  <div class="card">
+
+    <h1>In Loving Memory</h1>
+
+    <div class="arabic-name">
+      مُحْسَن نَظِير & إِمْرَان نَظِير
+    </div>
+
+    <div class="names">
+      Mohsan Nazir & Imran Nazir
+    </div>
+
+    <p>
+      Two beloved brothers who left this world too soon.<br>
+      Forever remembered in our hearts 🤍
+    </p>
+
+    <button onclick="start()">Begin Prayer 🤍</button>
+
+    <div id="status"></div>
+
+    <div class="duaBox" id="duaBox"></div>
+
+    <!-- DUA WALL -->
+    <div class="wall">
+      <h3>🤲 Leave a Prayer</h3>
+      <textarea id="input" placeholder="Write a dua for them..."></textarea>
+      <button onclick="addDua()">Post Dua</button>
+      <div id="wall"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- AUDIO -->
+<audio id="fatihah" src="AlFatihah.mp3"></audio>
+<audio id="dua" src="dua.mp3"></audio>
+
+<script>
+let started=false;
+
+function start(){
+
+  if(started) return;
+  started=true;
+
+  document.querySelector("button[onclick='start()']").style.display="none";
+
+  let status=document.getElementById("status");
+  let box=document.getElementById("duaBox");
+
+  status.innerText="Reciting Surah Al-Fatihah...";
+
+  let f=document.getElementById("fatihah");
+  let playF=f.play();
+  if(playF!==undefined){ playF.catch(()=>{}); }
+
+  f.onended=function(){
+
+    status.innerText="Making Dua...";
+
+    box.innerHTML=`
+      <div class="duaArabic">
+        اللَّهُمَّ اغْفِرْ لَهُمَا وَارْحَمْهُمَا
+      </div>
+      O Allah, forgive them both and have mercy on them.
+    `;
+
+    let d=document.getElementById("dua");
+    let playD=d.play();
+    if(playD!==undefined){ playD.catch(()=>{}); }
+
+    d.onended=function(){
+      status.innerText="🤍 May Allah grant Mohsan Nazir & Imran Nazir Jannah.";
+    };
+
+  };
+}
+
+/* DUA WALL */
+function addDua(){
+  let text=document.getElementById("input").value.trim();
+  if(!text) return;
+
+  let div=document.createElement("div");
+  div.className="msg";
+  div.innerText=text;
+
+  document.getElementById("wall").appendChild(div);
+  document.getElementById("input").value="";
+}
+</script>
+
+</body>
+</html>
