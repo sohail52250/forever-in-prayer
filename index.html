@@ -15,44 +15,102 @@
 
 body{
   font-family:Arial, sans-serif;
-  background:#02040f;
+  background: radial-gradient(circle at top, #050816 0%, #02040f 60%, #000 100%);
   color:white;
   overflow:hidden;
 }
 
-/* SOFT ZEN GLOW */
+/* 🌌 STARFIELD */
+.star{
+  position:fixed;
+  width:2px;
+  height:2px;
+  background:white;
+  border-radius:50%;
+  opacity:0.6;
+  animation:twinkle 3s infinite ease-in-out;
+  z-index:0;
+}
+
+@keyframes twinkle{
+  0%,100%{opacity:0.2;}
+  50%{opacity:1;}
+}
+
+/* ✨ CONSTELLATION */
+canvas{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+}
+
+/* 🕌 MOSQUE PARALLAX */
+.mosque-layer{
+  position:fixed;
+  bottom:0;
+  width:100%;
+  height:60%;
+  background-repeat:no-repeat;
+  background-position:bottom center;
+  background-size:cover;
+  opacity:0.25;
+  pointer-events:none;
+}
+
+.layer1{background:url("https://i.ibb.co/2Yy0p7k/mosque-silhouette.png");z-index:1;}
+.layer2{background:url("https://i.ibb.co/2Yy0p7k/mosque-silhouette.png");opacity:0.15;transform:scale(1.1) translateY(10px);filter:blur(1px);z-index:1;}
+.layer3{background:url("https://i.ibb.co/2Yy0p7k/mosque-silhouette.png");opacity:0.1;transform:scale(1.2) translateY(20px);filter:blur(2px);z-index:1;}
+
+.moon{
+  position:fixed;
+  top:10%;
+  left:-100px;
+  width:80px;
+  height:80px;
+  background:radial-gradient(circle,#fff 20%,rgba(255,255,255,0.4));
+  border-radius:50%;
+  box-shadow:0 0 40px rgba(255,255,255,0.25);
+  animation:moonMove 25s linear infinite;
+  z-index:1;
+}
+
+@keyframes moonMove{
+  0%{transform:translateX(0);}
+  100%{transform:translateX(120vw);}
+}
+
+/* HAZE */
 body::before{
   content:"";
   position:fixed;
   inset:0;
-  background:radial-gradient(circle at center, rgba(255,255,255,0.08), transparent 60%);
-  animation:glow 6s infinite alternate;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(120,180,255,0.08), transparent 40%),
+    radial-gradient(circle at 70% 60%, rgba(255,255,255,0.06), transparent 55%);
+  animation:glow 8s infinite alternate;
+  z-index:0;
 }
 
 @keyframes glow{
-  from{opacity:0.3;}
-  to{opacity:0.9;}
+  from{opacity:0.35;}
+  to{opacity:0.85;}
 }
 
-/* FLOATING PARTICLES */
+/* PARTICLES */
 .particle{
   position:absolute;
-  width:4px;
-  height:4px;
-  background:rgba(255,255,255,0.5);
+  width:3px;
+  height:3px;
+  background:rgba(255,255,255,0.35);
   border-radius:50%;
   animation:floatUp linear infinite;
+  z-index:1;
 }
 
 @keyframes floatUp{
-  from{
-    transform:translateY(100vh);
-    opacity:0;
-  }
-  to{
-    transform:translateY(-10vh);
-    opacity:1;
-  }
+  from{transform:translateY(100vh);opacity:0;}
+  to{transform:translateY(-10vh);opacity:1;}
 }
 
 /* CONTAINER */
@@ -66,47 +124,47 @@ body::before{
   padding:20px;
 }
 
+/* BOX */
 .box{
   width:100%;
   max-width:850px;
-  background:rgba(10,15,35,0.85);
+  background:rgba(5,10,25,0.72);
   border-radius:25px;
   padding:30px 20px;
   text-align:center;
-  backdrop-filter:blur(14px);
-  box-shadow:0 25px 80px rgba(0,0,0,0.7);
-
+  backdrop-filter:blur(18px);
+  box-shadow:0 30px 100px rgba(0,0,0,0.8);
+  border:1px solid rgba(255,255,255,0.06);
   animation:fadeIn 1.5s ease;
 }
 
 @keyframes fadeIn{
-  from{opacity:0; transform:translateY(10px);}
-  to{opacity:1; transform:translateY(0);}
+  from{opacity:0;transform:translateY(10px);}
+  to{opacity:1;transform:translateY(0);}
 }
 
 /* TITLE */
 h1{
   font-size:28px;
   margin-bottom:10px;
+  color:#e5e7eb;
+  animation:heartbeat 3.5s ease-in-out infinite;
 }
 
+@keyframes heartbeat{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.03);}
+  100%{transform:scale(1);}
+}
+
+/* NAME */
 .names{
   font-size:16px;
   color:#cbd5e1;
   margin-bottom:20px;
 }
 
-/* TEXT FADE */
-.lang, .message div{
-  animation:fadeText 2s ease;
-}
-
-@keyframes fadeText{
-  from{opacity:0;}
-  to{opacity:1;}
-}
-
-/* PORTRAITS (optional kept minimal) */
+/* IMAGE FIX */
 .portraits{
   display:flex;
   justify-content:center;
@@ -120,26 +178,15 @@ h1{
   height:120px;
   border-radius:50%;
   object-fit:cover;
-  object-position:center top;
   border:2px solid rgba(255,255,255,0.12);
   box-shadow:0 0 18px rgba(255,255,255,0.08);
+  background:rgba(255,255,255,0.05);
 }
 
 /* TEXT */
-.lang{
-  margin-top:15px;
-}
-
-.lang h3{
-  font-size:16px;
-  margin-bottom:6px;
-}
-
-p{
-  font-size:13px;
-  color:#cbd5e1;
-  line-height:1.7;
-}
+.lang{margin-top:15px;}
+.lang h3{font-size:16px;margin-bottom:6px;}
+p{font-size:13px;color:#cbd5e1;line-height:1.7;}
 
 .arabic{
   direction:rtl;
@@ -154,30 +201,17 @@ p{
   color:#cbd5e1;
 }
 
-/* TAP SCREEN */
+/* TAP */
 .tap{
   position:fixed;
   inset:0;
   display:flex;
   justify-content:center;
   align-items:center;
-  background:rgba(0,0,0,0.4);
+  background:rgba(0,0,0,0.5);
   font-size:16px;
   z-index:999;
   cursor:pointer;
-}
-
-/* MOBILE */
-@media(max-width:768px){
-  body{overflow:auto;}
-
-  .box{
-    padding:22px 14px;
-  }
-
-  h1{font-size:24px;}
-
-  p{font-size:12px;}
 }
 
 </style>
@@ -185,84 +219,75 @@ p{
 
 <body>
 
-<!-- TAP -->
-<div class="tap" id="tapScreen">
-  Tap anywhere to start prayer 🤍
-</div>
+<div id="stars"></div>
+<canvas id="constellation"></canvas>
 
-<!-- AUDIO -->
+<div class="mosque-layer layer1"></div>
+<div class="mosque-layer layer2"></div>
+<div class="mosque-layer layer3"></div>
+
+<div class="moon"></div>
+
+<div class="tap" id="tapScreen">Tap anywhere to start prayer 🤍</div>
+
 <audio id="fatihah" src="AlFatihah.mp3"></audio>
 <audio id="dua" src="dua.mp3"></audio>
 
 <div class="container">
-  <div class="box">
+<div class="box">
 
-    <h1>🤍 Prayer Mode</h1>
+<h1>🤍 Prayer Mode</h1>
 
-    <div class="names">
-      Mohsan Nazir & Imran Nazir
-    </div>
+<div class="names">Mohsan Nazir & Imran Nazir</div>
 
-    <!-- OPTIONAL PORTRAITS -->
-    <div class="portraits">
-      <div class="person">
-        <img src="brother1.jpeg">
-      </div>
-
-      <div class="person">
-        <img src="brother2.jpeg">
-      </div>
-    </div>
-
-    <!-- TEXT -->
-    <div class="lang">
-      <h3>Arabic</h3>
-      <p class="arabic">
-        هذا مكان للذكر والدعاء والرحمة 🤍<br>
-        اللهم اجعل نورهم في قبورهم، واغفر لهم وارحمهم
-      </p>
-    </div>
-
-    <div class="lang">
-      <h3>اردو</h3>
-      <p class="arabic">
-        یہ دعا اور رحمت کا مقام ہے 🤍<br>
-        اے اللہ! ان کی مغفرت فرما، ان پر رحمت فرما
-      </p>
-    </div>
-
-    <div class="lang">
-      <h3>English</h3>
-      <p>
-        A peaceful moment of prayer and remembrance 🤍
-      </p>
-    </div>
-
-    <div class="lang">
-      <h3>Dutch</h3>
-      <p>
-        Een rustig moment van gebed en herinnering 🤍
-      </p>
-    </div>
-
-    <div id="status"></div>
-
+<div class="portraits">
+  <div class="person">
+    <img src="brother1.jpeg" onerror="this.src='https://via.placeholder.com/120'">
   </div>
+
+  <div class="person">
+    <img src="brother2.jpeg" onerror="this.src='https://via.placeholder.com/120'">
+  </div>
+</div>
+
+<div class="lang">
+<h3>Arabic</h3>
+<p class="arabic">هذا مكان للذكر والدعاء والرحمة 🤍</p>
+</div>
+
+<div class="lang">
+<h3>اردو</h3>
+<p class="arabic">یہ دعا اور رحمت کا مقام ہے 🤍</p>
+</div>
+
+<div class="lang">
+<h3>English</h3>
+<p>A peaceful moment of prayer and remembrance 🤍</p>
+</div>
+
+<div class="lang">
+<h3>Dutch</h3>
+<p>Een rustig moment van gebed en herinnering 🤍</p>
+</div>
+
+<div id="status"></div>
+
+</div>
 </div>
 
 <script>
 
-/* PARTICLES */
-for(let i=0;i<25;i++){
-  let p=document.createElement("div");
-  p.className="particle";
-  p.style.left=Math.random()*100+"vw";
-  p.style.animationDuration=(5+Math.random()*5)+"s";
-  p.style.opacity=Math.random();
-  document.body.appendChild(p);
+/* stars */
+const starsContainer=document.getElementById("stars");
+for(let i=0;i<80;i++){
+let s=document.createElement("div");
+s.className="star";
+s.style.left=Math.random()*100+"vw";
+s.style.top=Math.random()*100+"vh";
+starsContainer.appendChild(s);
 }
 
-/* AUDIO LOGIC */
+/* audio */
 const tap=document.getElementById("tapScreen");
 const f=document.getElementById("fatihah");
 const d=document.getElementById("dua");
@@ -270,52 +295,18 @@ const status=document.getElementById("status");
 
 let started=false;
 
-tap.addEventListener("click", startPrayer, { once:true });
+tap.addEventListener("click",()=>{
+if(started) return;
+started=true;
+tap.style.display="none";
 
-function startPrayer(){
+f.play().then(()=>{
+setTimeout(()=>d.play(),8000);
+});
 
-  if(started) return;
-  started=true;
-
-  tap.style.display="none";
-
-  playFatihah();
-}
-
-function playFatihah(){
-
-  status.innerText="Reciting Surah Al-Fatihah...";
-
-  f.play().then(()=>{
-
-    f.onended = playDua;
-
-  }).catch(()=>{
-
-    status.innerText="Tap again to enable audio";
-
-    tap.style.display="flex";
-  });
-
-}
-
-function playDua(){
-
-  status.innerText="Making Dua...";
-
-  d.play().then(()=>{
-
-    d.onended=()=>{
-      status.innerText="🤍 May Allah grant them Jannah.";
-    };
-
-  }).catch(()=>{
-
-    document.body.addEventListener("click", ()=>d.play(), { once:true });
-
-  });
-
-}
+d.onplay=()=>status.innerText="Making Dua...";
+d.onended=()=>status.innerText="🤍 May Allah grant them Jannah.";
+});
 
 </script>
 
