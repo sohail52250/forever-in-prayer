@@ -1,204 +1,322 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Prayer Mode - Memorial</title>
 
 <style>
-  body{
-    margin:0;
-    font-family: Arial, sans-serif;
-    background: #030612;
-    color:white;
-    overflow:hidden;
-  }
 
-  /* STAR FIELD */
-  .star{
-    position:absolute;
-    width:2px;
-    height:2px;
-    background:white;
-    border-radius:50%;
-    opacity:0.4;
-    animation: twinkle 3s infinite alternate;
-  }
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
 
-  @keyframes twinkle{
-    from {opacity:0.2;}
-    to {opacity:0.8;}
-  }
+body{
+  font-family:Arial, sans-serif;
+  background:#02040f;
+  color:white;
+  overflow:hidden;
+}
 
-  .container{
-    position:relative;
-    z-index:2;
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    padding:20px;
+/* SOFT ZEN GLOW */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:radial-gradient(circle at center, rgba(255,255,255,0.08), transparent 60%);
+  animation:glow 6s infinite alternate;
+}
+
+@keyframes glow{
+  from{opacity:0.3;}
+  to{opacity:0.9;}
+}
+
+/* FLOATING PARTICLES */
+.particle{
+  position:absolute;
+  width:4px;
+  height:4px;
+  background:rgba(255,255,255,0.5);
+  border-radius:50%;
+  animation:floatUp linear infinite;
+}
+
+@keyframes floatUp{
+  from{
+    transform:translateY(100vh);
+    opacity:0;
   }
+  to{
+    transform:translateY(-10vh);
+    opacity:1;
+  }
+}
+
+/* CONTAINER */
+.container{
+  position:relative;
+  z-index:2;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+}
+
+.box{
+  width:100%;
+  max-width:850px;
+  background:rgba(10,15,35,0.85);
+  border-radius:25px;
+  padding:30px 20px;
+  text-align:center;
+  backdrop-filter:blur(14px);
+  box-shadow:0 25px 80px rgba(0,0,0,0.7);
+
+  animation:fadeIn 1.5s ease;
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(10px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+/* TITLE */
+h1{
+  font-size:28px;
+  margin-bottom:10px;
+}
+
+.names{
+  font-size:16px;
+  color:#cbd5e1;
+  margin-bottom:20px;
+}
+
+/* TEXT FADE */
+.lang, .message div{
+  animation:fadeText 2s ease;
+}
+
+@keyframes fadeText{
+  from{opacity:0;}
+  to{opacity:1;}
+}
+
+/* PORTRAITS (optional kept minimal) */
+.portraits{
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  flex-wrap:wrap;
+  margin-bottom:20px;
+}
+
+.person img{
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  object-fit:cover;
+  object-position:center top;
+  border:2px solid rgba(255,255,255,0.12);
+  box-shadow:0 0 18px rgba(255,255,255,0.08);
+}
+
+/* TEXT */
+.lang{
+  margin-top:15px;
+}
+
+.lang h3{
+  font-size:16px;
+  margin-bottom:6px;
+}
+
+p{
+  font-size:13px;
+  color:#cbd5e1;
+  line-height:1.7;
+}
+
+.arabic{
+  direction:rtl;
+  font-size:16px !important;
+  color:#f8fafc !important;
+}
+
+/* STATUS */
+#status{
+  margin-top:15px;
+  font-size:13px;
+  color:#cbd5e1;
+}
+
+/* TAP SCREEN */
+.tap{
+  position:fixed;
+  inset:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:rgba(0,0,0,0.4);
+  font-size:16px;
+  z-index:999;
+  cursor:pointer;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  body{overflow:auto;}
 
   .box{
-    max-width:750px;
-    padding:40px;
-    background: rgba(10, 15, 35, 0.85);
-    border-radius:25px;
-    backdrop-filter: blur(12px);
-    box-shadow:0 25px 80px rgba(0,0,0,0.7);
+    padding:22px 14px;
   }
 
-  h1{
-    font-size:32px;
-    margin-bottom:10px;
-  }
+  h1{font-size:24px;}
 
-  .names{
-    font-size:20px;
-    color:#cbd5e1;
-    margin-bottom:15px;
-  }
+  p{font-size:12px;}
+}
 
-  p{
-    color:#cbd5e1;
-    line-height:1.7;
-    font-size:15px;
-  }
-
-  button{
-    margin-top:20px;
-    padding:15px 45px;
-    border:none;
-    border-radius:30px;
-    font-size:15px;
-    font-weight:bold;
-    cursor:pointer;
-    background:white;
-    color:black;
-  }
-
-  button:hover{
-    background:#d1d5db;
-  }
-
-  #status{
-    margin-top:20px;
-    color:#cbd5e1;
-    font-size:14px;
-  }
-
-  .dua{
-    margin-top:20px;
-    font-size:17px;
-    line-height:1.8;
-  }
-
-  .arabic{
-    direction:rtl;
-    font-size:18px;
-    margin-bottom:10px;
-    color:#f1f5f9;
-  }
 </style>
 </head>
 
 <body>
 
-<script>
-/* stars */
-for(let i=0;i<80;i++){
-  let s=document.createElement("div");
-  s.className="star";
-  s.style.left=Math.random()*100+"vw";
-  s.style.top=Math.random()*100+"vh";
-  s.style.animationDuration=(1+Math.random()*3)+"s";
-  document.body.appendChild(s);
-}
-</script>
-
-<div class="container">
-  <div class="box">
-
-    <h1>Prayer Mode</h1>
-
-    <div class="names">
-      Mohsan Nazir & Imran Nazir
-    </div>
-
-    <p>
-      This is a space of remembrance and prayer.<br>
-      Please focus and listen with heart 🤍
-    </p>
-
-    <button onclick="startPrayer()">Enter Prayer 🤍</button>
-
-    <div id="status"></div>
-
-    <div class="dua" id="duaBox"></div>
-
-  </div>
+<!-- TAP -->
+<div class="tap" id="tapScreen">
+  Tap anywhere to start prayer 🤍
 </div>
 
 <!-- AUDIO -->
 <audio id="fatihah" src="AlFatihah.mp3"></audio>
 <audio id="dua" src="dua.mp3"></audio>
 
+<div class="container">
+  <div class="box">
+
+    <h1>🤍 Prayer Mode</h1>
+
+    <div class="names">
+      Mohsan Nazir & Imran Nazir
+    </div>
+
+    <!-- OPTIONAL PORTRAITS -->
+    <div class="portraits">
+      <div class="person">
+        <img src="brother1.jpeg">
+      </div>
+
+      <div class="person">
+        <img src="brother2.jpeg">
+      </div>
+    </div>
+
+    <!-- TEXT -->
+    <div class="lang">
+      <h3>Arabic</h3>
+      <p class="arabic">
+        هذا مكان للذكر والدعاء والرحمة 🤍<br>
+        اللهم اجعل نورهم في قبورهم، واغفر لهم وارحمهم
+      </p>
+    </div>
+
+    <div class="lang">
+      <h3>اردو</h3>
+      <p class="arabic">
+        یہ دعا اور رحمت کا مقام ہے 🤍<br>
+        اے اللہ! ان کی مغفرت فرما، ان پر رحمت فرما
+      </p>
+    </div>
+
+    <div class="lang">
+      <h3>English</h3>
+      <p>
+        A peaceful moment of prayer and remembrance 🤍
+      </p>
+    </div>
+
+    <div class="lang">
+      <h3>Dutch</h3>
+      <p>
+        Een rustig moment van gebed en herinnering 🤍
+      </p>
+    </div>
+
+    <div id="status"></div>
+
+  </div>
+</div>
+
 <script>
+
+/* PARTICLES */
+for(let i=0;i<25;i++){
+  let p=document.createElement("div");
+  p.className="particle";
+  p.style.left=Math.random()*100+"vw";
+  p.style.animationDuration=(5+Math.random()*5)+"s";
+  p.style.opacity=Math.random();
+  document.body.appendChild(p);
+}
+
+/* AUDIO LOGIC */
+const tap=document.getElementById("tapScreen");
+const f=document.getElementById("fatihah");
+const d=document.getElementById("dua");
+const status=document.getElementById("status");
+
 let started=false;
+
+tap.addEventListener("click", startPrayer, { once:true });
 
 function startPrayer(){
 
   if(started) return;
   started=true;
 
-  document.querySelector("button").style.display="none";
+  tap.style.display="none";
 
-  let status=document.getElementById("status");
-  let box=document.getElementById("duaBox");
-
-  status.innerText="Preparing...";
-
-  setTimeout(()=>{
-
-    status.innerText="Reciting Surah Al-Fatihah...";
-
-    let f=document.getElementById("fatihah");
-
-    f.play().then(()=>{
-
-      f.onended=function(){
-
-        status.innerText="Making Dua...";
-
-        box.innerHTML=`
-          <div class="arabic">
-            اللَّهُمَّ اغْفِرْ لَهُمَا وَارْحَمْهُمَا
-          </div>
-          O Allah, forgive them both and have mercy on them.
-        `;
-
-        let d=document.getElementById("dua");
-
-        d.play().then(()=>{
-
-          d.onended=function(){
-            status.innerText="🤍 May Allah grant Mohsan Nazir & Imran Nazir Jannah.";
-          };
-
-        }).catch(()=> {
-          status.innerText="Tap once more to continue audio";
-        });
-
-      };
-
-    }).catch(()=>{
-      status.innerText="Tap screen to enable audio";
-    });
-
-  },500);
+  playFatihah();
 }
+
+function playFatihah(){
+
+  status.innerText="Reciting Surah Al-Fatihah...";
+
+  f.play().then(()=>{
+
+    f.onended = playDua;
+
+  }).catch(()=>{
+
+    status.innerText="Tap again to enable audio";
+
+    tap.style.display="flex";
+  });
+
+}
+
+function playDua(){
+
+  status.innerText="Making Dua...";
+
+  d.play().then(()=>{
+
+    d.onended=()=>{
+      status.innerText="🤍 May Allah grant them Jannah.";
+    };
+
+  }).catch(()=>{
+
+    document.body.addEventListener("click", ()=>d.play(), { once:true });
+
+  });
+
+}
+
 </script>
 
 </body>

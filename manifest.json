@@ -1,0 +1,15 @@
+{
+  "name": "Prayer Mode Memorial",
+  "short_name": "PrayerMode",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#02040f",
+  "theme_color": "#02040f",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
