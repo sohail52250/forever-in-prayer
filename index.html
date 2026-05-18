@@ -6,7 +6,6 @@
 <title>Prayer Mode - Memorial</title>
 
 <style>
-
 *{
   margin:0;
   padding:0;
@@ -20,7 +19,7 @@ body{
   overflow:hidden;
 }
 
-/* 🌌 STARFIELD */
+/* STARFIELD */
 .star{
   position:fixed;
   width:2px;
@@ -29,7 +28,6 @@ body{
   border-radius:50%;
   opacity:0.6;
   animation:twinkle 3s infinite ease-in-out;
-  z-index:0;
 }
 
 @keyframes twinkle{
@@ -37,15 +35,12 @@ body{
   50%{opacity:1;}
 }
 
-/* ✨ CONSTELLATION */
 canvas{
   position:fixed;
   inset:0;
-  z-index:0;
   pointer-events:none;
 }
 
-/* 🕌 MOSQUE PARALLAX */
 .mosque-layer{
   position:fixed;
   bottom:0;
@@ -55,12 +50,11 @@ canvas{
   background-position:bottom center;
   background-size:cover;
   opacity:0.25;
-  pointer-events:none;
 }
 
-.layer1{background:url("https://i.ibb.co/2Yy0p7k/mosque-silhouette.png");z-index:1;}
-.layer2{background:url("https://i.ibb.co/2Yy0p7k/mosque-silhouette.png");opacity:0.15;transform:scale(1.1) translateY(10px);filter:blur(1px);z-index:1;}
-.layer3{background:url("https://i.ibb.co/2Yy0p7k/mosque-silhouette.png");opacity:0.1;transform:scale(1.2) translateY(20px);filter:blur(2px);z-index:1;}
+.layer1{background:url("https://i.ibb.co/2Yy0p7k/mosque-silhouette.png");}
+.layer2{background:url("https://i.ibb.co/2Yy0p7k/mosque-silhouette.png");opacity:0.15;transform:scale(1.1) translateY(10px);filter:blur(1px);}
+.layer3{background:url("https://i.ibb.co/2Yy0p7k/mosque-silhouette.png");opacity:0.1;transform:scale(1.2) translateY(20px);filter:blur(2px);}
 
 .moon{
   position:fixed;
@@ -72,7 +66,6 @@ canvas{
   border-radius:50%;
   box-shadow:0 0 40px rgba(255,255,255,0.25);
   animation:moonMove 25s linear infinite;
-  z-index:1;
 }
 
 @keyframes moonMove{
@@ -80,43 +73,8 @@ canvas{
   100%{transform:translateX(120vw);}
 }
 
-/* HAZE */
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  background:
-    radial-gradient(circle at 30% 20%, rgba(120,180,255,0.08), transparent 40%),
-    radial-gradient(circle at 70% 60%, rgba(255,255,255,0.06), transparent 55%);
-  animation:glow 8s infinite alternate;
-  z-index:0;
-}
-
-@keyframes glow{
-  from{opacity:0.35;}
-  to{opacity:0.85;}
-}
-
-/* PARTICLES */
-.particle{
-  position:absolute;
-  width:3px;
-  height:3px;
-  background:rgba(255,255,255,0.35);
-  border-radius:50%;
-  animation:floatUp linear infinite;
-  z-index:1;
-}
-
-@keyframes floatUp{
-  from{transform:translateY(100vh);opacity:0;}
-  to{transform:translateY(-10vh);opacity:1;}
-}
-
-/* CONTAINER */
 .container{
   position:relative;
-  z-index:2;
   min-height:100vh;
   display:flex;
   justify-content:center;
@@ -124,7 +82,6 @@ body::before{
   padding:20px;
 }
 
-/* BOX */
 .box{
   width:100%;
   max-width:850px;
@@ -133,44 +90,24 @@ body::before{
   padding:30px 20px;
   text-align:center;
   backdrop-filter:blur(18px);
-  box-shadow:0 30px 100px rgba(0,0,0,0.8);
-  border:1px solid rgba(255,255,255,0.06);
-  animation:fadeIn 1.5s ease;
 }
 
-@keyframes fadeIn{
-  from{opacity:0;transform:translateY(10px);}
-  to{opacity:1;transform:translateY(0);}
-}
-
-/* TITLE */
 h1{
   font-size:28px;
   margin-bottom:10px;
-  color:#e5e7eb;
-  animation:heartbeat 3.5s ease-in-out infinite;
 }
 
-@keyframes heartbeat{
-  0%{transform:scale(1);}
-  50%{transform:scale(1.03);}
-  100%{transform:scale(1);}
-}
-
-/* NAME */
 .names{
   font-size:16px;
   color:#cbd5e1;
   margin-bottom:20px;
 }
 
-/* IMAGE FIX */
 .portraits{
   display:flex;
   justify-content:center;
   gap:20px;
   flex-wrap:wrap;
-  margin-bottom:20px;
 }
 
 .person img{
@@ -178,49 +115,48 @@ h1{
   height:120px;
   border-radius:50%;
   object-fit:cover;
-  border:2px solid rgba(255,255,255,0.12);
-  box-shadow:0 0 18px rgba(255,255,255,0.08);
-  background:rgba(255,255,255,0.05);
 }
 
-/* TEXT */
-.lang{margin-top:15px;}
-.lang h3{font-size:16px;margin-bottom:6px;}
-p{font-size:13px;color:#cbd5e1;line-height:1.7;}
+.lang{
+  margin-top:15px;
+}
+
+p{
+  font-size:13px;
+  color:#cbd5e1;
+  line-height:1.7;
+}
 
 .arabic{
   direction:rtl;
-  font-size:16px !important;
-  color:#f8fafc !important;
+  font-size:16px;
+  color:#fff;
 }
 
-/* STATUS */
 #status{
   margin-top:15px;
   font-size:13px;
   color:#cbd5e1;
 }
 
-/* TAP */
+/* TAP SCREEN */
 .tap{
   position:fixed;
   inset:0;
   display:flex;
   justify-content:center;
   align-items:center;
-  background:rgba(0,0,0,0.5);
-  font-size:16px;
+  background:rgba(0,0,0,0.6);
+  font-size:18px;
   z-index:999;
   cursor:pointer;
 }
-
 </style>
 </head>
 
 <body>
 
 <div id="stars"></div>
-<canvas id="constellation"></canvas>
 
 <div class="mosque-layer layer1"></div>
 <div class="mosque-layer layer2"></div>
@@ -234,60 +170,58 @@ p{font-size:13px;color:#cbd5e1;line-height:1.7;}
 <audio id="dua" src="dua.mp3"></audio>
 
 <div class="container">
-<div class="box">
+  <div class="box">
 
-<h1>🤍 Prayer Mode</h1>
+    <h1>🤍 Prayer Mode</h1>
+    <div class="names">Mohsan Nazir & Imran Nazir</div>
 
-<div class="names">Mohsan Nazir & Imran Nazir</div>
+    <div class="portraits">
+      <div class="person">
+        <img src="brother1.jpeg" onerror="this.src='https://via.placeholder.com/120'">
+      </div>
+      <div class="person">
+        <img src="brother2.jpeg" onerror="this.src='https://via.placeholder.com/120'">
+      </div>
+    </div>
 
-<div class="portraits">
-  <div class="person">
-    <img src="brother1.jpeg" onerror="this.src='https://via.placeholder.com/120'">
+    <div class="lang">
+      <h3>Arabic</h3>
+      <p class="arabic">هذا مكان للذكر والدعاء والرحمة 🤍</p>
+    </div>
+
+    <div class="lang">
+      <h3>اردو</h3>
+      <p class="arabic">یہ دعا اور رحمت کا مقام ہے 🤍</p>
+    </div>
+
+    <div class="lang">
+      <h3>English</h3>
+      <p>A peaceful moment of prayer and remembrance 🤍</p>
+    </div>
+
+    <div class="lang">
+      <h3>Dutch</h3>
+      <p>Een rustig moment van gebed en herinnering 🤍</p>
+    </div>
+
+    <div id="status"></div>
+
   </div>
-
-  <div class="person">
-    <img src="brother2.jpeg" onerror="this.src='https://via.placeholder.com/120'">
-  </div>
-</div>
-
-<div class="lang">
-<h3>Arabic</h3>
-<p class="arabic">هذا مكان للذكر والدعاء والرحمة 🤍</p>
-</div>
-
-<div class="lang">
-<h3>اردو</h3>
-<p class="arabic">یہ دعا اور رحمت کا مقام ہے 🤍</p>
-</div>
-
-<div class="lang">
-<h3>English</h3>
-<p>A peaceful moment of prayer and remembrance 🤍</p>
-</div>
-
-<div class="lang">
-<h3>Dutch</h3>
-<p>Een rustig moment van gebed en herinnering 🤍</p>
-</div>
-
-<div id="status"></div>
-
-</div>
 </div>
 
 <script>
+// stars
+const starsContainer = document.getElementById("stars");
 
-/* stars */
-const starsContainer=document.getElementById("stars");
 for(let i=0;i<80;i++){
-let s=document.createElement("div");
-s.className="star";
-s.style.left=Math.random()*100+"vw";
-s.style.top=Math.random()*100+"vh";
-starsContainer.appendChild(s);
+  const s=document.createElement("div");
+  s.className="star";
+  s.style.left=Math.random()*100+"vw";
+  s.style.top=Math.random()*100+"vh";
+  starsContainer.appendChild(s);
 }
 
-/* audio */
+// audio logic
 const tap=document.getElementById("tapScreen");
 const f=document.getElementById("fatihah");
 const d=document.getElementById("dua");
@@ -295,19 +229,31 @@ const status=document.getElementById("status");
 
 let started=false;
 
-tap.addEventListener("click",()=>{
-if(started) return;
-started=true;
-tap.style.display="none";
+tap.addEventListener("click", async () => {
+  if(started) return;
+  started=true;
+  tap.style.display="none";
 
-f.play().then(()=>{
-setTimeout(()=>d.play(),8000);
+  try{
+    status.innerText="Playing Al-Fatihah...";
+    await f.play();
+  }catch(e){
+    status.innerText="Error playing Al-Fatihah";
+  }
+
+  // when Fatihah ends → play Dua
+  f.onended = async () => {
+    try{
+      status.innerText="Playing Dua...";
+      await d.play();
+    }catch(e){
+      status.innerText="Error playing Dua";
+    }
+  };
+
+  d.onplay = () => status.innerText="Making Dua...";
+  d.onended = () => status.innerText="🤍 May Allah grant them Jannah.";
 });
-
-d.onplay=()=>status.innerText="Making Dua...";
-d.onended=()=>status.innerText="🤍 May Allah grant them Jannah.";
-});
-
 </script>
 
 </body>
