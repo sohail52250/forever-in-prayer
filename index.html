@@ -658,74 +658,102 @@ GLOBAL LANGUAGE PRESENTATION
   }
 }
 </style>
-<style id="final-memorial-language-authority">
-html[dir="rtl"] body { direction: rtl; }
-html[dir="ltr"] body { direction: ltr; }
-
+<style id="forever-in-prayer-language">
 [data-memorial-language] {
-  display: none !important;
-  visibility: hidden !important;
-}
-[data-memorial-language].memorial-language-active {
-  display: block !important;
-  visibility: visible !important;
-}
-[data-memorial-language="ur"].memorial-language-active,
-[data-memorial-language="ar"].memorial-language-active {
-  direction: rtl !important;
-  text-align: right !important;
-}
-[data-memorial-language="en"].memorial-language-active {
-  direction: ltr !important;
-  text-align: left !important;
+    display: none !important;
+    visibility: hidden !important;
 }
 
-#memorial-rose-petals {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-  z-index: 99999;
+[data-memorial-language].memorial-language-active {
+    display: block !important;
+    visibility: visible !important;
 }
-.memorial-rose-petal {
-  position: absolute;
-  top: -12vh;
-  width: 14px;
-  height: 10px;
-  border-radius: 80% 20% 80% 20%;
-  background: linear-gradient(135deg,#d11 0%,#f45 55%,#ffd 100%);
-  opacity: .85;
-  transform: rotate(25deg);
-  animation: memorialRoseFall linear forwards;
+
+html[dir="rtl"] body {
+    direction: rtl;
 }
-@keyframes memorialRoseFall {
-  0% { transform: translate3d(0,-10vh,0) rotate(0deg); opacity: 0; }
-  8% { opacity: .9; }
-  100% { transform: translate3d(var(--drift),115vh,0) rotate(var(--spin)); opacity: .15; }
+
+html[dir="ltr"] body {
+    direction: ltr;
 }
-#memorial-yasin-status {
-  position: fixed;
-  left: 50%;
-  bottom: 18px;
-  transform: translateX(-50%);
-  z-index: 100000;
-  display: none;
-  padding: 9px 14px;
-  border-radius: 999px;
-  background: rgba(20,20,20,.88);
-  color: #fff;
-  font: 14px/1.3 system-ui,sans-serif;
+</style>
+
+
+
+
+
+<style id="forever-in-prayer-final-live-css">
+#globalLanguageSelectorContainer {
+    position: fixed !important;
+    top: 18px !important;
+    right: 18px !important;
+    z-index: 100000 !important;
+    pointer-events: auto !important;
 }
-#memorial-yasin-status button {
-  margin-left: 8px;
-  border: 0;
-  border-radius: 999px;
-  padding: 6px 11px;
-  cursor: pointer;
+
+#globalLanguageSelector {
+    position: relative !important;
+    z-index: 100001 !important;
+    pointer-events: auto !important;
+    cursor: pointer !important;
 }
+
+#startPrayerButton {
+    position: relative !important;
+    z-index: 100002 !important;
+    pointer-events: auto !important;
+    cursor: pointer !important;
+}
+
+#tapScreen {
+    pointer-events: none !important;
+    z-index: 500 !important;
+}
+
+#rosePetalContainer {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    overflow: hidden !important;
+    pointer-events: none !important;
+    z-index: 99999 !important;
+}
+
+.forever-rose-petal {
+    position: fixed !important;
+    top: -35px !important;
+    pointer-events: none !important;
+    user-select: none !important;
+    z-index: 100000 !important;
+    animation-name: foreverRoseFall !important;
+    animation-timing-function: linear !important;
+    animation-fill-mode: forwards !important;
+}
+
+@keyframes foreverRoseFall {
+    0% {
+        transform: translate3d(0,-35px,0) rotate(0deg);
+        opacity: 0;
+    }
+
+    8% {
+        opacity: 1;
+    }
+
+    100% {
+        transform:
+            translate3d(var(--rose-drift),110vh,0)
+            rotate(720deg);
+        opacity: 0;
+    }
+}
+</style>
 </head>
 
 <body>
+<div id="rosePetalContainer" aria-hidden="true"></div>
+
 <div id="globalLanguageSelectorContainer" class="language-selector">
   <label id="globalLanguageLabel" for="globalLanguageSelector">زبان</label>
   <select id="globalLanguageSelector" aria-label="Language">
@@ -1167,1148 +1195,455 @@ html[dir="ltr"] body { direction: ltr; }
 
 
 
-<script id="forever-global-language-controller">
 
-/*
-============================================================
-FOREVER IN PRAYER
-GLOBAL LANGUAGE CONTROLLER
-============================================================
-
-Supported:
-ur = Urdu
-ar = Arabic
-en = English
-
-Priority:
-1. Manually saved language
-2. Browser/device language
-3. Urdu fallback
-============================================================
-*/
-
-(function(){
-
-    "use strict";
-
-    const SUPPORTED_LANGUAGES = ["ur", "ar", "en"];
-    const DEFAULT_LANGUAGE = "ur";
-    const STORAGE_KEY = "foreverInPrayerLanguage";
-
-    function normalizeLanguage(value){
-
-        if(!value){
-            return null;
-        }
-
-        value = String(value)
-            .trim()
-            .toLowerCase();
-
-        if(value === "ur" || value.startsWith("ur-")){
-            return "ur";
-        }
-
-        if(value === "ar" || value.startsWith("ar-")){
-            return "ar";
-        }
-
-        if(value === "en" || value.startsWith("en-")){
-            return "en";
-        }
-
-        return null;
-    }
-
-    function getSavedLanguage(){
-
-        try{
-
-            const saved =
-                localStorage.getItem(STORAGE_KEY);
-
-            return normalizeLanguage(saved);
-
-        }catch(error){
-
-            return null;
-
-        }
-
-    }
-
-    function getBrowserLanguage(){
-
-        const candidates = [];
-
-        if(
-            navigator.languages &&
-            Array.isArray(navigator.languages)
-        ){
-            candidates.push(...navigator.languages);
-        }
-
-        if(navigator.language){
-            candidates.push(navigator.language);
-        }
-
-        for(const candidate of candidates){
-
-            const language =
-                normalizeLanguage(candidate);
-
-            if(language){
-                return language;
-            }
-
-        }
-
-        return null;
-
-    }
-
-    function getInitialLanguage(){
-
-        const saved =
-            getSavedLanguage();
-
-        if(saved){
-            return saved;
-        }
-
-        const browser =
-            getBrowserLanguage();
-
-        if(browser){
-            return browser;
-        }
-
-        return DEFAULT_LANGUAGE;
-
-    }
-
-    function saveLanguage(language){
-
-        try{
-
-            localStorage.setItem(
-                STORAGE_KEY,
-                language
-            );
-
-        }catch(error){
-
-            console.warn(
-                "Could not save language preference.",
-                error
-            );
-
-        }
-
-    }
-
-    function applyLanguage(language){
-
-        language =
-            normalizeLanguage(language) ||
-            DEFAULT_LANGUAGE;
-
-        /*
-        --------------------------------------------------------
-        Real multilingual sections
-        --------------------------------------------------------
-        */
-
-        document
-            .querySelectorAll(
-                "[data-memorial-language]"
-            )
-            .forEach(function(element){
-
-                const elementLanguage =
-                    normalizeLanguage(
-                        element.getAttribute(
-                            "data-memorial-language"
-                        )
-                    );
-
-                element.style.display =
-                    elementLanguage === language
-                        ? ""
-                        : "none";
-
-            });
-
-        /*
-        --------------------------------------------------------
-        Generic data-lang elements
-        --------------------------------------------------------
-        */
-
-        document
-            .querySelectorAll(
-                "[data-lang]"
-            )
-            .forEach(function(element){
-
-                const elementLanguage =
-                    normalizeLanguage(
-                        element.getAttribute(
-                            "data-lang"
-                        )
-                    );
-
-                element.style.display =
-                    elementLanguage === language
-                        ? ""
-                        : "none";
-
-            });
-
-        /*
-        --------------------------------------------------------
-        Direction
-        --------------------------------------------------------
-        */
-
-        const isRTL =
-            language === "ur" ||
-            language === "ar";
-
-        document.documentElement.lang =
-            language;
-
-        document.documentElement.dir =
-            isRTL ? "rtl" : "ltr";
-
-        document.body.classList.toggle(
-            "language-rtl",
-            isRTL
-        );
-
-        document.body.classList.toggle(
-            "language-ltr",
-            !isRTL
-        );
-
-        /*
-        --------------------------------------------------------
-        Language selector
-        --------------------------------------------------------
-        */
-
-        const selector =
-            document.getElementById(
-                "globalLanguageSelector"
-            );
-
-        if(selector){
-
-            selector.value =
-                language;
-
-        }
-
-        /*
-        --------------------------------------------------------
-        Language label
-        --------------------------------------------------------
-        */
-
-        const label =
-            document.getElementById(
-                "globalLanguageLabel"
-            );
-
-        if(label){
-
-            const labels = {
-
-                ur: "زبان",
-                ar: "اللغة",
-                en: "Language"
-
-            };
-
-            label.textContent =
-                labels[language] ||
-                labels[DEFAULT_LANGUAGE];
-
-        }
-
-        /*
-        --------------------------------------------------------
-        Notify the rest of the site
-        --------------------------------------------------------
-        */
-
-        window.foreverInPrayerLanguage =
-            language;
-
-        window.dispatchEvent(
-            new CustomEvent(
-                "foreverInPrayerLanguageChanged",
-                {
-                    detail: {
-                        language: language
-                    }
-                }
-            )
-        );
-
-    }
-
-    function setLanguage(language){
-
-        language =
-            normalizeLanguage(language);
-
-        if(
-            !language ||
-            !SUPPORTED_LANGUAGES.includes(language)
-        ){
-            language =
-                DEFAULT_LANGUAGE;
-        }
-
-        saveLanguage(language);
-
-        applyLanguage(language);
-
-        return language;
-
-    }
-
-    /*
-    ------------------------------------------------------------
-    PUBLIC API
-    ------------------------------------------------------------
-    */
-
-    window.setForeverLanguage =
-        setLanguage;
-
-    window.getForeverLanguage =
-        function(){
-
-            return (
-                window.foreverInPrayerLanguage ||
-                getInitialLanguage()
-            );
-
-        };
-
-    window.foreverInPrayerLanguages =
-        SUPPORTED_LANGUAGES.slice();
-
-    /*
-    ------------------------------------------------------------
-    SELECTOR EVENT
-    ------------------------------------------------------------
-    */
-
-    document.addEventListener(
-        "change",
-        function(event){
-
-            if(
-                event.target &&
-                event.target.id ===
-                "globalLanguageSelector"
-            ){
-
-                setLanguage(
-                    event.target.value
-                );
-
-            }
-
-        }
-    );
-
-    /*
-    ------------------------------------------------------------
-    APPLY AFTER DOM IS READY
-    ------------------------------------------------------------
-    */
-
-    function initialize(){
-
-        applyLanguage(
-            getInitialLanguage()
-        );
-
-    }
-
-    if(
-        document.readyState ===
-        "loading"
-    ){
-
-        document.addEventListener(
-            "DOMContentLoaded",
-            initialize,
-            {
-                once: true
-            }
-        );
-
-    }else{
-
-        initialize();
-
-    }
-
-})();
-
-/* ============================================================
-   FOREVER IN PRAYER - AUDIO ENGINE
-   Start Prayer -> Al-Fatihah -> Dua
-   ============================================================ */
-
-const tap = document.getElementById("tapScreen");
-const startButton = document.getElementById("startPrayerButton");
-const f = document.getElementById("fatihah");
-const d = document.getElementById("dua");
-const status = document.getElementById("status");
-
-let prayerStarted = false;
-
-function setPrayerStatus(message) {
-    if (status) {
-        status.textContent = message;
-    }
-}
-
-function showTap() {
-    if (tap) {
-        tap.style.display = "flex";
-    }
-}
-
-function hideTap() {
-    if (tap) {
-        tap.style.display = "none";
-    }
-}
-
-async function startPrayer() {
-
-    if (prayerStarted) {
-        return;
-    }
-
-    prayerStarted = true;
-
-    try {
-
-        hideTap();
-
-        f.pause();
-        d.pause();
-
-        f.currentTime = 0;
-        d.currentTime = 0;
-
-        setPrayerStatus("Playing Al-Fatihah...");
-
-        await f.play();
-
-    } catch (error) {
-
-        console.error("Al-Fatihah playback failed:", error);
-
-        prayerStarted = false;
-
-        setPrayerStatus(
-            "Please press Start Prayer again."
-        );
-
-        showTap();
-    }
-}
-
-if (startButton) {
-    startButton.addEventListener("click", startPrayer);
-}
-
-if (tap) {
-    tap.addEventListener("click", function(event) {
-        if (event.target === tap) {
-            startPrayer();
-        }
-    });
-}
-
-if (f) {
-
-    f.addEventListener("play", function() {
-        setPrayerStatus("Playing Al-Fatihah...");
-    });
-
-    f.addEventListener("ended", async function() {
-
-        try {
-
-            setPrayerStatus("Making Dua...");
-
-            d.currentTime = 0;
-
-            await d.play();
-
-        } catch (error) {
-
-            console.error("Dua playback failed:", error);
-
-            prayerStarted = false;
-
-            setPrayerStatus(
-                "Unable to continue to Dua. Please press Start Prayer again."
-            );
-
-            showTap();
-        }
-    });
-
-    f.addEventListener("error", function() {
-
-        console.error("Al-Fatihah error:", f.error);
-
-        prayerStarted = false;
-
-        setPrayerStatus(
-            "Al-Fatihah could not be loaded."
-        );
-
-        showTap();
-    });
-}
-
-if (d) {
-
-    d.addEventListener("play", function() {
-        setPrayerStatus("Making Dua...");
-    });
-
-    d.addEventListener("ended", function() {
-
-        prayerStarted = false;
-
-        setPrayerStatus(
-            "🤲 May Allah grant them Jannah. Ameen."
-        );
-    });
-
-    d.addEventListener("error", function() {
-
-        console.error("Dua error:", d.error);
-
-        prayerStarted = false;
-
-        setPrayerStatus(
-            "Dua could not be loaded."
-        );
-
-        showTap();
-    });
-}
-
-</script>
 <!-- URDU DISPLAY BEHAVIOR REPAIR -->
-<script>
-(function(){
-    const KEY = "foreverInPrayerLanguage";
-    const SUPPORTED = ["ur","ar","en"];
-    const RTL = ["ur","ar"];
 
-    function normalize(value){
-        if(!value) return null;
-        value = String(value).toLowerCase().replace("_","-");
-        if(value.indexOf("ur") === 0) return "ur";
-        if(value.indexOf("ar") === 0) return "ar";
-        if(value.indexOf("en") === 0) return "en";
-        return null;
-    }
-
-    function browserLanguage(){
-        const candidates = [];
-        if(navigator.languages && Array.isArray(navigator.languages)){
-            candidates.push.apply(candidates,navigator.languages);
-        }
-        if(navigator.language){
-            candidates.push(navigator.language);
-        }
-        for(const value of candidates){
-            const lang = normalize(value);
-            if(lang) return lang;
-        }
-        return "ur";
-    }
-
-    function getLanguage(){
-        try{
-            const saved = normalize(localStorage.getItem(KEY));
-            if(saved) return saved;
-        }catch(e){}
-        return browserLanguage() || "ur";
-    }
-
-    function applyLanguage(language){
-        language = normalize(language) || "ur";
-
-        document.querySelectorAll("[data-memorial-language]").forEach(function(section){
-            const sectionLanguage =
-                normalize(section.getAttribute("data-memorial-language"));
-
-            section.hidden = sectionLanguage !== language;
-            section.style.display =
-                sectionLanguage === language ? "" : "none";
-        });
-
-        document.documentElement.lang = language;
-        document.documentElement.dir =
-            RTL.indexOf(language) >= 0 ? "rtl" : "ltr";
-
-        document.querySelectorAll("[data-lang]").forEach(function(element){
-            const elementLanguage =
-                normalize(element.getAttribute("data-lang"));
-            element.hidden = elementLanguage !== language;
-            element.style.display =
-                elementLanguage === language ? "" : "none";
-        });
-
-        const selector =
-            document.getElementById("globalLanguageSelector");
-
-        if(selector){
-            selector.value = language;
-        }
-
-        window.foreverInPrayerLanguage = language;
-    }
-
-    window.setForeverLanguage = function(language){
-        language = normalize(language) || "ur";
-        try{
-            localStorage.setItem(KEY,language);
-        }catch(e){}
-        applyLanguage(language);
-        window.dispatchEvent(
-            new CustomEvent("foreverInPrayerLanguageChanged",{
-                detail:{language:language}
-            })
-        );
-    };
-
-    function start(){
-        applyLanguage(getLanguage());
-
-        const selector =
-            document.getElementById("globalLanguageSelector");
-
-        if(selector && !selector.dataset.languageRepairBound){
-            selector.dataset.languageRepairBound = "1";
-            selector.addEventListener("change",function(){
-                window.setForeverLanguage(this.value);
-            });
-        }
-    }
-
-    if(document.readyState === "loading"){
-        document.addEventListener("DOMContentLoaded",start);
-    }else{
-        start();
-    }
-})();
-</script>
 <!-- END URDU DISPLAY BEHAVIOR REPAIR -->
 <!-- URDU DISPLAY BEHAVIOR REPAIR -->
-<script>
-(function(){
-    const KEY = "foreverInPrayerLanguage";
-    const SUPPORTED = ["ur","ar","en"];
-    const RTL = ["ur","ar"];
 
-    function normalize(value){
-        if(!value) return null;
-        value = String(value).toLowerCase().replace("_","-");
-        if(value.indexOf("ur") === 0) return "ur";
-        if(value.indexOf("ar") === 0) return "ar";
-        if(value.indexOf("en") === 0) return "en";
-        return null;
-    }
-
-    function browserLanguage(){
-        const candidates = [];
-        if(navigator.languages && Array.isArray(navigator.languages)){
-            candidates.push.apply(candidates,navigator.languages);
-        }
-        if(navigator.language){
-            candidates.push(navigator.language);
-        }
-        for(const value of candidates){
-            const lang = normalize(value);
-            if(lang) return lang;
-        }
-        return "ur";
-    }
-
-    function getLanguage(){
-        try{
-            const saved = normalize(localStorage.getItem(KEY));
-            if(saved) return saved;
-        }catch(e){}
-        return browserLanguage() || "ur";
-    }
-
-    function applyLanguage(language){
-        language = normalize(language) || "ur";
-
-        document.querySelectorAll("[data-memorial-language]").forEach(function(section){
-            const sectionLanguage =
-                normalize(section.getAttribute("data-memorial-language"));
-
-            section.hidden = sectionLanguage !== language;
-            section.style.display =
-                sectionLanguage === language ? "" : "none";
-        });
-
-        document.documentElement.lang = language;
-        document.documentElement.dir =
-            RTL.indexOf(language) >= 0 ? "rtl" : "ltr";
-
-        document.querySelectorAll("[data-lang]").forEach(function(element){
-            const elementLanguage =
-                normalize(element.getAttribute("data-lang"));
-            element.hidden = elementLanguage !== language;
-            element.style.display =
-                elementLanguage === language ? "" : "none";
-        });
-
-        const selector =
-            document.getElementById("globalLanguageSelector");
-
-        if(selector){
-            selector.value = language;
-        }
-
-        window.foreverInPrayerLanguage = language;
-    }
-
-    window.setForeverLanguage = function(language){
-        language = normalize(language) || "ur";
-        try{
-            localStorage.setItem(KEY,language);
-        }catch(e){}
-        applyLanguage(language);
-        window.dispatchEvent(
-            new CustomEvent("foreverInPrayerLanguageChanged",{
-                detail:{language:language}
-            })
-        );
-    };
-
-    function start(){
-        applyLanguage(getLanguage());
-
-        const selector =
-            document.getElementById("globalLanguageSelector");
-
-        if(selector && !selector.dataset.languageRepairBound){
-            selector.dataset.languageRepairBound = "1";
-            selector.addEventListener("change",function(){
-                window.setForeverLanguage(this.value);
-            });
-        }
-    }
-
-    if(document.readyState === "loading"){
-        document.addEventListener("DOMContentLoaded",start);
-    }else{
-        start();
-    }
-})();
-</script>
 <!-- END URDU DISPLAY BEHAVIOR REPAIR -->
 <!-- SAFE URDU DISPLAY OVERRIDE -->
-<script id="safe-urdu-display-override">
-(function(){
-    "use strict";
 
-    var KEY = "foreverInPrayerLanguage";
-    var RTL = { ur:true, ar:true };
-
-    function normalize(v){
-        if(!v){ return null; }
-        v=String(v).toLowerCase().replace("_","-");
-        if(v.indexOf("ur")===0){ return "ur"; }
-        if(v.indexOf("ar")===0){ return "ar"; }
-        if(v.indexOf("en")===0){ return "en"; }
-        return null;
-    }
-
-    function detect(){
-        var saved=null;
-        try{
-            saved=normalize(localStorage.getItem(KEY));
-        }catch(e){}
-
-        if(saved){ return saved; }
-
-        var list=[];
-        if(navigator.languages && navigator.languages.length){
-            list=navigator.languages;
-        }
-
-        if(navigator.language){
-            list=list.concat([navigator.language]);
-        }
-
-        for(var i=0;i<list.length;i++){
-            var detected=normalize(list[i]);
-            if(detected){ return detected; }
-        }
-
-        return "ur";
-    }
-
-    function apply(lang){
-        lang=normalize(lang)||"ur";
-
-        var sections=document.querySelectorAll("[data-memorial-language]");
-
-        for(var i=0;i<sections.length;i++){
-            var sectionLang=normalize(
-                sections[i].getAttribute("data-memorial-language")
-            );
-
-            if(sectionLang===lang){
-                sections[i].hidden=false;
-                sections[i].style.display="";
-            }else{
-                sections[i].hidden=true;
-                sections[i].style.display="none";
-            }
-        }
-
-        document.documentElement.lang=lang;
-        document.documentElement.dir=RTL[lang] ? "rtl" : "ltr";
-
-        var selector=document.getElementById("globalLanguageSelector");
-
-        if(selector){
-            selector.value=lang;
-
-            if(!selector.getAttribute("data-safe-urdu-bound")){
-                selector.setAttribute("data-safe-urdu-bound","1");
-
-                selector.addEventListener("change",function(){
-                    var selected=normalize(this.value)||"ur";
-
-                    try{
-                        localStorage.setItem(KEY,selected);
-                    }catch(e){}
-
-                    apply(selected);
-                });
-            }
-        }
-
-        window.foreverInPrayerLanguage=lang;
-    }
-
-    function start(){
-        apply(detect());
-    }
-
-    if(document.readyState==="loading"){
-        document.addEventListener("DOMContentLoaded",start);
-    }else{
-        start();
-    }
-})();
-</script>
 <!-- END SAFE URDU DISPLAY OVERRIDE --><!-- SAFE LANGUAGE SWITCH FIX -->
-<style id="safe-language-switch-css">
-.real-language-content[data-memorial-language] { display: none; }
-.real-language-content[data-memorial-language="ur"] { display: none; }
-</style>
-<script id="safe-language-switch-js">
-(function(){
+
+
+<!-- END SAFE LANGUAGE SWITCH FIX -->
+
+
+
+</div>
+
+<script id="forever-in-prayer-final-live-controller">
+(function () {
     "use strict";
 
-    var LANGS = ["ur","ar","en"];
-    var KEY = "foreverInPrayerLanguage";
+    console.log("[FOREVER IN PRAYER] Final live controller starting.");
 
-    function normalize(v){
-        v = String(v || "").toLowerCase().trim();
-        if(v.indexOf("ur") === 0) return "ur";
-        if(v.indexOf("ar") === 0) return "ar";
-        if(v.indexOf("en") === 0) return "en";
-        return "ur";
+    function ready(fn) {
+        if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", fn);
+        } else {
+            fn();
+        }
     }
 
-    function applyLanguage(lang){
-        lang = normalize(lang);
+    ready(function () {
 
-        var sections = document.querySelectorAll(
-            ".real-language-content[data-memorial-language]"
-        );
-
-        sections.forEach(function(section){
-            var sectionLang = normalize(
-                section.getAttribute("data-memorial-language")
-            );
-            section.style.display =
-                sectionLang === lang ? "" : "none";
-        });
-
-        document.documentElement.lang = lang;
-        document.documentElement.dir =
-            (lang === "ur" || lang === "ar") ? "rtl" : "ltr";
-
-        var selector = document.getElementById("globalLanguageSelector");
-        if(selector) selector.value = lang;
-
-        try {
-            localStorage.setItem(KEY, lang);
-        } catch(e) {}
-
-        window.dispatchEvent(new CustomEvent(
-            "foreverInPrayerLanguageChanged",
-            { detail: { language: lang } }
-        ));
-    }
-
-    function getSavedLanguage(){
-        try {
-            var saved = localStorage.getItem(KEY);
-            if(saved && LANGS.indexOf(normalize(saved)) !== -1){
-                return normalize(saved);
-            }
-        } catch(e) {}
-
-        var candidates = [];
-        if(navigator.languages && navigator.languages.length){
-            candidates = candidates.concat(navigator.languages);
-        }
-        if(navigator.language){
-            candidates.push(navigator.language);
-        }
-
-        for(var i=0;i<candidates.length;i++){
-            var detected = normalize(candidates[i]);
-            if(LANGS.indexOf(detected) !== -1){
-                return detected;
-            }
-        }
-
-        return "ur";
-    }
-
-    function connectSelector(){
-        var selector =
+        var languageSelector =
             document.getElementById("globalLanguageSelector");
 
-        if(!selector) return;
+        var languageSections =
+            document.querySelectorAll(
+                "[data-memorial-language]"
+            );
 
-        selector.onchange = function(){
-            applyLanguage(this.value);
-        };
+        var startButton =
+            document.getElementById("startPrayerButton");
 
-        selector.addEventListener("input", function(){
-            applyLanguage(this.value);
-        });
+        var tapScreen =
+            document.getElementById("tapScreen");
 
-        applyLanguage(selector.value || getSavedLanguage());
-    }
+        var fatihah =
+            document.getElementById("fatihah");
 
-    window.setForeverLanguage = applyLanguage;
-    window.getForeverLanguage = getSavedLanguage;
+        var dua =
+            document.getElementById("dua");
 
-    if(document.readyState === "loading"){
-        document.addEventListener("DOMContentLoaded", connectSelector);
-    }else{
-        connectSelector();
-    }
+        var roseContainer =
+            document.getElementById("rosePetalContainer");
+
+        /* ----------------------------------------------------
+           LANGUAGE
+           ---------------------------------------------------- */
+
+        function applyLanguage(language) {
+
+            if (
+                language !== "ur" &&
+                language !== "ar" &&
+                language !== "en"
+            ) {
+                language = "ur";
+            }
+
+            document.documentElement.lang = language;
+
+            if (language === "ur" || language === "ar") {
+                document.documentElement.dir = "rtl";
+            } else {
+                document.documentElement.dir = "ltr";
+            }
+
+            for (var i = 0; i < languageSections.length; i++) {
+
+                var section = languageSections[i];
+
+                var active =
+                    section.getAttribute(
+                        "data-memorial-language"
+                    ) === language;
+
+                section.style.display =
+                    active ? "block" : "none";
+
+                section.setAttribute(
+                    "dir",
+                    (language === "ur" || language === "ar")
+                        ? "rtl"
+                        : "ltr"
+                );
+            }
+
+            if (languageSelector) {
+                languageSelector.value = language;
+            }
+
+            try {
+                localStorage.setItem(
+                    "foreverPrayerLanguage",
+                    language
+                );
+
+                localStorage.setItem(
+                    "language",
+                    language
+                );
+            } catch (e) {}
+
+            console.log(
+                "[FOREVER IN PRAYER] Language:",
+                language
+            );
+        }
+
+        var initialLanguage = "ur";
+
+        try {
+            var saved =
+                localStorage.getItem(
+                    "foreverPrayerLanguage"
+                ) ||
+                localStorage.getItem("language");
+
+            if (
+                saved === "ur" ||
+                saved === "ar" ||
+                saved === "en"
+            ) {
+                initialLanguage = saved;
+            }
+        } catch (e) {}
+
+        applyLanguage(initialLanguage);
+
+        if (languageSelector) {
+
+            languageSelector.style.pointerEvents = "auto";
+
+            languageSelector.addEventListener(
+                "change",
+                function () {
+                    applyLanguage(
+                        languageSelector.value
+                    );
+                },
+                false
+            );
+        }
+
+        /* ----------------------------------------------------
+           ROSE PETALS
+           ---------------------------------------------------- */
+
+        function createRosePetal() {
+
+            if (!roseContainer) {
+                return;
+            }
+
+            var petal =
+                document.createElement("span");
+
+            petal.className =
+                "forever-rose-petal";
+
+            petal.textContent = "";
+
+            petal.style.left =
+                Math.random() * 100 + "vw";
+
+            petal.style.fontSize =
+                (14 + Math.random() * 14) + "px";
+
+            petal.style.setProperty(
+                "--rose-drift",
+                (-100 + Math.random() * 200) + "px"
+            );
+
+            var duration =
+                5 + Math.random() * 5;
+
+            petal.style.animationDuration =
+                duration + "s";
+
+            roseContainer.appendChild(petal);
+
+            window.setTimeout(
+                function () {
+                    if (petal.parentNode) {
+                        petal.parentNode.removeChild(petal);
+                    }
+                },
+                (duration + 1) * 1000
+            );
+        }
+
+        function startContinuousPetals() {
+
+            if (!roseContainer) {
+                return;
+            }
+
+            if (window.foreverPrayerPetalTimer) {
+                return;
+            }
+
+            /* Initial visual burst */
+            for (var i = 0; i < 12; i++) {
+                window.setTimeout(
+                    createRosePetal,
+                    i * 120
+                );
+            }
+
+            /* Continuous short-interval falling petals */
+            window.foreverPrayerPetalTimer =
+                window.setInterval(
+                    function () {
+
+                        for (var j = 0; j < 2; j++) {
+                            createRosePetal();
+                        }
+
+                    },
+                    450
+                );
+
+            console.log(
+                "[FOREVER IN PRAYER] Continuous rose petals active."
+            );
+        }
+
+        startContinuousPetals();
+
+        /* ----------------------------------------------------
+           AUDIO
+           ---------------------------------------------------- */
+
+        function playAudio(audio) {
+
+            if (!audio) {
+                return Promise.resolve(false);
+            }
+
+            try {
+                audio.currentTime = 0;
+            } catch (e) {}
+
+            try {
+                var result = audio.play();
+
+                if (
+                    result &&
+                    typeof result.then === "function"
+                ) {
+                    return result.then(
+                        function () {
+                            return true;
+                        }
+                    ).catch(
+                        function (error) {
+                            console.warn(
+                                "[FOREVER IN PRAYER] Browser blocked audio:",
+                                error
+                            );
+                            return false;
+                        }
+                    );
+                }
+
+                return Promise.resolve(true);
+
+            } catch (error) {
+
+                console.warn(
+                    "[FOREVER IN PRAYER] Audio error:",
+                    error
+                );
+
+                return Promise.resolve(false);
+            }
+        }
+
+        function playPrayerSequence() {
+
+            console.log(
+                "[FOREVER IN PRAYER] Prayer sequence started."
+            );
+
+            startContinuousPetals();
+
+            if (!fatihah) {
+
+                console.warn(
+                    "[FOREVER IN PRAYER] Al-Fatihah audio element missing."
+                );
+
+                return;
+            }
+
+            playAudio(fatihah);
+
+            if (fatihah) {
+
+                fatihah.onended = function () {
+
+                    console.log(
+                        "[FOREVER IN PRAYER] Al-Fatihah finished."
+                    );
+
+                    if (dua) {
+                        playAudio(dua);
+                    }
+                };
+            }
+
+            if (dua) {
+
+                dua.onended = function () {
+
+                    console.log(
+                        "[FOREVER IN PRAYER] Dua finished."
+                    );
+
+                    var yasin =
+                        document.getElementById("yasin");
+
+                    if (yasin) {
+                        playAudio(yasin);
+                    } else {
+                        console.log(
+                            "[FOREVER IN PRAYER] Yasin.mp3 not installed; prayer page remains active."
+                        );
+                    }
+                };
+            }
+        }
+
+        /* ----------------------------------------------------
+           START BUTTON
+           ---------------------------------------------------- */
+
+        if (startButton) {
+
+            startButton.style.pointerEvents = "auto";
+            startButton.style.zIndex = "100002";
+
+            startButton.addEventListener(
+                "click",
+                function (event) {
+
+                    event.preventDefault();
+                    event.stopPropagation();
+
+                    console.log(
+                        "[FOREVER IN PRAYER] Start Prayer clicked."
+                    );
+
+                    playPrayerSequence();
+
+                },
+                false
+            );
+
+        } else {
+
+            console.warn(
+                "[FOREVER IN PRAYER] Start Prayer button missing."
+            );
+        }
+
+        /* ----------------------------------------------------
+           TAP SCREEN MUST NEVER BLOCK CLICK
+           ---------------------------------------------------- */
+
+        if (tapScreen) {
+
+            tapScreen.style.pointerEvents = "none";
+
+            console.log(
+                "[FOREVER IN PRAYER] Tap screen disabled as blocker."
+            );
+        }
+
+        /* ----------------------------------------------------
+           AUDIO ERROR SAFETY
+           ---------------------------------------------------- */
+
+        if (fatihah) {
+
+            fatihah.addEventListener(
+                "error",
+                function () {
+
+                    console.warn(
+                        "[FOREVER IN PRAYER] Al-Fatihah could not load."
+                    );
+
+                }
+            );
+        }
+
+        if (dua) {
+
+            dua.addEventListener(
+                "error",
+                function () {
+
+                    console.warn(
+                        "[FOREVER IN PRAYER] Dua could not load."
+                    );
+
+                }
+            );
+        }
+
+        /* ----------------------------------------------------
+           AUTOPLAY ATTEMPT
+           ---------------------------------------------------- */
+
+        window.setTimeout(
+            function () {
+
+                console.log(
+                    "[FOREVER IN PRAYER] Attempting automatic prayer playback."
+                );
+
+                startContinuousPetals();
+
+                playPrayerSequence();
+
+            },
+            700
+        );
+
+        console.log(
+            "[FOREVER IN PRAYER] Final live controller ready."
+        );
+
+    });
+
 })();
-</script>
-<!-- END SAFE LANGUAGE SWITCH FIX -->
-<script id="final-memorial-language-controller">
-(function () {
-  'use strict';
-
-  var SUPPORTED = ['ur','ar','en'];
-  var DEFAULT = 'ur';
-  var KEY = 'foreverInPrayerLanguage';
-  var selector = null;
-
-  function normalize(v) {
-    return SUPPORTED.indexOf(v) >= 0 ? v : DEFAULT;
-  }
-
-  function getLanguage() {
-    var v = null;
-    try { v = localStorage.getItem(KEY); } catch (_) {}
-    return normalize(v);
-  }
-
-  function apply(language) {
-    language = normalize(language);
-    var nodes = document.querySelectorAll('[data-memorial-language]');
-    for (var i = 0; i < nodes.length; i++) {
-      var node = nodes[i];
-      var active = node.getAttribute('data-memorial-language') === language;
-      node.classList.toggle('memorial-language-active', active);
-      node.setAttribute('aria-hidden', active ? 'false' : 'true');
-    }
-
-    if (selector) selector.value = language;
-    document.documentElement.lang = language;
-    document.documentElement.dir = (language === 'ur' || language === 'ar') ? 'rtl' : 'ltr';
-
-    try { localStorage.setItem(KEY, language); } catch (_) {}
-    window.foreverInPrayerLanguage = language;
-  }
-
-  function init() {
-    selector = document.getElementById('globalLanguageSelector');
-    apply(getLanguage());
-
-    if (selector && !selector.__finalMemorialBound) {
-      selector.__finalMemorialBound = true;
-      selector.addEventListener('change', function () {
-        apply(this.value);
-        window.setTimeout(function () { apply(selector.value); }, 0);
-        window.setTimeout(function () { apply(selector.value); }, 100);
-      }, false);
-    }
-
-    window.setInterval(function () {
-      var current = selector ? normalize(selector.value) : getLanguage();
-      apply(current);
-    }, 1500);
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
-}());
-</script>
-<script id="final-memorial-effects">
-(function () {
-  'use strict';
-
-  var YASIN_SRC = '';
-  var DUA_SRC = '../Dua.mp3';
-
-  function makePetal() {
-    var layer = document.getElementById('memorial-rose-petals');
-    if (!layer) {
-      layer = document.createElement('div');
-      layer.id = 'memorial-rose-petals';
-      layer.setAttribute('aria-hidden','true');
-      document.body.appendChild(layer);
-    }
-    var p = document.createElement('span');
-    p.className = 'memorial-rose-petal';
-    p.style.left = (Math.random() * 100) + 'vw';
-    p.style.animationDuration = (7 + Math.random() * 8) + 's';
-    p.style.setProperty('--drift', ((Math.random() - .5) * 30) + 'vw');
-    p.style.setProperty('--spin', ((Math.random() * 900) - 450) + 'deg');
-    p.style.width = (9 + Math.random() * 10) + 'px';
-    p.style.height = (7 + Math.random() * 8) + 'px';
-    layer.appendChild(p);
-    window.setTimeout(function () { if (p.parentNode) p.parentNode.removeChild(p); }, 16000);
-  }
-
-  function startPetals() {
-    if (window.__memorialPetalsStarted) return;
-    window.__memorialPetalsStarted = true;
-    for (var i=0;i<18;i++) window.setTimeout(makePetal, i*90);
-    window.setInterval(function () {
-      for (var i=0;i<3;i++) makePetal();
-    }, 700);
-  }
-
-  function findAudioBySrcPart(part) {
-    if (!part) return null;
-    var all = document.querySelectorAll('audio');
-    for (var i=0;i<all.length;i++) {
-      var src = all[i].getAttribute('src') || '';
-      if (src.toLowerCase().indexOf(part.toLowerCase()) >= 0) return all[i];
-    }
-    return null;
-  }
-
-  function addYasinAudio() {
-    if (!YASIN_SRC) return null;
-    var existing = findAudioBySrcPart(YASIN_SRC);
-    if (existing) return existing;
-
-    var a = document.createElement('audio');
-    a.id = 'surah-yasin-after-dua';
-    a.preload = 'auto';
-    a.src = YASIN_SRC;
-    a.setAttribute('aria-label','Surah Yasin / Quran recitation');
-    a.style.display = 'none';
-    document.body.appendChild(a);
-    return a;
-  }
-
-  function setupAudio() {
-    var duaAudio = findAudioBySrcPart('Dua.mp3') || findAudioBySrcPart('dua');
-    if (!duaAudio && DUA_SRC) duaAudio = findAudioBySrcPart(DUA_SRC);
-    var yasinAudio = addYasinAudio();
-
-    if (!duaAudio || !yasinAudio || duaAudio.__yasinAfterDuaBound) return;
-    duaAudio.__yasinAfterDuaBound = true;
-
-    duaAudio.addEventListener('ended', function () {
-      startPetals();
-      yasinAudio.currentTime = 0;
-      var playPromise = yasinAudio.play();
-      if (playPromise && typeof playPromise.catch === 'function') {
-        playPromise.catch(function () {
-          var status = document.getElementById('memorial-yasin-status');
-          if (status) {
-            status.style.display = 'block';
-            var button = status.querySelector('button');
-            if (button) button.onclick = function () {
-              yasinAudio.play().then(function () { status.style.display='none'; }).catch(function(){});
-            };
-          }
-        });
-      }
-    }, false);
-  }
-
-  function init() {
-    var status = document.createElement('div');
-    status.id = 'memorial-yasin-status';
-    status.innerHTML = 'Quran recitation is ready <button type="button">Play</button>';
-    document.body.appendChild(status);
-    setupAudio();
-    var observer = new MutationObserver(setupAudio);
-    observer.observe(document.body, {childList:true, subtree:true});
-  }
-
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
-  else init();
-}());
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
