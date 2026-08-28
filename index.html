@@ -749,6 +749,67 @@ html[dir="ltr"] body {
     }
 }
 </style>
+<style id="forever-in-prayer-live-prayer-css">
+#tapScreen {
+    pointer-events: none !important;
+}
+
+#startPrayerButton {
+    position: relative !important;
+    z-index: 100000 !important;
+    pointer-events: auto !important;
+    cursor: pointer !important;
+}
+
+#globalLanguageSelector,
+#globalLanguageSelectorContainer,
+#globalLanguageSelectorContainer select {
+    position: relative !important;
+    z-index: 100000 !important;
+    pointer-events: auto !important;
+}
+
+#rosePetalContainer {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    overflow: hidden !important;
+    pointer-events: none !important;
+    z-index: 99999 !important;
+}
+
+.forever-prayer-petal {
+    position: fixed !important;
+    top: -50px !important;
+    left: 0 !important;
+    pointer-events: none !important;
+    user-select: none !important;
+    z-index: 100000 !important;
+    font-size: 24px !important;
+    line-height: 1 !important;
+    will-change: transform, opacity !important;
+    animation-name: foreverPrayerFall !important;
+    animation-timing-function: linear !important;
+    animation-fill-mode: forwards !important;
+}
+
+@keyframes foreverPrayerFall {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, -50px, 0) rotate(0deg);
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate3d(var(--prayer-drift), 115vh, 0) rotate(720deg);
+    }
+}
+</style>
 </head>
 
 <body>
@@ -1217,8 +1278,6 @@ html[dir="ltr"] body {
 (function () {
     "use strict";
 
-    console.log("[FOREVER IN PRAYER] Final live controller starting.");
-
     function ready(fn) {
         if (document.readyState === "loading") {
             document.addEventListener("DOMContentLoaded", fn);
@@ -1229,59 +1288,47 @@ html[dir="ltr"] body {
 
     ready(function () {
 
-        var languageSelector =
-            document.getElementById("globalLanguageSelector");
+        console.log("[FOREVER IN PRAYER] FINAL controller active.");
 
-        var languageSections =
-            document.querySelectorAll(
-                "[data-memorial-language]"
-            );
+        var selector = document.getElementById("globalLanguageSelector");
+        var sections = document.querySelectorAll("[data-memorial-language]");
 
-        var startButton =
-            document.getElementById("startPrayerButton");
+        var tap = document.getElementById("tapScreen");
+        var button = document.getElementById("startPrayerButton");
 
-        var tapScreen =
-            document.getElementById("tapScreen");
+        var fatihah = document.getElementById("fatihah");
+        var dua = document.getElementById("dua");
 
-        var fatihah =
-            document.getElementById("fatihah");
+        var petals = document.getElementById("rosePetalContainer");
 
-        var dua =
-            document.getElementById("dua");
-
-        var roseContainer =
-            document.getElementById("rosePetalContainer");
-
-        /* ----------------------------------------------------
-           LANGUAGE
-           ---------------------------------------------------- */
+        /*
+        ============================================================
+        LANGUAGE
+        ============================================================
+        */
 
         function applyLanguage(language) {
 
-            if (
-                language !== "ur" &&
+            if (language !== "ur" &&
                 language !== "ar" &&
-                language !== "en"
-            ) {
+                language !== "en") {
                 language = "ur";
             }
 
             document.documentElement.lang = language;
 
-            if (language === "ur" || language === "ar") {
-                document.documentElement.dir = "rtl";
-            } else {
-                document.documentElement.dir = "ltr";
-            }
+            document.documentElement.dir =
+                (language === "ur" || language === "ar")
+                ? "rtl"
+                : "ltr";
 
-            for (var i = 0; i < languageSections.length; i++) {
+            for (var i = 0; i < sections.length; i++) {
 
-                var section = languageSections[i];
+                var section = sections[i];
 
                 var active =
-                    section.getAttribute(
-                        "data-memorial-language"
-                    ) === language;
+                    section.getAttribute("data-memorial-language")
+                    === language;
 
                 section.style.display =
                     active ? "block" : "none";
@@ -1289,13 +1336,13 @@ html[dir="ltr"] body {
                 section.setAttribute(
                     "dir",
                     (language === "ur" || language === "ar")
-                        ? "rtl"
-                        : "ltr"
+                    ? "rtl"
+                    : "ltr"
                 );
             }
 
-            if (languageSelector) {
-                languageSelector.value = language;
+            if (selector) {
+                selector.value = language;
             }
 
             try {
@@ -1320,9 +1367,7 @@ html[dir="ltr"] body {
 
         try {
             var saved =
-                localStorage.getItem(
-                    "foreverPrayerLanguage"
-                ) ||
+                localStorage.getItem("foreverPrayerLanguage") ||
                 localStorage.getItem("language");
 
             if (
@@ -1336,109 +1381,109 @@ html[dir="ltr"] body {
 
         applyLanguage(initialLanguage);
 
-        if (languageSelector) {
+        if (selector) {
 
-            languageSelector.style.pointerEvents = "auto";
-
-            languageSelector.addEventListener(
+            selector.addEventListener(
                 "change",
                 function () {
-                    applyLanguage(
-                        languageSelector.value
-                    );
+                    applyLanguage(selector.value);
                 },
                 false
             );
         }
 
-        /* ----------------------------------------------------
-           ROSE PETALS
-           ---------------------------------------------------- */
+        /*
+        ============================================================
+        VISIBLE FALLING FLOWERS
+        ============================================================
+        */
 
-        function createRosePetal() {
+        function createFlower() {
 
-            if (!roseContainer) {
+            if (!petals) {
                 return;
             }
 
-            var petal =
-                document.createElement("span");
+            var flower = document.createElement("span");
 
-            petal.className =
-                "forever-rose-petal";
+            flower.className = "forever-rose-petal";
 
-            petal.textContent = "";
+            flower.textContent = "\u273f";
 
-            petal.style.left =
+            flower.style.left =
                 Math.random() * 100 + "vw";
 
-            petal.style.fontSize =
-                (14 + Math.random() * 14) + "px";
+            flower.style.fontSize =
+                (18 + Math.random() * 14) + "px";
 
-            petal.style.setProperty(
+            flower.style.setProperty(
                 "--rose-drift",
-                (-100 + Math.random() * 200) + "px"
+                (-120 + Math.random() * 240) + "px"
             );
 
-            var duration =
-                5 + Math.random() * 5;
+            flower.style.animationDuration =
+                (5 + Math.random() * 4) + "s";
 
-            petal.style.animationDuration =
-                duration + "s";
-
-            roseContainer.appendChild(petal);
+            petals.appendChild(flower);
 
             window.setTimeout(
                 function () {
-                    if (petal.parentNode) {
-                        petal.parentNode.removeChild(petal);
+                    if (flower.parentNode) {
+                        flower.parentNode.removeChild(flower);
                     }
                 },
-                (duration + 1) * 1000
+                11000
             );
         }
 
-        function startContinuousPetals() {
+        function startFlowers() {
 
-            if (!roseContainer) {
+            if (!petals) {
+                console.warn(
+                    "[FOREVER IN PRAYER] rosePetalContainer missing."
+                );
                 return;
             }
 
-            if (window.foreverPrayerPetalTimer) {
+            if (window.foreverPrayerFlowerTimer) {
                 return;
             }
 
-            /* Initial visual burst */
-            for (var i = 0; i < 12; i++) {
+            for (var i = 0; i < 15; i++) {
                 window.setTimeout(
-                    createRosePetal,
-                    i * 120
+                    createFlower,
+                    i * 150
                 );
             }
 
-            /* Continuous short-interval falling petals */
-            window.foreverPrayerPetalTimer =
+            window.foreverPrayerFlowerTimer =
                 window.setInterval(
                     function () {
 
-                        for (var j = 0; j < 2; j++) {
-                            createRosePetal();
-                        }
+                        createFlower();
+                        createFlower();
+                        createFlower();
 
                     },
-                    450
+                    500
                 );
 
             console.log(
-                "[FOREVER IN PRAYER] Continuous rose petals active."
+                "[FOREVER IN PRAYER] Continuous flowers started."
             );
         }
 
-        startContinuousPetals();
+        /*
+        Start flowers immediately.
+        */
 
-        /* ----------------------------------------------------
-           AUDIO
-           ---------------------------------------------------- */
+        startFlowers();
+
+        /*
+        ============================================================
+        AUDIO
+        ============================================================
+        */
 
         function playAudio(audio) {
 
@@ -1451,22 +1496,29 @@ html[dir="ltr"] body {
             } catch (e) {}
 
             try {
+
                 var result = audio.play();
 
                 if (
                     result &&
                     typeof result.then === "function"
                 ) {
+
                     return result.then(
                         function () {
+                            console.log(
+                                "[FOREVER IN PRAYER] Audio playing."
+                            );
                             return true;
                         }
                     ).catch(
                         function (error) {
+
                             console.warn(
-                                "[FOREVER IN PRAYER] Browser blocked audio:",
+                                "[FOREVER IN PRAYER] Audio blocked:",
                                 error
                             );
+
                             return false;
                         }
                     );
@@ -1485,24 +1537,49 @@ html[dir="ltr"] body {
             }
         }
 
-        function playPrayerSequence() {
+        /*
+        ============================================================
+        PRAYER SEQUENCE
+        ============================================================
+        */
 
-            console.log(
-                "[FOREVER IN PRAYER] Prayer sequence started."
-            );
+        var prayerStarted = false;
 
-            startContinuousPetals();
+        function startPrayer() {
 
-            if (!fatihah) {
-
-                console.warn(
-                    "[FOREVER IN PRAYER] Al-Fatihah audio element missing."
-                );
-
+            if (prayerStarted) {
                 return;
             }
 
-            playAudio(fatihah);
+            prayerStarted = true;
+
+            console.log(
+                "[FOREVER IN PRAYER] Prayer started."
+            );
+
+            /*
+            Hide/remove the overlay immediately.
+            */
+
+            if (button) {
+                button.disabled = true;
+                button.style.display = "none";
+            }
+
+            if (tap) {
+                tap.style.display = "none";
+                tap.style.pointerEvents = "none";
+            }
+
+            /*
+            Keep flowers running.
+            */
+
+            startFlowers();
+
+            /*
+            Attach sequence handlers BEFORE playback.
+            */
 
             if (fatihah) {
 
@@ -1533,23 +1610,37 @@ html[dir="ltr"] body {
                         playAudio(yasin);
                     } else {
                         console.log(
-                            "[FOREVER IN PRAYER] Yasin.mp3 not installed; prayer page remains active."
+                            "[FOREVER IN PRAYER] Yasin missing; page remains active."
                         );
                     }
                 };
             }
+
+            /*
+            Play Al-Fatihah from the user's click.
+            */
+
+            if (fatihah) {
+                playAudio(fatihah);
+            } else if (dua) {
+                playAudio(dua);
+            }
         }
 
-        /* ----------------------------------------------------
-           START BUTTON
-           ---------------------------------------------------- */
+        /*
+        ============================================================
+        BUTTON
+        ============================================================
+        */
 
-        if (startButton) {
+        if (button) {
 
-            startButton.style.pointerEvents = "auto";
-            startButton.style.zIndex = "100002";
+            button.style.pointerEvents = "auto";
+            button.style.position = "relative";
+            button.style.zIndex = "100002";
+            button.style.cursor = "pointer";
 
-            startButton.addEventListener(
+            button.addEventListener(
                 "click",
                 function (event) {
 
@@ -1557,11 +1648,10 @@ html[dir="ltr"] body {
                     event.stopPropagation();
 
                     console.log(
-                        "[FOREVER IN PRAYER] Start Prayer clicked."
+                        "[FOREVER IN PRAYER] Start Prayer CLICKED."
                     );
 
-                    playPrayerSequence();
-
+                    startPrayer();
                 },
                 false
             );
@@ -1573,22 +1663,27 @@ html[dir="ltr"] body {
             );
         }
 
-        /* ----------------------------------------------------
-           TAP SCREEN MUST NEVER BLOCK CLICK
-           ---------------------------------------------------- */
+        /*
+        ============================================================
+        TAP SCREEN
+        ============================================================
+        */
 
-        if (tapScreen) {
+        if (tap) {
 
-            tapScreen.style.pointerEvents = "none";
+            tap.style.zIndex = "500";
+            tap.style.pointerEvents = "none";
 
             console.log(
-                "[FOREVER IN PRAYER] Tap screen disabled as blocker."
+                "[FOREVER IN PRAYER] Tap overlay cannot block button."
             );
         }
 
-        /* ----------------------------------------------------
-           AUDIO ERROR SAFETY
-           ---------------------------------------------------- */
+        /*
+        ============================================================
+        AUDIO ERROR SAFETY
+        ============================================================
+        */
 
         if (fatihah) {
 
@@ -1597,9 +1692,8 @@ html[dir="ltr"] body {
                 function () {
 
                     console.warn(
-                        "[FOREVER IN PRAYER] Al-Fatihah could not load."
+                        "[FOREVER IN PRAYER] Al-Fatihah failed to load."
                     );
-
                 }
             );
         }
@@ -1611,37 +1705,281 @@ html[dir="ltr"] body {
                 function () {
 
                     console.warn(
-                        "[FOREVER IN PRAYER] Dua could not load."
+                        "[FOREVER IN PRAYER] Dua failed to load."
                     );
-
                 }
             );
         }
 
-        /* ----------------------------------------------------
-           AUTOPLAY ATTEMPT
-           ---------------------------------------------------- */
+        console.log(
+            "[FOREVER IN PRAYER] Initialization complete."
+        );
+    });
 
-        window.setTimeout(
-            function () {
+})();
+</script>
+<script id="forever-in-prayer-live-prayer">
+(function () {
+    "use strict";
 
-                console.log(
-                    "[FOREVER IN PRAYER] Attempting automatic prayer playback."
+    function initForeverPrayer() {
+
+        var button = document.getElementById("startPrayerButton");
+        var fatihah = document.getElementById("fatihah");
+        var dua = document.getElementById("dua");
+        var roseContainer = document.getElementById("rosePetalContainer");
+
+        if (!roseContainer) {
+            roseContainer = document.createElement("div");
+            roseContainer.id = "rosePetalContainer";
+            roseContainer.setAttribute("aria-hidden", "true");
+            document.body.appendChild(roseContainer);
+        }
+
+        var flowerTimer = null;
+        var prayerStarted = false;
+
+        function createPetal() {
+            if (!roseContainer) {
+                return;
+            }
+
+            var petal = document.createElement("span");
+
+            petal.className = "forever-prayer-petal";
+            petal.textContent = "\uD83C\uDF39";
+
+            var left = Math.floor(Math.random() * 100);
+            var drift = (Math.floor(Math.random() * 240) - 120);
+            var duration = 4 + Math.random() * 4;
+            var size = 18 + Math.random() * 18;
+
+            petal.style.left = left + "vw";
+            petal.style.fontSize = size + "px";
+            petal.style.setProperty(
+                "--prayer-drift",
+                drift + "px"
+            );
+            petal.style.animationDuration = duration + "s";
+
+            roseContainer.appendChild(petal);
+
+            window.setTimeout(function () {
+                if (petal && petal.parentNode) {
+                    petal.parentNode.removeChild(petal);
+                }
+            }, (duration + 1) * 1000);
+        }
+
+        function startContinuousFlowers() {
+
+            createPetal();
+            createPetal();
+            createPetal();
+
+            if (flowerTimer) {
+                return;
+            }
+
+            flowerTimer = window.setInterval(function () {
+                createPetal();
+            }, 500);
+        }
+
+        function stopContinuousFlowers() {
+            if (flowerTimer) {
+                window.clearInterval(flowerTimer);
+                flowerTimer = null;
+            }
+        }
+
+        function safePlay(audio) {
+
+            if (!audio) {
+                return Promise.resolve(false);
+            }
+
+            try {
+                audio.currentTime = 0;
+            } catch (e) {}
+
+            try {
+                var result = audio.play();
+
+                if (result && typeof result.then === "function") {
+                    return result.then(function () {
+                        return true;
+                    }).catch(function (error) {
+                        console.warn(
+                            "[FOREVER IN PRAYER] Audio blocked:",
+                            error
+                        );
+                        return false;
+                    });
+                }
+
+                return Promise.resolve(true);
+
+            } catch (error) {
+
+                console.warn(
+                    "[FOREVER IN PRAYER] Audio error:",
+                    error
                 );
 
-                startContinuousPetals();
+                return Promise.resolve(false);
+            }
+        }
 
-                playPrayerSequence();
+        function startPrayer() {
 
-            },
-            700
-        );
+            if (prayerStarted) {
+                return;
+            }
 
+            prayerStarted = true;
+
+            console.log(
+                "[FOREVER IN PRAYER] Prayer started."
+            );
+
+            startContinuousFlowers();
+
+            if (button) {
+                button.style.display = "none";
+                button.style.visibility = "hidden";
+                button.style.pointerEvents = "none";
+                button.setAttribute("aria-hidden", "true");
+            }
+
+            if (fatihah) {
+
+                fatihah.onended = function () {
+
+                    console.log(
+                        "[FOREVER IN PRAYER] Al-Fatihah finished."
+                    );
+
+                    safePlay(dua);
+                };
+
+                fatihah.onerror = function () {
+
+                    console.warn(
+                        "[FOREVER IN PRAYER] Al-Fatihah unavailable."
+                    );
+
+                    safePlay(dua);
+                };
+
+                safePlay(fatihah).then(function (played) {
+
+                    if (!played) {
+                        console.warn(
+                            "[FOREVER IN PRAYER] Browser blocked autoplay/audio."
+                        );
+                    }
+
+                });
+
+            } else {
+
+                safePlay(dua);
+            }
+        }
+
+        /*
+         * Start the visual prayer experience automatically.
+         * Audio autoplay is attempted, but browsers may block
+         * audio until a user gesture occurs.
+         */
+        startContinuousFlowers();
+
+        if (button) {
+
+            button.style.display = "";
+            button.style.visibility = "visible";
+            button.style.pointerEvents = "auto";
+            button.disabled = false;
+
+            button.addEventListener(
+                "click",
+                function (event) {
+
+                    event.preventDefault();
+                    event.stopPropagation();
+
+                    startPrayer();
+                },
+                false
+            );
+
+            button.addEventListener(
+                "pointerup",
+                function (event) {
+
+                    if (!prayerStarted) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        startPrayer();
+                    }
+                },
+                false
+            );
+
+            console.log(
+                "[FOREVER IN PRAYER] Start Prayer button ready."
+            );
+
+            /*
+             * Attempt automatic prayer audio.
+             * If browser blocks it, the visible button remains
+             * available for the user.
+             */
+            safePlay(fatihah).then(function (played) {
+
+                if (played) {
+
+                    prayerStarted = true;
+
+                    button.style.display = "none";
+                    button.style.visibility = "hidden";
+                    button.style.pointerEvents = "none";
+                    button.setAttribute(
+                        "aria-hidden",
+                        "true"
+                    );
+
+                    console.log(
+                        "[FOREVER IN PRAYER] Audio autoplay started."
+                    );
+                }
+
+            });
+        }
+
+        var tapScreen = document.getElementById("tapScreen");
+
+        if (tapScreen) {
+            tapScreen.style.pointerEvents = "none";
+        }
+
+        /*
+         * Missing Yasin.mp3 is intentionally ignored.
+         */
         console.log(
-            "[FOREVER IN PRAYER] Final live controller ready."
+            "[FOREVER IN PRAYER] Continuous flowers active."
         );
+    }
 
-    });
+    if (document.readyState === "loading") {
+        document.addEventListener(
+            "DOMContentLoaded",
+            initForeverPrayer
+        );
+    } else {
+        initForeverPrayer();
+    }
 
 })();
 </script>
