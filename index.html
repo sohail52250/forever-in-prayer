@@ -1,25 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script data-goatcounter="https://foreverinprayer.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Prayer & Remembrance</title>
 
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <meta name="google-site-verification" content="XCIoOrCCoLvdn3CNYdNwFHDg4fk7j5EwZS41pIFEVOA" />
-
-  <!-- ADDED: SEO -->
-  <title>Prayer & Remembrance | Forever In Prayer</title>
-
-  <meta name="description" content="A peaceful prayer and remembrance website for reflection, faith, and daily spiritual connection.">
-
-  <!-- ADDED: Open Graph -->
-  <meta property="og:title" content="Prayer & Remembrance | Forever In Prayer">
-  <meta property="og:description" content="A peaceful space for prayer, remembrance, and reflection.">
-  <meta property="og:url" content="https://sohail52250.github.io/forever-in-prayer/">
-  <meta property="og:type" content="website">
-        
 <style>
 
 *{
@@ -32,7 +20,7 @@ body{
   font-family:Arial, sans-serif;
   background: radial-gradient(circle at top, #050816 0%, #02040f 60%, #000 100%);
   color:white;
-  overflow:hidden;
+  overflow-y:auto;  overflow-x:hidden;
 }
 
 /* STARFIELD */
@@ -143,11 +131,7 @@ h1{
   margin-top:15px;
 }
 
-p{
-  font-size:13px;
-  color:#cbd5e1;
-  line-height:1.7;
-}
+p{font-size:15px;color:#cbd5e1;line-height:1.8;}
 
 .arabic{
   direction:rtl;
@@ -175,10 +159,581 @@ p{
   cursor:pointer;
 }
 
+.subtitle{
+  font-size:15px;
+  color:#cbd5e1;
+  margin-bottom:20px;
+}
+.prayer-action{
+  margin-top:20px;
+  padding-top:15px;
+  border-top:1px solid rgba(255,255,255,0.1);
+}
+
+.prayer-action button{
+  padding:13px 22px;
+  border:none;
+  border-radius:14px;
+  background:rgba(255,255,255,0.12);
+  color:white;
+  font-size:15px;
+  cursor:pointer;
+  transition:all .25s ease;
+}
+
+.prayer-action button:hover{
+  background:rgba(255,255,255,0.2);
+  transform:translateY(-1px);
+}
+
+.prayer-action button:active{
+  transform:scale(.98);
+}
+
+#duaCounter{
+  margin-top:10px;
+  font-size:13px;
+  color:#94a3b8;
+}
+@media (max-width:600px){
+  .container{
+    align-items:flex-start;
+    padding:15px;
+    padding-top:30px;
+    padding-bottom:30px;
+  }
+
+  .box{
+    padding:25px 17px;
+    border-radius:20px;
+  }
+
+  h1{
+    font-size:26px;
+  }
+
+  .names{
+    font-size:17px;
+  }
+
+  .person img{
+    width:105px;
+    height:105px;
+  }
+
+  .arabic{
+    font-size:20px;
+  }
+}
+#startPrayerButton{
+  border:0;
+  border-radius:18px;
+  padding:16px 30px;
+  font-size:18px;
+  font-weight:600;
+  color:white;
+  background:rgba(255,255,255,0.14);
+  cursor:pointer;
+  box-shadow:0 8px 30px rgba(0,0,0,0.35);
+}
+
+#startPrayerButton:hover{
+  background:rgba(255,255,255,0.24);
+}
+
+#startPrayerButton:active{
+  transform:scale(0.97);
+}
+
+/*
+============================================================
+GLOBAL LANGUAGE PRESENTATION
+============================================================
+*/
+
+.language-rtl{
+    direction:rtl;
+}
+
+.language-ltr{
+    direction:ltr;
+}
+
+.real-language-content{
+    width:100%;
+}
+
+.real-language-content[dir="rtl"]{
+    direction:rtl;
+    text-align:right;
+}
+
+.real-language-content[dir="ltr"]{
+    direction:ltr;
+    text-align:left;
+}
+
+#globalLanguageSelector{
+    min-width:150px;
+    padding:9px 12px;
+    border-radius:10px;
+    border:1px solid rgba(255,255,255,0.18);
+    background:rgba(0,0,0,0.25);
+    color:inherit;
+    cursor:pointer;
+}
+
+#globalLanguageSelector option{
+    background:#111827;
+    color:white;
+}
+
+/* ============================================================
+   GLOBAL LANGUAGE SELECTOR
+   ============================================================ */
+
+#globalLanguageSelectorContainer{
+  position:fixed;
+  top:18px;
+  right:18px;
+  z-index:9999;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 10px;
+  border-radius:14px;
+  background:rgba(5,8,22,.82);
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:0 8px 28px rgba(0,0,0,.35);
+  backdrop-filter:blur(10px);
+}
+
+#globalLanguageLabel{
+  color:#fff;
+  font-size:13px;
+  font-weight:600;
+}
+
+#globalLanguageSelector{
+  border:0;
+  outline:none;
+  border-radius:9px;
+  padding:7px 10px;
+  font-size:14px;
+  font-weight:600;
+  background:#fff;
+  color:#111827;
+  cursor:pointer;
+}
+
+#globalLanguageSelector:focus{
+  outline:2px solid rgba(255,255,255,.55);
+  outline-offset:2px;
+}
+
+@media(max-width:600px){
+
+  #globalLanguageSelectorContainer{
+    top:10px;
+    right:10px;
+    padding:6px 8px;
+  }
+
+  #globalLanguageLabel{
+    display:none;
+  }
+
+  #globalLanguageSelector{
+    font-size:13px;
+    padding:6px 8px;
+  }
+}
 </style>
+<style id="global-language-content-style">
+
+#multilingualMemorialContent{
+  width:100%;
+}
+
+.language-content{
+  width:100%;
+}
+
+.language-content h1{
+  margin-bottom:10px;
+}
+
+.language-content h2{
+  margin-top:22px;
+  margin-bottom:10px;
+  font-size:20px;
+}
+
+.language-content p{
+  margin-bottom:12px;
+}
+
+.language-content .subtitle{
+  margin-bottom:22px;
+  color:#cbd5e1;
+}
+
+.language-content .dates{
+  margin:18px 0;
+  line-height:1.8;
+}
+
+html[dir="rtl"] .language-content{
+  text-align:right;
+}
+
+html[dir="rtl"] .language-content .dates{
+  text-align:center;
+}
+
+
+/*
+============================================================
+GLOBAL LANGUAGE PRESENTATION
+============================================================
+*/
+
+.language-rtl{
+    direction:rtl;
+}
+
+.language-ltr{
+    direction:ltr;
+}
+
+.real-language-content{
+    width:100%;
+}
+
+.real-language-content[dir="rtl"]{
+    direction:rtl;
+    text-align:right;
+}
+
+.real-language-content[dir="ltr"]{
+    direction:ltr;
+    text-align:left;
+}
+
+#globalLanguageSelector{
+    min-width:150px;
+    padding:9px 12px;
+    border-radius:10px;
+    border:1px solid rgba(255,255,255,0.18);
+    background:rgba(0,0,0,0.25);
+    color:inherit;
+    cursor:pointer;
+}
+
+#globalLanguageSelector option{
+    background:#111827;
+    color:white;
+}
+
+/* ============================================================
+   GLOBAL LANGUAGE SELECTOR
+   ============================================================ */
+
+#globalLanguageSelectorContainer{
+  position:fixed;
+  top:18px;
+  right:18px;
+  z-index:9999;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 10px;
+  border-radius:14px;
+  background:rgba(5,8,22,.82);
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:0 8px 28px rgba(0,0,0,.35);
+  backdrop-filter:blur(10px);
+}
+
+#globalLanguageLabel{
+  color:#fff;
+  font-size:13px;
+  font-weight:600;
+}
+
+#globalLanguageSelector{
+  border:0;
+  outline:none;
+  border-radius:9px;
+  padding:7px 10px;
+  font-size:14px;
+  font-weight:600;
+  background:#fff;
+  color:#111827;
+  cursor:pointer;
+}
+
+#globalLanguageSelector:focus{
+  outline:2px solid rgba(255,255,255,.55);
+  outline-offset:2px;
+}
+
+@media(max-width:600px){
+
+  #globalLanguageSelectorContainer{
+    top:10px;
+    right:10px;
+    padding:6px 8px;
+  }
+
+  #globalLanguageLabel{
+    display:none;
+  }
+
+  #globalLanguageSelector{
+    font-size:13px;
+    padding:6px 8px;
+  }
+}
+</style>
+<style id="real-multilingual-style">
+
+#realMultilingualMemorial{
+  width:100%;
+}
+
+.real-language-content{
+  display:none;
+  width:100%;
+  animation:languageFade .35s ease;
+}
+
+.real-language-content h1{
+  margin-bottom:10px;
+}
+
+.real-language-content h2{
+  margin-top:24px;
+  margin-bottom:10px;
+  font-size:20px;
+}
+
+.real-language-content p{
+  margin-bottom:14px;
+  line-height:1.9;
+}
+
+.language-subtitle{
+  color:#cbd5e1;
+  margin-bottom:25px !important;
+}
+
+.memorial-dates{
+  margin:22px 0;
+  line-height:2;
+  text-align:center;
+}
+
+html[dir="rtl"] .real-language-content{
+  text-align:right;
+}
+
+html[dir="ltr"] .real-language-content{
+  text-align:center;
+}
+
+@keyframes languageFade{
+  from{
+    opacity:0;
+    transform:translateY(5px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+
+/*
+============================================================
+GLOBAL LANGUAGE PRESENTATION
+============================================================
+*/
+
+.language-rtl{
+    direction:rtl;
+}
+
+.language-ltr{
+    direction:ltr;
+}
+
+.real-language-content{
+    width:100%;
+}
+
+.real-language-content[dir="rtl"]{
+    direction:rtl;
+    text-align:right;
+}
+
+.real-language-content[dir="ltr"]{
+    direction:ltr;
+    text-align:left;
+}
+
+#globalLanguageSelector{
+    min-width:150px;
+    padding:9px 12px;
+    border-radius:10px;
+    border:1px solid rgba(255,255,255,0.18);
+    background:rgba(0,0,0,0.25);
+    color:inherit;
+    cursor:pointer;
+}
+
+#globalLanguageSelector option{
+    background:#111827;
+    color:white;
+}
+
+/* ============================================================
+   GLOBAL LANGUAGE SELECTOR
+   ============================================================ */
+
+#globalLanguageSelectorContainer{
+  position:fixed;
+  top:18px;
+  right:18px;
+  z-index:9999;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 10px;
+  border-radius:14px;
+  background:rgba(5,8,22,.82);
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:0 8px 28px rgba(0,0,0,.35);
+  backdrop-filter:blur(10px);
+}
+
+#globalLanguageLabel{
+  color:#fff;
+  font-size:13px;
+  font-weight:600;
+}
+
+#globalLanguageSelector{
+  border:0;
+  outline:none;
+  border-radius:9px;
+  padding:7px 10px;
+  font-size:14px;
+  font-weight:600;
+  background:#fff;
+  color:#111827;
+  cursor:pointer;
+}
+
+#globalLanguageSelector:focus{
+  outline:2px solid rgba(255,255,255,.55);
+  outline-offset:2px;
+}
+
+@media(max-width:600px){
+
+  #globalLanguageSelectorContainer{
+    top:10px;
+    right:10px;
+    padding:6px 8px;
+  }
+
+  #globalLanguageLabel{
+    display:none;
+  }
+
+  #globalLanguageSelector{
+    font-size:13px;
+    padding:6px 8px;
+  }
+}
+</style>
+<style id="final-memorial-language-authority">
+html[dir="rtl"] body { direction: rtl; }
+html[dir="ltr"] body { direction: ltr; }
+
+[data-memorial-language] {
+  display: none !important;
+  visibility: hidden !important;
+}
+[data-memorial-language].memorial-language-active {
+  display: block !important;
+  visibility: visible !important;
+}
+[data-memorial-language="ur"].memorial-language-active,
+[data-memorial-language="ar"].memorial-language-active {
+  direction: rtl !important;
+  text-align: right !important;
+}
+[data-memorial-language="en"].memorial-language-active {
+  direction: ltr !important;
+  text-align: left !important;
+}
+
+#memorial-rose-petals {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 99999;
+}
+.memorial-rose-petal {
+  position: absolute;
+  top: -12vh;
+  width: 14px;
+  height: 10px;
+  border-radius: 80% 20% 80% 20%;
+  background: linear-gradient(135deg,#d11 0%,#f45 55%,#ffd 100%);
+  opacity: .85;
+  transform: rotate(25deg);
+  animation: memorialRoseFall linear forwards;
+}
+@keyframes memorialRoseFall {
+  0% { transform: translate3d(0,-10vh,0) rotate(0deg); opacity: 0; }
+  8% { opacity: .9; }
+  100% { transform: translate3d(var(--drift),115vh,0) rotate(var(--spin)); opacity: .15; }
+}
+#memorial-yasin-status {
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  z-index: 100000;
+  display: none;
+  padding: 9px 14px;
+  border-radius: 999px;
+  background: rgba(20,20,20,.88);
+  color: #fff;
+  font: 14px/1.3 system-ui,sans-serif;
+}
+#memorial-yasin-status button {
+  margin-left: 8px;
+  border: 0;
+  border-radius: 999px;
+  padding: 6px 11px;
+  cursor: pointer;
+}
 </head>
 
 <body>
+<div id="globalLanguageSelectorContainer" class="language-selector">
+  <label id="globalLanguageLabel" for="globalLanguageSelector">زبان</label>
+  <select id="globalLanguageSelector" aria-label="Language">
+    <option value="ur">اردو</option>
+    <option value="ar">العربية</option>
+    <option value="en">English</option>
+  </select>
+</div>
 
 <div id="stars"></div>
 
@@ -188,108 +743,1572 @@ p{
 <div class="mosque-layer layer2"></div>
 <div class="mosque-layer layer3"></div>
 
-<div class="tap" id="tapScreen">Tap anywhere to start prayer 🤍</div>
+<div class="tap" id="tapScreen">
+  <button id="startPrayerButton" type="button">
+    🤲 Start Prayer
+  </button>
+</div>
 
-<audio id="fatihah" src="AlFatihah.mp3"></audio>
-<audio id="dua" src="dua.mp3"></audio>
+<audio id="fatihah" preload="auto" src="AlFatihah.mp3"></audio>
+<audio id="dua" preload="auto" src="Dua.mp3"></audio>
 
 <div class="container">
   <div class="box">
+<div id="realMultilingualMemorial">
 
-    <h1>Prayer & Remembrance</h1>
+  <!-- URDU -->
+  <section data-memorial-language="ur" class="real-language-content">
+
+    <h1>ہمیشہ دعاؤں میں</h1>
+
+    <p class="language-subtitle">
+      محبت، یاد اور دعا کے نام ایک خراجِ عقیدت
+    </p>
+
+    <h2>ہماری یادوں میں</h2>
+
+    <p>
+      ہمارے پیارے بھائی
+      <strong>عمران نذیر</strong> اور
+      <strong>محسن نذیر</strong>
+      حقیقی بھائی تھے۔
+    </p>
+
+    <p>
+      عمران نذیر بڑے بھائی تھے جبکہ محسن نذیر چھوٹے بھائی تھے۔
+      دونوں بہت محبت کرنے والے، خیال رکھنے والے اور نرم دل انسان تھے۔
+      ان کی محبت، شفقت، خلوص اور خوبصورت یادیں ہمیشہ ہمارے دلوں میں زندہ رہیں گی۔
+    </p>
+
+    <div class="memorial-dates">
+      <strong>عمران نذیر — بڑے بھائی</strong><br>
+      اللہ کی طرف واپسی: <strong>26 اگست 2025</strong>
+      <br><br>
+      <strong>محسن نذیر — چھوٹے بھائی</strong><br>
+      اللہ کی طرف واپسی: <strong>26 جولائی 2025</strong>
+    </div>
+
+    <h2>یاد کا ایک سال</h2>
+
+    <p>
+      عمران نذیر کو اللہ کی طرف واپس گئے ایک سال مکمل ہو چکا ہے۔
+    </p>
+
+    <p>
+      محسن نذیر کو اللہ کی طرف واپس گئے ایک سال اور ایک ماہ گزر چکا ہے۔
+    </p>
+
+    <p>
+      وقت گزر جاتا ہے، مگر اپنے پیاروں کی محبت اور ان کی یادیں
+      ہمارے دلوں میں ہمیشہ زندہ رہتی ہیں۔
+    </p>
+
+    <h2>قرآن کریم</h2>
+
+    <p class="arabic">
+      إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ
+    </p>
+
+    <p>
+      بے شک ہم اللہ ہی کے ہیں اور اسی کی طرف لوٹ کر جانے والے ہیں۔
+    </p>
+
+    <p>
+      سورۃ البقرہ — 2:156
+    </p>
+
+    <h2>دعا</h2>
+
+    <p class="arabic">
+      اللهم اغفر لهم وارحمهم واجعل قبورهم روضة من رياض الجنة
+    </p>
+
+    <p>
+      اے اللہ! عمران نذیر اور محسن نذیر کی مغفرت فرما،
+      ان پر رحم فرما، ان کی قبروں کو جنت کے باغوں میں سے ایک باغ بنا دے،
+      ان کی قبروں میں نور، سکون اور راحت عطا فرما،
+      اور انہیں جنت الفردوس میں اعلیٰ مقام عطا فرما۔
+    </p>
+
+    <p>
+      یا اللہ! ان کی نیکیوں کو قبول فرما، ان کی خطاؤں سے درگزر فرما،
+      ان کے درجات بلند فرما اور ہمیں بھی ان سے جنت الفردوس میں ملا دے۔
+      آمین۔
+    </p>
+
+  </section>
+
+
+  <!-- ARABIC -->
+  <section data-memorial-language="ar" class="real-language-content">
+
+    <h1>في الدعاء دائماً</h1>
+
+    <p class="language-subtitle">
+      ذكرى محبة ووفاء ودعاء
+    </p>
+
+    <h2>في ذكراهم</h2>
+
+    <p>
+      كان <strong>عمران نذير</strong> و<strong>محسن نذير</strong>
+      أخوين شقيقين حقيقيين.
+    </p>
+
+    <p>
+      كان عمران نذير الأخ الأكبر، ومحسن نذير الأخ الأصغر.
+      كانا شخصين محبين، حريصين على من حولهما، طيبي القلب ورقيقي المشاعر.
+      وستبقى محبتهما وطيبتهما وذكرياتهما الجميلة حية في قلوبنا دائماً.
+    </p>
+
+    <div class="memorial-dates">
+      <strong>عمران نذير — الأخ الأكبر</strong><br>
+      عاد إلى رحمة الله في <strong>26 أغسطس 2025</strong>
+      <br><br>
+      <strong>محسن نذير — الأخ الأصغر</strong><br>
+      عاد إلى رحمة الله في <strong>26 يوليو 2025</strong>
+    </div>
+
+    <h2>ذكرى عام</h2>
+
+    <p>
+      مضى عام على وفاة عمران نذير وعودته إلى الله سبحانه وتعالى.
+    </p>
+
+    <p>
+      ومضى عام وشهر على وفاة محسن نذير وعودته إلى الله سبحانه وتعالى.
+    </p>
+
+    <p>
+      تمر الأيام، ولكن محبة من نحب وذكرياتهم الجميلة تبقى حية في القلوب.
+    </p>
+
+    <h2>القرآن الكريم</h2>
+
+    <p class="arabic">
+      إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ
+    </p>
+
+    <p>
+      إنا لله وإنا إليه راجعون.
+    </p>
+
+    <p>
+      سورة البقرة — 2:156
+    </p>
+
+    <h2>الدعاء</h2>
+
+    <p class="arabic">
+      اللهم اغفر لهم وارحمهم واجعل قبورهم روضة من رياض الجنة
+    </p>
+
+    <p>
+      اللهم اغفر لعمران نذير ولمحسن نذير وارحمهما،
+      واجعل قبورهما روضة من رياض الجنة،
+      وأنر قبريهما، وآنس وحشتهما، واجعل لهما فيهما نوراً وسكينة وراحة.
+    </p>
+
+    <p>
+      اللهم ارفع درجاتهما، وتجاوز عن سيئاتهما،
+      وأكرم نزلهما، واجمعنا بهما في الفردوس الأعلى.
+      آمين.
+    </p>
+
+  </section>
+
+
+  <!-- ENGLISH -->
+  <section data-memorial-language="en" class="real-language-content">
+
+    <h1>Forever In Prayer</h1>
+
+    <p class="language-subtitle">
+      A tribute of love, remembrance, and dua
+    </p>
+
+    <h2>Remembering Them</h2>
+
+    <p>
+      <strong>Imran Nazir</strong> and
+      <strong>Mohsan Nazir</strong> were real brothers.
+    </p>
+
+    <p>
+      Imran Nazir was the elder brother, and Mohsan Nazir was the younger brother.
+      Both were loving, caring, soft-hearted people.
+      Their kindness, affection, and beautiful memories
+      will always remain alive in our hearts.
+    </p>
+
+    <div class="memorial-dates">
+      <strong>Imran Nazir — Elder Brother</strong><br>
+      Returned to Allah on <strong>26 August 2025</strong>
+      <br><br>
+      <strong>Mohsan Nazir — Younger Brother</strong><br>
+      Returned to Allah on <strong>26 July 2025</strong>
+    </div>
+
+    <h2>One Year of Remembrance</h2>
+
+    <p>
+      One year has passed since Imran Nazir returned to Allah.
+    </p>
+
+    <p>
+      One year and one month has passed since Mohsan Nazir returned to Allah.
+    </p>
+
+    <p>
+      Time passes, but the love we have for those we lost
+      and the memories they left behind remain forever in our hearts.
+    </p>
+
+    <h2>Quran</h2>
+
+    <p class="arabic">
+      إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ
+    </p>
+
+    <p>
+      Indeed, to Allah we belong and to Him we shall return.
+    </p>
+
+    <p>
+      Surah Al-Baqarah — 2:156
+    </p>
+
+    <h2>Prayer</h2>
+
+    <p class="arabic">
+      اللهم اغفر لهم وارحمهم واجعل قبورهم روضة من رياض الجنة
+    </p>
+
+    <p>
+      O Allah, forgive Imran Nazir and Mohsan Nazir,
+      have mercy upon them, make their graves gardens from the gardens of Paradise,
+      fill their graves with light, peace, and comfort,
+      and grant them the highest place in Jannat-ul-Firdaws.
+    </p>
+
+    <p>
+      O Allah, accept their good deeds, forgive their shortcomings,
+      raise their ranks, and reunite us with them in the highest Paradise.
+      Ameen.
+    </p>
+
+  </section>
+
+</div>
+
+    <h1>Forever In Prayer</h1><p style="margin-bottom:20px;color:#cbd5e1;">A tribute of love, remembrance, and dua</p>
 
     <div class="names">
       In loving memory of:<br>
-      Mohsan Nazir & Imran Nazir
+      Imran Nazir — Elder Brother<br>Mohsan Nazir — Younger Brother
     </div>
 
-    <!-- ✅ ADDED DATES -->
-    <div class="dates">
-      26-07-2025 &nbsp; • &nbsp; 26-08-2025
-    </div>
+    <div style="margin-top:12px;">
+<div class="portraits">
 
-    <div class="portraits">
-      <div class="person">
-        <img src="brother1.jpeg" onerror="this.src='https://via.placeholder.com/120'">
-      </div>
-      <div class="person">
-        <img src="brother2.jpeg" onerror="this.src='https://via.placeholder.com/120'">
-      </div>
+  <div class="person">
+    <img
+      src="brother2.jpeg"
+      alt="Imran Nazir — Elder Brother"
+    >
+    <p><strong>Imran Nazir</strong></p>
+    <p>Elder Brother</p>
+  </div>
+
+  <div class="person">
+    <img
+      src="brother1.jpeg"
+      alt="Mohsan Nazir — Younger Brother"
+    >
+    <p><strong>Mohsan Nazir</strong></p>
+    <p>Younger Brother</p>
+  </div>
+
+</div>
     </div>
+    
 
     <div class="lang">
-      <p>This is a place of remembrance, prayer, and mercy.</p>
-      <p>We ask Allah to forgive them, have mercy upon them, and grant them the highest place in Jannah.<br>
-      May their graves be filled with نور (light), peace, and comfort.</p>
-    </div>
+  <h3>Remembering Two Beloved Brothers</h3>
+
+<p>
+  <strong>Imran Nazir — Elder Brother</strong><br>
+  Returned to Allah on <strong>26 August 2025</strong><br>
+  <span class="dates">One year of remembrance</span>
+</p>
+
+<p>
+  Imran was the eldest brother — a loving, caring, and soft-hearted soul
+  whose presence brought warmth and affection to those around him.
+</p>
+
+<p>
+  <strong>Mohsan Nazir — Younger Brother</strong><br>
+  Returned to Allah on <strong>26 July 2025</strong><br>
+  <span class="dates">One year and one month of remembrance</span>
+</p>
+
+<p>
+  Mohsan was the younger brother — equally loving, caring, and soft-hearted,
+  leaving behind memories that continue to live in the hearts of everyone
+  who knew and loved him.
+</p>
+
+<h3>Two Brothers, One Bond</h3>
+
+<p>
+  They were not only brothers by blood, but brothers whose love and bond
+  remain alive in the memories of their family.
+</p>
+
+<p>
+  Their lives have ended, but their love, kindness, and memories remain.
+</p>
+
+<h3>Our Beloved Brothers</h3>
+
+<p>
+  <strong>Imran Nazir</strong> — one year of remembrance
+  since his return to Allah on 26 August 2025.
+</p>
+
+<p>
+  <strong>Mohsan Nazir</strong> — one year and one month of remembrance
+  since his return to Allah on 26 July 2025.
+</p>
+
+<p>
+  Though they are no longer physically with us, their kindness,
+  love, care, and soft-hearted nature continue to live in our memories.
+</p>
+
+<h3>Quran</h3>
+
+  <p class="arabic">
+    إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ
+  </p>
+
+  <p>
+    Indeed, to Allah we belong and to Him we shall return.
+    (Surah Al-Baqarah 2:156)
+  </p>
+</div>
+
+
+
+
+
+<div class="lang">
+  <h3>Arabic</h3>
+  <p class="arabic">
+    اللهم اغفر لهم وارحمهم واجعل قبرهم روضة من رياض الجنة
+  </p>
+</div>
 
     <div class="lang">
-      <h3>Arabic</h3>
-      <p class="arabic">اللهم اغفر لهم وارحمهم واجعل قبرهم روضة من رياض الجنة</p>
-    </div>
-
-    <div class="lang">
-      <h3>Urdu</h3>
-      <p class="arabic">اللہ ان دونوں کو معاف فرمائے، ان پر رحم کرے اور جنت الفردوس عطا فرمائے۔</p>
-    </div>
+  <h3>Urdu</h3>
+  <p class="arabic">
+    اللہ ان دونوں کو معاف فرمائے، ان پر رحم کرے اور جنت الفردوس عطا فرمائے۔
+  </p>
+</div>
 
     <div class="lang">
       <h3>English</h3>
       <p>O Allah, forgive them, have mercy on them, and grant them Paradise without account.</p>
     </div>
 
-    <div id="status">Reciting Surah Al-Fatihah and making Dua…</div>
+    
 
-  </div>
+<div class="prayer-action">
+  <button id="duaButton" onclick="rememberToday()">
+    🤲 I Made Dua Today
+  </button>
+
+  <p id="duaCounter">0 visitors offered a dua.</p>
 </div>
 
-<script>
+    
 
-/* STARS */
-const stars=document.getElementById("stars");
+<div class="lang">
+  <h3>Final Prayer</h3>
 
-for(let i=0;i<80;i++){
-  const s=document.createElement("div");
-  s.className="star";
-  s.style.left=Math.random()*100+"vw";
-  s.style.top=Math.random()*100+"vh";
-  stars.appendChild(s);
+<p class="arabic">
+اللهم اغفر لهما وارحمهما واجعل قبريهما روضة من رياض الجنة،
+ونوّر قبريهما، وارفع درجتهما في المهديين،
+واجمعنا بهم في الفردوس الأعلى.
+</p>
+
+<p>
+  O Allah, forgive Imran Nazir and Mohsan Nazir,
+  have mercy upon them, illuminate their graves,
+  expand their resting places, and grant them
+  Jannat-ul-Firdaws.
+</p>
+
+<p>
+  May Allah reunite them among the righteous and grant
+  patience, strength, and comfort to everyone who continues
+  to miss and remember them.
+</p>
+
+<p>
+  <strong>
+    Their lives have ended, but their love, kindness,
+    and memories remain.
+  </strong>
+</p>
+</div>
+</div>
+
+
+
+<script id="forever-global-language-controller">
+
+/*
+============================================================
+FOREVER IN PRAYER
+GLOBAL LANGUAGE CONTROLLER
+============================================================
+
+Supported:
+ur = Urdu
+ar = Arabic
+en = English
+
+Priority:
+1. Manually saved language
+2. Browser/device language
+3. Urdu fallback
+============================================================
+*/
+
+(function(){
+
+    "use strict";
+
+    const SUPPORTED_LANGUAGES = ["ur", "ar", "en"];
+    const DEFAULT_LANGUAGE = "ur";
+    const STORAGE_KEY = "foreverInPrayerLanguage";
+
+    function normalizeLanguage(value){
+
+        if(!value){
+            return null;
+        }
+
+        value = String(value)
+            .trim()
+            .toLowerCase();
+
+        if(value === "ur" || value.startsWith("ur-")){
+            return "ur";
+        }
+
+        if(value === "ar" || value.startsWith("ar-")){
+            return "ar";
+        }
+
+        if(value === "en" || value.startsWith("en-")){
+            return "en";
+        }
+
+        return null;
+    }
+
+    function getSavedLanguage(){
+
+        try{
+
+            const saved =
+                localStorage.getItem(STORAGE_KEY);
+
+            return normalizeLanguage(saved);
+
+        }catch(error){
+
+            return null;
+
+        }
+
+    }
+
+    function getBrowserLanguage(){
+
+        const candidates = [];
+
+        if(
+            navigator.languages &&
+            Array.isArray(navigator.languages)
+        ){
+            candidates.push(...navigator.languages);
+        }
+
+        if(navigator.language){
+            candidates.push(navigator.language);
+        }
+
+        for(const candidate of candidates){
+
+            const language =
+                normalizeLanguage(candidate);
+
+            if(language){
+                return language;
+            }
+
+        }
+
+        return null;
+
+    }
+
+    function getInitialLanguage(){
+
+        const saved =
+            getSavedLanguage();
+
+        if(saved){
+            return saved;
+        }
+
+        const browser =
+            getBrowserLanguage();
+
+        if(browser){
+            return browser;
+        }
+
+        return DEFAULT_LANGUAGE;
+
+    }
+
+    function saveLanguage(language){
+
+        try{
+
+            localStorage.setItem(
+                STORAGE_KEY,
+                language
+            );
+
+        }catch(error){
+
+            console.warn(
+                "Could not save language preference.",
+                error
+            );
+
+        }
+
+    }
+
+    function applyLanguage(language){
+
+        language =
+            normalizeLanguage(language) ||
+            DEFAULT_LANGUAGE;
+
+        /*
+        --------------------------------------------------------
+        Real multilingual sections
+        --------------------------------------------------------
+        */
+
+        document
+            .querySelectorAll(
+                "[data-memorial-language]"
+            )
+            .forEach(function(element){
+
+                const elementLanguage =
+                    normalizeLanguage(
+                        element.getAttribute(
+                            "data-memorial-language"
+                        )
+                    );
+
+                element.style.display =
+                    elementLanguage === language
+                        ? ""
+                        : "none";
+
+            });
+
+        /*
+        --------------------------------------------------------
+        Generic data-lang elements
+        --------------------------------------------------------
+        */
+
+        document
+            .querySelectorAll(
+                "[data-lang]"
+            )
+            .forEach(function(element){
+
+                const elementLanguage =
+                    normalizeLanguage(
+                        element.getAttribute(
+                            "data-lang"
+                        )
+                    );
+
+                element.style.display =
+                    elementLanguage === language
+                        ? ""
+                        : "none";
+
+            });
+
+        /*
+        --------------------------------------------------------
+        Direction
+        --------------------------------------------------------
+        */
+
+        const isRTL =
+            language === "ur" ||
+            language === "ar";
+
+        document.documentElement.lang =
+            language;
+
+        document.documentElement.dir =
+            isRTL ? "rtl" : "ltr";
+
+        document.body.classList.toggle(
+            "language-rtl",
+            isRTL
+        );
+
+        document.body.classList.toggle(
+            "language-ltr",
+            !isRTL
+        );
+
+        /*
+        --------------------------------------------------------
+        Language selector
+        --------------------------------------------------------
+        */
+
+        const selector =
+            document.getElementById(
+                "globalLanguageSelector"
+            );
+
+        if(selector){
+
+            selector.value =
+                language;
+
+        }
+
+        /*
+        --------------------------------------------------------
+        Language label
+        --------------------------------------------------------
+        */
+
+        const label =
+            document.getElementById(
+                "globalLanguageLabel"
+            );
+
+        if(label){
+
+            const labels = {
+
+                ur: "زبان",
+                ar: "اللغة",
+                en: "Language"
+
+            };
+
+            label.textContent =
+                labels[language] ||
+                labels[DEFAULT_LANGUAGE];
+
+        }
+
+        /*
+        --------------------------------------------------------
+        Notify the rest of the site
+        --------------------------------------------------------
+        */
+
+        window.foreverInPrayerLanguage =
+            language;
+
+        window.dispatchEvent(
+            new CustomEvent(
+                "foreverInPrayerLanguageChanged",
+                {
+                    detail: {
+                        language: language
+                    }
+                }
+            )
+        );
+
+    }
+
+    function setLanguage(language){
+
+        language =
+            normalizeLanguage(language);
+
+        if(
+            !language ||
+            !SUPPORTED_LANGUAGES.includes(language)
+        ){
+            language =
+                DEFAULT_LANGUAGE;
+        }
+
+        saveLanguage(language);
+
+        applyLanguage(language);
+
+        return language;
+
+    }
+
+    /*
+    ------------------------------------------------------------
+    PUBLIC API
+    ------------------------------------------------------------
+    */
+
+    window.setForeverLanguage =
+        setLanguage;
+
+    window.getForeverLanguage =
+        function(){
+
+            return (
+                window.foreverInPrayerLanguage ||
+                getInitialLanguage()
+            );
+
+        };
+
+    window.foreverInPrayerLanguages =
+        SUPPORTED_LANGUAGES.slice();
+
+    /*
+    ------------------------------------------------------------
+    SELECTOR EVENT
+    ------------------------------------------------------------
+    */
+
+    document.addEventListener(
+        "change",
+        function(event){
+
+            if(
+                event.target &&
+                event.target.id ===
+                "globalLanguageSelector"
+            ){
+
+                setLanguage(
+                    event.target.value
+                );
+
+            }
+
+        }
+    );
+
+    /*
+    ------------------------------------------------------------
+    APPLY AFTER DOM IS READY
+    ------------------------------------------------------------
+    */
+
+    function initialize(){
+
+        applyLanguage(
+            getInitialLanguage()
+        );
+
+    }
+
+    if(
+        document.readyState ===
+        "loading"
+    ){
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            initialize,
+            {
+                once: true
+            }
+        );
+
+    }else{
+
+        initialize();
+
+    }
+
+})();
+
+/* ============================================================
+   FOREVER IN PRAYER - AUDIO ENGINE
+   Start Prayer -> Al-Fatihah -> Dua
+   ============================================================ */
+
+const tap = document.getElementById("tapScreen");
+const startButton = document.getElementById("startPrayerButton");
+const f = document.getElementById("fatihah");
+const d = document.getElementById("dua");
+const status = document.getElementById("status");
+
+let prayerStarted = false;
+
+function setPrayerStatus(message) {
+    if (status) {
+        status.textContent = message;
+    }
 }
 
-/* AUDIO FLOW */
-const tap=document.getElementById("tapScreen");
-const f=document.getElementById("fatihah");
-const d=document.getElementById("dua");
-const status=document.getElementById("status");
-
-let started=false;
-
-tap.addEventListener("click", async () => {
-  if(started) return;
-  started=true;
-  tap.style.display="none";
-
-  try{
-    status.innerText="Playing Al-Fatihah...";
-    await f.play();
-  }catch(e){
-    status.innerText="Audio error";
-  }
-
-  f.onended = async () => {
-    try{
-      status.innerText="Playing Dua...";
-      await d.play();
-    }catch(e){
-      status.innerText="Dua error";
+function showTap() {
+    if (tap) {
+        tap.style.display = "flex";
     }
-  };
+}
 
-  d.onplay = () => status.innerText="Making Dua...";
-  d.onended = () => status.innerText="🤍 May Allah grant them Jannah.";
-});
+function hideTap() {
+    if (tap) {
+        tap.style.display = "none";
+    }
+}
+
+async function startPrayer() {
+
+    if (prayerStarted) {
+        return;
+    }
+
+    prayerStarted = true;
+
+    try {
+
+        hideTap();
+
+        f.pause();
+        d.pause();
+
+        f.currentTime = 0;
+        d.currentTime = 0;
+
+        setPrayerStatus("Playing Al-Fatihah...");
+
+        await f.play();
+
+    } catch (error) {
+
+        console.error("Al-Fatihah playback failed:", error);
+
+        prayerStarted = false;
+
+        setPrayerStatus(
+            "Please press Start Prayer again."
+        );
+
+        showTap();
+    }
+}
+
+if (startButton) {
+    startButton.addEventListener("click", startPrayer);
+}
+
+if (tap) {
+    tap.addEventListener("click", function(event) {
+        if (event.target === tap) {
+            startPrayer();
+        }
+    });
+}
+
+if (f) {
+
+    f.addEventListener("play", function() {
+        setPrayerStatus("Playing Al-Fatihah...");
+    });
+
+    f.addEventListener("ended", async function() {
+
+        try {
+
+            setPrayerStatus("Making Dua...");
+
+            d.currentTime = 0;
+
+            await d.play();
+
+        } catch (error) {
+
+            console.error("Dua playback failed:", error);
+
+            prayerStarted = false;
+
+            setPrayerStatus(
+                "Unable to continue to Dua. Please press Start Prayer again."
+            );
+
+            showTap();
+        }
+    });
+
+    f.addEventListener("error", function() {
+
+        console.error("Al-Fatihah error:", f.error);
+
+        prayerStarted = false;
+
+        setPrayerStatus(
+            "Al-Fatihah could not be loaded."
+        );
+
+        showTap();
+    });
+}
+
+if (d) {
+
+    d.addEventListener("play", function() {
+        setPrayerStatus("Making Dua...");
+    });
+
+    d.addEventListener("ended", function() {
+
+        prayerStarted = false;
+
+        setPrayerStatus(
+            "🤲 May Allah grant them Jannah. Ameen."
+        );
+    });
+
+    d.addEventListener("error", function() {
+
+        console.error("Dua error:", d.error);
+
+        prayerStarted = false;
+
+        setPrayerStatus(
+            "Dua could not be loaded."
+        );
+
+        showTap();
+    });
+}
 
 </script>
+<!-- URDU DISPLAY BEHAVIOR REPAIR -->
+<script>
+(function(){
+    const KEY = "foreverInPrayerLanguage";
+    const SUPPORTED = ["ur","ar","en"];
+    const RTL = ["ur","ar"];
 
+    function normalize(value){
+        if(!value) return null;
+        value = String(value).toLowerCase().replace("_","-");
+        if(value.indexOf("ur") === 0) return "ur";
+        if(value.indexOf("ar") === 0) return "ar";
+        if(value.indexOf("en") === 0) return "en";
+        return null;
+    }
+
+    function browserLanguage(){
+        const candidates = [];
+        if(navigator.languages && Array.isArray(navigator.languages)){
+            candidates.push.apply(candidates,navigator.languages);
+        }
+        if(navigator.language){
+            candidates.push(navigator.language);
+        }
+        for(const value of candidates){
+            const lang = normalize(value);
+            if(lang) return lang;
+        }
+        return "ur";
+    }
+
+    function getLanguage(){
+        try{
+            const saved = normalize(localStorage.getItem(KEY));
+            if(saved) return saved;
+        }catch(e){}
+        return browserLanguage() || "ur";
+    }
+
+    function applyLanguage(language){
+        language = normalize(language) || "ur";
+
+        document.querySelectorAll("[data-memorial-language]").forEach(function(section){
+            const sectionLanguage =
+                normalize(section.getAttribute("data-memorial-language"));
+
+            section.hidden = sectionLanguage !== language;
+            section.style.display =
+                sectionLanguage === language ? "" : "none";
+        });
+
+        document.documentElement.lang = language;
+        document.documentElement.dir =
+            RTL.indexOf(language) >= 0 ? "rtl" : "ltr";
+
+        document.querySelectorAll("[data-lang]").forEach(function(element){
+            const elementLanguage =
+                normalize(element.getAttribute("data-lang"));
+            element.hidden = elementLanguage !== language;
+            element.style.display =
+                elementLanguage === language ? "" : "none";
+        });
+
+        const selector =
+            document.getElementById("globalLanguageSelector");
+
+        if(selector){
+            selector.value = language;
+        }
+
+        window.foreverInPrayerLanguage = language;
+    }
+
+    window.setForeverLanguage = function(language){
+        language = normalize(language) || "ur";
+        try{
+            localStorage.setItem(KEY,language);
+        }catch(e){}
+        applyLanguage(language);
+        window.dispatchEvent(
+            new CustomEvent("foreverInPrayerLanguageChanged",{
+                detail:{language:language}
+            })
+        );
+    };
+
+    function start(){
+        applyLanguage(getLanguage());
+
+        const selector =
+            document.getElementById("globalLanguageSelector");
+
+        if(selector && !selector.dataset.languageRepairBound){
+            selector.dataset.languageRepairBound = "1";
+            selector.addEventListener("change",function(){
+                window.setForeverLanguage(this.value);
+            });
+        }
+    }
+
+    if(document.readyState === "loading"){
+        document.addEventListener("DOMContentLoaded",start);
+    }else{
+        start();
+    }
+})();
+</script>
+<!-- END URDU DISPLAY BEHAVIOR REPAIR -->
+<!-- URDU DISPLAY BEHAVIOR REPAIR -->
+<script>
+(function(){
+    const KEY = "foreverInPrayerLanguage";
+    const SUPPORTED = ["ur","ar","en"];
+    const RTL = ["ur","ar"];
+
+    function normalize(value){
+        if(!value) return null;
+        value = String(value).toLowerCase().replace("_","-");
+        if(value.indexOf("ur") === 0) return "ur";
+        if(value.indexOf("ar") === 0) return "ar";
+        if(value.indexOf("en") === 0) return "en";
+        return null;
+    }
+
+    function browserLanguage(){
+        const candidates = [];
+        if(navigator.languages && Array.isArray(navigator.languages)){
+            candidates.push.apply(candidates,navigator.languages);
+        }
+        if(navigator.language){
+            candidates.push(navigator.language);
+        }
+        for(const value of candidates){
+            const lang = normalize(value);
+            if(lang) return lang;
+        }
+        return "ur";
+    }
+
+    function getLanguage(){
+        try{
+            const saved = normalize(localStorage.getItem(KEY));
+            if(saved) return saved;
+        }catch(e){}
+        return browserLanguage() || "ur";
+    }
+
+    function applyLanguage(language){
+        language = normalize(language) || "ur";
+
+        document.querySelectorAll("[data-memorial-language]").forEach(function(section){
+            const sectionLanguage =
+                normalize(section.getAttribute("data-memorial-language"));
+
+            section.hidden = sectionLanguage !== language;
+            section.style.display =
+                sectionLanguage === language ? "" : "none";
+        });
+
+        document.documentElement.lang = language;
+        document.documentElement.dir =
+            RTL.indexOf(language) >= 0 ? "rtl" : "ltr";
+
+        document.querySelectorAll("[data-lang]").forEach(function(element){
+            const elementLanguage =
+                normalize(element.getAttribute("data-lang"));
+            element.hidden = elementLanguage !== language;
+            element.style.display =
+                elementLanguage === language ? "" : "none";
+        });
+
+        const selector =
+            document.getElementById("globalLanguageSelector");
+
+        if(selector){
+            selector.value = language;
+        }
+
+        window.foreverInPrayerLanguage = language;
+    }
+
+    window.setForeverLanguage = function(language){
+        language = normalize(language) || "ur";
+        try{
+            localStorage.setItem(KEY,language);
+        }catch(e){}
+        applyLanguage(language);
+        window.dispatchEvent(
+            new CustomEvent("foreverInPrayerLanguageChanged",{
+                detail:{language:language}
+            })
+        );
+    };
+
+    function start(){
+        applyLanguage(getLanguage());
+
+        const selector =
+            document.getElementById("globalLanguageSelector");
+
+        if(selector && !selector.dataset.languageRepairBound){
+            selector.dataset.languageRepairBound = "1";
+            selector.addEventListener("change",function(){
+                window.setForeverLanguage(this.value);
+            });
+        }
+    }
+
+    if(document.readyState === "loading"){
+        document.addEventListener("DOMContentLoaded",start);
+    }else{
+        start();
+    }
+})();
+</script>
+<!-- END URDU DISPLAY BEHAVIOR REPAIR -->
+<!-- SAFE URDU DISPLAY OVERRIDE -->
+<script id="safe-urdu-display-override">
+(function(){
+    "use strict";
+
+    var KEY = "foreverInPrayerLanguage";
+    var RTL = { ur:true, ar:true };
+
+    function normalize(v){
+        if(!v){ return null; }
+        v=String(v).toLowerCase().replace("_","-");
+        if(v.indexOf("ur")===0){ return "ur"; }
+        if(v.indexOf("ar")===0){ return "ar"; }
+        if(v.indexOf("en")===0){ return "en"; }
+        return null;
+    }
+
+    function detect(){
+        var saved=null;
+        try{
+            saved=normalize(localStorage.getItem(KEY));
+        }catch(e){}
+
+        if(saved){ return saved; }
+
+        var list=[];
+        if(navigator.languages && navigator.languages.length){
+            list=navigator.languages;
+        }
+
+        if(navigator.language){
+            list=list.concat([navigator.language]);
+        }
+
+        for(var i=0;i<list.length;i++){
+            var detected=normalize(list[i]);
+            if(detected){ return detected; }
+        }
+
+        return "ur";
+    }
+
+    function apply(lang){
+        lang=normalize(lang)||"ur";
+
+        var sections=document.querySelectorAll("[data-memorial-language]");
+
+        for(var i=0;i<sections.length;i++){
+            var sectionLang=normalize(
+                sections[i].getAttribute("data-memorial-language")
+            );
+
+            if(sectionLang===lang){
+                sections[i].hidden=false;
+                sections[i].style.display="";
+            }else{
+                sections[i].hidden=true;
+                sections[i].style.display="none";
+            }
+        }
+
+        document.documentElement.lang=lang;
+        document.documentElement.dir=RTL[lang] ? "rtl" : "ltr";
+
+        var selector=document.getElementById("globalLanguageSelector");
+
+        if(selector){
+            selector.value=lang;
+
+            if(!selector.getAttribute("data-safe-urdu-bound")){
+                selector.setAttribute("data-safe-urdu-bound","1");
+
+                selector.addEventListener("change",function(){
+                    var selected=normalize(this.value)||"ur";
+
+                    try{
+                        localStorage.setItem(KEY,selected);
+                    }catch(e){}
+
+                    apply(selected);
+                });
+            }
+        }
+
+        window.foreverInPrayerLanguage=lang;
+    }
+
+    function start(){
+        apply(detect());
+    }
+
+    if(document.readyState==="loading"){
+        document.addEventListener("DOMContentLoaded",start);
+    }else{
+        start();
+    }
+})();
+</script>
+<!-- END SAFE URDU DISPLAY OVERRIDE --><!-- SAFE LANGUAGE SWITCH FIX -->
+<style id="safe-language-switch-css">
+.real-language-content[data-memorial-language] { display: none; }
+.real-language-content[data-memorial-language="ur"] { display: none; }
+</style>
+<script id="safe-language-switch-js">
+(function(){
+    "use strict";
+
+    var LANGS = ["ur","ar","en"];
+    var KEY = "foreverInPrayerLanguage";
+
+    function normalize(v){
+        v = String(v || "").toLowerCase().trim();
+        if(v.indexOf("ur") === 0) return "ur";
+        if(v.indexOf("ar") === 0) return "ar";
+        if(v.indexOf("en") === 0) return "en";
+        return "ur";
+    }
+
+    function applyLanguage(lang){
+        lang = normalize(lang);
+
+        var sections = document.querySelectorAll(
+            ".real-language-content[data-memorial-language]"
+        );
+
+        sections.forEach(function(section){
+            var sectionLang = normalize(
+                section.getAttribute("data-memorial-language")
+            );
+            section.style.display =
+                sectionLang === lang ? "" : "none";
+        });
+
+        document.documentElement.lang = lang;
+        document.documentElement.dir =
+            (lang === "ur" || lang === "ar") ? "rtl" : "ltr";
+
+        var selector = document.getElementById("globalLanguageSelector");
+        if(selector) selector.value = lang;
+
+        try {
+            localStorage.setItem(KEY, lang);
+        } catch(e) {}
+
+        window.dispatchEvent(new CustomEvent(
+            "foreverInPrayerLanguageChanged",
+            { detail: { language: lang } }
+        ));
+    }
+
+    function getSavedLanguage(){
+        try {
+            var saved = localStorage.getItem(KEY);
+            if(saved && LANGS.indexOf(normalize(saved)) !== -1){
+                return normalize(saved);
+            }
+        } catch(e) {}
+
+        var candidates = [];
+        if(navigator.languages && navigator.languages.length){
+            candidates = candidates.concat(navigator.languages);
+        }
+        if(navigator.language){
+            candidates.push(navigator.language);
+        }
+
+        for(var i=0;i<candidates.length;i++){
+            var detected = normalize(candidates[i]);
+            if(LANGS.indexOf(detected) !== -1){
+                return detected;
+            }
+        }
+
+        return "ur";
+    }
+
+    function connectSelector(){
+        var selector =
+            document.getElementById("globalLanguageSelector");
+
+        if(!selector) return;
+
+        selector.onchange = function(){
+            applyLanguage(this.value);
+        };
+
+        selector.addEventListener("input", function(){
+            applyLanguage(this.value);
+        });
+
+        applyLanguage(selector.value || getSavedLanguage());
+    }
+
+    window.setForeverLanguage = applyLanguage;
+    window.getForeverLanguage = getSavedLanguage;
+
+    if(document.readyState === "loading"){
+        document.addEventListener("DOMContentLoaded", connectSelector);
+    }else{
+        connectSelector();
+    }
+})();
+</script>
+<!-- END SAFE LANGUAGE SWITCH FIX -->
+<script id="final-memorial-language-controller">
+(function () {
+  'use strict';
+
+  var SUPPORTED = ['ur','ar','en'];
+  var DEFAULT = 'ur';
+  var KEY = 'foreverInPrayerLanguage';
+  var selector = null;
+
+  function normalize(v) {
+    return SUPPORTED.indexOf(v) >= 0 ? v : DEFAULT;
+  }
+
+  function getLanguage() {
+    var v = null;
+    try { v = localStorage.getItem(KEY); } catch (_) {}
+    return normalize(v);
+  }
+
+  function apply(language) {
+    language = normalize(language);
+    var nodes = document.querySelectorAll('[data-memorial-language]');
+    for (var i = 0; i < nodes.length; i++) {
+      var node = nodes[i];
+      var active = node.getAttribute('data-memorial-language') === language;
+      node.classList.toggle('memorial-language-active', active);
+      node.setAttribute('aria-hidden', active ? 'false' : 'true');
+    }
+
+    if (selector) selector.value = language;
+    document.documentElement.lang = language;
+    document.documentElement.dir = (language === 'ur' || language === 'ar') ? 'rtl' : 'ltr';
+
+    try { localStorage.setItem(KEY, language); } catch (_) {}
+    window.foreverInPrayerLanguage = language;
+  }
+
+  function init() {
+    selector = document.getElementById('globalLanguageSelector');
+    apply(getLanguage());
+
+    if (selector && !selector.__finalMemorialBound) {
+      selector.__finalMemorialBound = true;
+      selector.addEventListener('change', function () {
+        apply(this.value);
+        window.setTimeout(function () { apply(selector.value); }, 0);
+        window.setTimeout(function () { apply(selector.value); }, 100);
+      }, false);
+    }
+
+    window.setInterval(function () {
+      var current = selector ? normalize(selector.value) : getLanguage();
+      apply(current);
+    }, 1500);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+}());
+</script>
+<script id="final-memorial-effects">
+(function () {
+  'use strict';
+
+  var YASIN_SRC = '';
+  var DUA_SRC = '../Dua.mp3';
+
+  function makePetal() {
+    var layer = document.getElementById('memorial-rose-petals');
+    if (!layer) {
+      layer = document.createElement('div');
+      layer.id = 'memorial-rose-petals';
+      layer.setAttribute('aria-hidden','true');
+      document.body.appendChild(layer);
+    }
+    var p = document.createElement('span');
+    p.className = 'memorial-rose-petal';
+    p.style.left = (Math.random() * 100) + 'vw';
+    p.style.animationDuration = (7 + Math.random() * 8) + 's';
+    p.style.setProperty('--drift', ((Math.random() - .5) * 30) + 'vw');
+    p.style.setProperty('--spin', ((Math.random() * 900) - 450) + 'deg');
+    p.style.width = (9 + Math.random() * 10) + 'px';
+    p.style.height = (7 + Math.random() * 8) + 'px';
+    layer.appendChild(p);
+    window.setTimeout(function () { if (p.parentNode) p.parentNode.removeChild(p); }, 16000);
+  }
+
+  function startPetals() {
+    if (window.__memorialPetalsStarted) return;
+    window.__memorialPetalsStarted = true;
+    for (var i=0;i<18;i++) window.setTimeout(makePetal, i*90);
+    window.setInterval(function () {
+      for (var i=0;i<3;i++) makePetal();
+    }, 700);
+  }
+
+  function findAudioBySrcPart(part) {
+    if (!part) return null;
+    var all = document.querySelectorAll('audio');
+    for (var i=0;i<all.length;i++) {
+      var src = all[i].getAttribute('src') || '';
+      if (src.toLowerCase().indexOf(part.toLowerCase()) >= 0) return all[i];
+    }
+    return null;
+  }
+
+  function addYasinAudio() {
+    if (!YASIN_SRC) return null;
+    var existing = findAudioBySrcPart(YASIN_SRC);
+    if (existing) return existing;
+
+    var a = document.createElement('audio');
+    a.id = 'surah-yasin-after-dua';
+    a.preload = 'auto';
+    a.src = YASIN_SRC;
+    a.setAttribute('aria-label','Surah Yasin / Quran recitation');
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    return a;
+  }
+
+  function setupAudio() {
+    var duaAudio = findAudioBySrcPart('Dua.mp3') || findAudioBySrcPart('dua');
+    if (!duaAudio && DUA_SRC) duaAudio = findAudioBySrcPart(DUA_SRC);
+    var yasinAudio = addYasinAudio();
+
+    if (!duaAudio || !yasinAudio || duaAudio.__yasinAfterDuaBound) return;
+    duaAudio.__yasinAfterDuaBound = true;
+
+    duaAudio.addEventListener('ended', function () {
+      startPetals();
+      yasinAudio.currentTime = 0;
+      var playPromise = yasinAudio.play();
+      if (playPromise && typeof playPromise.catch === 'function') {
+        playPromise.catch(function () {
+          var status = document.getElementById('memorial-yasin-status');
+          if (status) {
+            status.style.display = 'block';
+            var button = status.querySelector('button');
+            if (button) button.onclick = function () {
+              yasinAudio.play().then(function () { status.style.display='none'; }).catch(function(){});
+            };
+          }
+        });
+      }
+    }, false);
+  }
+
+  function init() {
+    var status = document.createElement('div');
+    status.id = 'memorial-yasin-status';
+    status.innerHTML = 'Quran recitation is ready <button type="button">Play</button>';
+    document.body.appendChild(status);
+    setupAudio();
+    var observer = new MutationObserver(setupAudio);
+    observer.observe(document.body, {childList:true, subtree:true});
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+}());
+</script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
