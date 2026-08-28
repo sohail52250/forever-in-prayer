@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ur">
 <head>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -868,6 +868,152 @@ body {
 
     .real-language-content {
         width: 100%;
+    }
+}
+</style>
+<script id="forever-in-prayer-language-controller">
+(function () {
+    "use strict";
+
+    function applyLanguage(lang) {
+        if (lang !== "ur" && lang !== "ar" && lang !== "en") {
+            lang = "ur";
+        }
+
+        var sections = document.querySelectorAll(
+            "[data-memorial-language]"
+        );
+
+        sections.forEach(function (section) {
+            var value = section.getAttribute("data-memorial-language");
+            var visible = value === lang;
+
+            section.style.display = visible ? "" : "none";
+            section.hidden = !visible;
+
+            if (visible) {
+                section.setAttribute(
+                    "dir",
+                    lang === "ur" || lang === "ar" ? "rtl" : "ltr"
+                );
+            }
+        });
+
+        var selector = document.getElementById(
+            "globalLanguageSelector"
+        );
+
+        if (selector) {
+            selector.value = lang;
+        }
+
+        document.documentElement.lang = lang;
+        document.documentElement.dir =
+            lang === "ur" || lang === "ar" ? "rtl" : "ltr";
+
+        try {
+            localStorage.setItem("foreverPrayerLanguage", lang);
+        } catch (e) {}
+    }
+
+    function init() {
+        var selector = document.getElementById(
+            "globalLanguageSelector"
+        );
+
+        var saved = "ur";
+
+        try {
+            saved =
+                localStorage.getItem("foreverPrayerLanguage") ||
+                "ur";
+        } catch (e) {}
+
+        if (selector) {
+            selector.addEventListener("change", function () {
+                applyLanguage(this.value);
+            });
+        }
+
+        applyLanguage(saved);
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", init);
+    } else {
+        init();
+    }
+
+    window.ForeverPrayerLanguage = {
+        apply: applyLanguage
+    };
+})();
+</script>
+<style id="forever-in-prayer-final-css">
+#globalLanguageSelector,
+#startPrayerButton {
+    position: relative;
+    z-index: 10000;
+    pointer-events: auto !important;
+}
+
+#tapScreen {
+    pointer-events: none !important;
+}
+
+#rosePetalContainer {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    pointer-events: none !important;
+    z-index: 9999;
+}
+
+.forever-rose-petal {
+    position: fixed;
+    top: -30px;
+    pointer-events: none !important;
+    user-select: none;
+    font-size: 24px;
+    animation-name: foreverRoseFall;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+}
+
+@keyframes foreverRoseFall {
+    from {
+        transform:
+            translate3d(0, -30px, 0)
+            rotate(0deg);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    to {
+        transform:
+            translate3d(var(--rose-drift), 110vh, 0)
+            rotate(720deg);
+        opacity: 0;
+    }
+}
+
+@media (max-width: 700px) {
+    body {
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    .container,
+    .box,
+    #realMultilingualMemorial {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
     }
 }
 </style>
@@ -2042,6 +2188,156 @@ body {
         initForeverPrayer();
     }
 
+})();
+</script>
+<script id="forever-in-prayer-click-controller">
+(function () {
+    "use strict";
+
+    function initPrayer() {
+        var button = document.getElementById("startPrayerButton");
+        var fatihah = document.getElementById("fatihah");
+        var dua = document.getElementById("dua");
+        var tapScreen = document.getElementById("tapScreen");
+        var roseContainer = document.getElementById("rosePetalContainer");
+
+        if (!roseContainer) {
+            roseContainer = document.createElement("div");
+            roseContainer.id = "rosePetalContainer";
+            document.body.appendChild(roseContainer);
+        }
+
+        if (tapScreen) {
+            tapScreen.style.pointerEvents = "none";
+        }
+
+        function createPetal() {
+            var petal = document.createElement("div");
+
+            petal.className = "forever-rose-petal";
+            petal.textContent = "*";
+
+            petal.style.left =
+                Math.floor(Math.random() * 100) + "vw";
+
+            petal.style.setProperty(
+                "--rose-drift",
+                (Math.floor(Math.random() * 160) - 80) + "px"
+            );
+
+            petal.style.animationDuration =
+                (3 + Math.random() * 4) + "s";
+
+            petal.style.opacity =
+                (0.6 + Math.random() * 0.4).toString();
+
+            roseContainer.appendChild(petal);
+
+            setTimeout(function () {
+                if (petal.parentNode) {
+                    petal.parentNode.removeChild(petal);
+                }
+            }, 8000);
+        }
+
+        function startFlowers() {
+            if (window.foreverPrayerFlowerTimer) {
+                clearInterval(window.foreverPrayerFlowerTimer);
+            }
+
+            for (var i = 0; i < 8; i++) {
+                setTimeout(createPetal, i * 120);
+            }
+
+            window.foreverPrayerFlowerTimer =
+                setInterval(createPetal, 500);
+        }
+
+        function safePlay(audio) {
+            if (!audio) {
+                return Promise.resolve();
+            }
+
+            try {
+                audio.currentTime = 0;
+            } catch (e) {}
+
+            try {
+                var result = audio.play();
+
+                if (result && typeof result.catch === "function") {
+                    return result.catch(function (error) {
+                        console.warn(
+                            "Audio playback was blocked:",
+                            error
+                        );
+                    });
+                }
+            } catch (error) {
+                console.warn(
+                    "Audio playback failed:",
+                    error
+                );
+            }
+
+            return Promise.resolve();
+        }
+
+        function startPrayer() {
+            if (button) {
+                button.style.display = "none";
+                button.setAttribute("aria-hidden", "true");
+            }
+
+            startFlowers();
+
+            if (fatihah) {
+                safePlay(fatihah).then(function () {
+                    if (fatihah) {
+                        fatihah.onended = function () {
+                            safePlay(dua);
+                        };
+                    }
+                });
+            }
+        }
+
+        if (button) {
+            button.style.position = "relative";
+            button.style.zIndex = "10000";
+            button.style.pointerEvents = "auto";
+
+            button.addEventListener(
+                "click",
+                function (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    startPrayer();
+                },
+                false
+            );
+        }
+
+        if (fatihah) {
+            fatihah.addEventListener("error", function () {
+                console.warn("Al-Fatihah audio unavailable.");
+            });
+        }
+
+        if (dua) {
+            dua.addEventListener("error", function () {
+                console.warn("Dua audio unavailable.");
+            });
+        }
+
+        console.log("Forever In Prayer controller ready.");
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initPrayer);
+    } else {
+        initPrayer();
+    }
 })();
 </script>
 </body>
