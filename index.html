@@ -2495,5 +2495,92 @@ body {
     }
 })();
 </script>
+<script id="forever-online-yasin">
+(function () {
+    "use strict";
+
+    var dua = document.getElementById("dua");
+
+    if (!dua) {
+        console.warn("[FOREVER IN PRAYER] Dua audio element not found.");
+        return;
+    }
+
+    var yasin = document.getElementById("yasinOnline");
+
+    if (!yasin) {
+        yasin = document.createElement("audio");
+        yasin.id = "yasinOnline";
+        yasin.preload = "none";
+        yasin.setAttribute("playsinline", "");
+        yasin.style.display = "none";
+        document.body.appendChild(yasin);
+    }
+
+    var yasinSources = [
+        "https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/36.mp3",
+        "https://server8.mp3quran.net/afs/036.mp3"
+    ];
+
+    var sourceIndex = 0;
+    var started = false;
+
+    function playYasin() {
+        if (started) {
+            return;
+        }
+
+        started = true;
+
+        function trySource() {
+            if (sourceIndex >= yasinSources.length) {
+                console.warn("[FOREVER IN PRAYER] Online Yasin unavailable. Page remains active.");
+                return;
+            }
+
+            var src = yasinSources[sourceIndex++];
+            yasin.src = src;
+
+            var result;
+
+            try {
+                result = yasin.play();
+            } catch (error) {
+                console.warn("[FOREVER IN PRAYER] Yasin playback failed.");
+                trySource();
+                return;
+            }
+
+            if (result && typeof result.catch === "function") {
+                result.catch(function () {
+                    console.warn("[FOREVER IN PRAYER] Yasin source rejected. Trying fallback.");
+                    trySource();
+                });
+            }
+        }
+
+        yasin.addEventListener("error", function () {
+            if (sourceIndex < yasinSources.length) {
+                trySource();
+            } else {
+                console.warn("[FOREVER IN PRAYER] All online Yasin sources failed.");
+            }
+        });
+
+        trySource();
+    }
+
+    dua.addEventListener("ended", function () {
+        console.log("[FOREVER IN PRAYER] Dua finished. Starting Surah Yasin.");
+        playYasin();
+    });
+
+    window.ForeverPrayerOnlineYasin = {
+        play: playYasin
+    };
+
+    console.log("[FOREVER IN PRAYER] Online Yasin controller ready.");
+})();
+</script>
 </body>
 </html>
