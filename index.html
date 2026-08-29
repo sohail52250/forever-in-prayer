@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -679,6 +679,75 @@ gtag('config', 'G-R54SFM6NZH');
     y.parentNode.insertBefore(t,y);
 })(window, document, "clarity", "script", "y9nfw65ifl");
 </script>
+<style id="forever-prayer-rose-effects">
+#rosePetalContainer {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+  z-index: 998 !important;
+}
+
+.forever-rose-petal {
+  position: fixed !important;
+  top: -35px !important;
+  pointer-events: none !important;
+  user-select: none !important;
+  z-index: 999 !important;
+  font-family: "Noto Naskh Arabic", Arial, sans-serif !important;
+  line-height: 1 !important;
+  animation-name: foreverRoseFall !important;
+  animation-timing-function: linear !important;
+  animation-fill-mode: forwards !important;
+  will-change: transform, opacity !important;
+}
+
+@keyframes foreverRoseFall {
+  0% {
+    transform:
+      translate3d(0,-35px,0)
+      rotate(0deg);
+    opacity: 0;
+  }
+
+  8% {
+    opacity: 1;
+  }
+
+  100% {
+    transform:
+      translate3d(var(--rose-drift),110vh,0)
+      rotate(720deg);
+    opacity: 0;
+  }
+}
+
+#globalLanguageSelectorContainer {
+  z-index: 10000 !important;
+  pointer-events: auto !important;
+}
+
+#globalLanguageSelector {
+  pointer-events: auto !important;
+}
+
+#startPrayerButton {
+  position: relative !important;
+  z-index: 10001 !important;
+  pointer-events: auto !important;
+}
+
+#tapScreen {
+  z-index: 997 !important;
+}
+
+#translatedMemorialExtras,
+#translatedMemorialExtras * {
+  max-width: 100%;
+}
+</style>
 </head>
 
 <body>
@@ -691,6 +760,7 @@ gtag('config', 'G-R54SFM6NZH');
   </select>
 </div>
 
+<div id="rosePetalContainer" aria-hidden="true"></div>
 <div id="stars"></div>
 
 <div class="moon"></div>
@@ -876,1220 +946,411 @@ gtag('config', 'G-R54SFM6NZH');
 
   <!-- ENGLISH -->
   <section data-memorial-language="en" class="real-language-content">
+<div id="translatedMemorialExtras">
 
-    <h1>Forever In Prayer</h1>
+  <div class="portraits">
 
-    <p class="language-subtitle">
-      A tribute of love, remembrance, and dua
-    </p>
+    <div class="person">
+      <img
+        src="brother2.jpeg"
+        alt="Imran Nazir"
+      >
 
-    <h2>Remembering Them</h2>
+      <p>
+        <strong data-lang="ur">عمران نذیر</strong>
+        <strong data-lang="ar">عمران نذير</strong>
+        <strong data-lang="en">Imran Nazir</strong>
+      </p>
 
-    <p>
-      <strong>Imran Nazir</strong> and
-      <strong>Mohsan Nazir</strong> were real brothers.
-    </p>
-
-    <p>
-      Imran Nazir was the elder brother, and Mohsan Nazir was the younger brother.
-      Both were loving, caring, soft-hearted people.
-      Their kindness, affection, and beautiful memories
-      will always remain alive in our hearts.
-    </p>
-
-    <div class="memorial-dates">
-      <strong>Imran Nazir — Elder Brother</strong><br>
-      Returned to Allah on <strong>26 August 2025</strong>
-      <br><br>
-      <strong>Mohsan Nazir — Younger Brother</strong><br>
-      Returned to Allah on <strong>26 July 2025</strong>
+      <p>
+        <span data-lang="ur">بڑے بھائی</span>
+        <span data-lang="ar">الأخ الأكبر</span>
+        <span data-lang="en">Elder Brother</span>
+      </p>
     </div>
 
-    <h2>One Year of Remembrance</h2>
+    <div class="person">
+      <img
+        src="brother1.jpeg"
+        alt="Mohsan Nazir"
+      >
 
-    <p>
-      One year has passed since Imran Nazir returned to Allah.
+      <p>
+        <strong data-lang="ur">محسن نذیر</strong>
+        <strong data-lang="ar">محسن نذير</strong>
+        <strong data-lang="en">Mohsan Nazir</strong>
+      </p>
+
+      <p>
+        <span data-lang="ur">چھوٹے بھائی</span>
+        <span data-lang="ar">الأخ الأصغر</span>
+        <span data-lang="en">Younger Brother</span>
+      </p>
+    </div>
+
+  </div>
+
+  <div class="lang translated-extra">
+
+    <h3>
+      <span data-lang="ur">دو پیارے بھائیوں کی یاد</span>
+      <span data-lang="ar">ذكرى أخوين عزيزين</span>
+      <span data-lang="en">Remembering Two Beloved Brothers</span>
+    </h3>
+
+    <p data-lang="ur">
+      عمران نذیر بڑے بھائی تھے اور محسن نذیر چھوٹے بھائی تھے۔
+      دونوں کی محبت، شفقت، خلوص اور خوبصورت یادیں ہمیشہ ہمارے دلوں میں زندہ رہیں گی۔
     </p>
 
-    <p>
-      One year and one month has passed since Mohsan Nazir returned to Allah.
+    <p data-lang="ar">
+      كان عمران نذير الأخ الأكبر ومحسن نذير الأخ الأصغر.
+      وستبقى محبتهما وطيبتهما وذكرياتهما الجميلة حية في قلوبنا دائماً.
     </p>
 
-    <p>
-      Time passes, but the love we have for those we lost
-      and the memories they left behind remain forever in our hearts.
+    <p data-lang="en">
+      Imran Nazir was the elder brother and Mohsan Nazir was the younger brother.
+      Their love, kindness, and beautiful memories will remain forever in our hearts.
     </p>
 
-    <h2>Quran</h2>
+    <h3>
+      <span data-lang="ur">قرآن کریم</span>
+      <span data-lang="ar">القرآن الكريم</span>
+      <span data-lang="en">Quran</span>
+    </h3>
 
     <p class="arabic">
       إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ
     </p>
 
-    <p>
-      Indeed, to Allah we belong and to Him we shall return.
+    <p data-lang="ur">
+      بے شک ہم اللہ ہی کے ہیں اور اسی کی طرف لوٹ کر جانے والے ہیں۔
+      سورۃ البقرہ — 2:156
     </p>
 
-    <p>
+    <p data-lang="ar">
+      إنا لله وإنا إليه راجعون.
+      سورة البقرة — 2:156
+    </p>
+
+    <p data-lang="en">
+      Indeed, to Allah we belong and to Him we shall return.
       Surah Al-Baqarah — 2:156
     </p>
 
-    <h2>Prayer</h2>
+    <h3>
+      <span data-lang="ur">آج کی دعا</span>
+      <span data-lang="ar">دعاء اليوم</span>
+      <span data-lang="en">Today's Dua</span>
+    </h3>
 
     <p class="arabic">
-      اللهم اغفر لهم وارحمهم واجعل قبورهم روضة من رياض الجنة
+      اللهم اغفر لهما وارحمهما واجعل قبريهما روضة من رياض الجنة،
+      ونوّر قبريهما، وارفع درجتهما في المهديين،
+      واجمعنا بهم في الفردوس الأعلى.
     </p>
 
-    <p>
+    <p data-lang="ur">
+      اے اللہ! عمران نذیر اور محسن نذیر کی مغفرت فرما،
+      ان پر رحم فرما، ان کی قبروں کو جنت کے باغوں میں سے ایک باغ بنا دے،
+      ان کے درجات بلند فرما اور ہمیں ان سے جنت الفردوس میں ملا دے۔
+      آمین۔
+    </p>
+
+    <p data-lang="ar">
+      اللهم اغفر لعمران نذير ومحسن نذير وارحمهما،
+      واجعل قبريهما روضة من رياض الجنة،
+      وارفع درجاتهما واجمعنا بهما في الفردوس الأعلى.
+      آمين.
+    </p>
+
+    <p data-lang="en">
       O Allah, forgive Imran Nazir and Mohsan Nazir,
       have mercy upon them, make their graves gardens from the gardens of Paradise,
-      fill their graves with light, peace, and comfort,
-      and grant them the highest place in Jannat-ul-Firdaws.
-    </p>
-
-    <p>
-      O Allah, accept their good deeds, forgive their shortcomings,
-      raise their ranks, and reunite us with them in the highest Paradise.
+      raise their ranks and reunite us with them in Jannat-ul-Firdaws.
       Ameen.
     </p>
 
-  </section>
-
-</div>
-
-    <h1>Forever In Prayer</h1><p style="margin-bottom:20px;color:#cbd5e1;">A tribute of love, remembrance, and dua</p>
-
-    <div class="names">
-      In loving memory of:<br>
-      Imran Nazir — Elder Brother<br>Mohsan Nazir — Younger Brother
-    </div>
-
-    <div style="margin-top:12px;">
-<div class="portraits">
-
-  <div class="person">
-    <img
-      src="brother2.jpeg"
-      alt="Imran Nazir — Elder Brother"
-    >
-    <p><strong>Imran Nazir</strong></p>
-    <p>Elder Brother</p>
   </div>
 
-  <div class="person">
-    <img
-      src="brother1.jpeg"
-      alt="Mohsan Nazir — Younger Brother"
-    >
-    <p><strong>Mohsan Nazir</strong></p>
-    <p>Younger Brother</p>
+  <div class="prayer-action">
+
+    <button id="duaButton" type="button">
+
+      <span data-lang="ur">🤲 آج دعا کی</span>
+      <span data-lang="ar">🤲 دعوتُ لهما اليوم</span>
+      <span data-lang="en">🤲 I Made Dua Today</span>
+
+    </button>
+
+    <p id="duaCounter">
+      <span data-lang="ur">0 زائرین نے دعا کی۔</span>
+      <span data-lang="ar">قدّم 0 زائرين دعاءً.</span>
+      <span data-lang="en">0 visitors offered a dua.</span>
+    </p>
+
+  </div>
+
+  <div class="lang translated-extra">
+
+    <h3>
+      <span data-lang="ur">آخری دعا</span>
+      <span data-lang="ar">الدعاء الأخير</span>
+      <span data-lang="en">Final Prayer</span>
+    </h3>
+
+    <p data-lang="ur">
+      یا اللہ! ان دونوں کی مغفرت فرما، ان پر رحم فرما،
+      ان کی قبروں کو نور سے بھر دے، ان کے درجات بلند فرما،
+      اور ہمیں جنت الفردوس میں ان کے ساتھ جمع فرما۔
+    </p>
+
+    <p data-lang="ar">
+      اللهم اغفر لهما وارحمهما،
+      ونوّر قبريهما، وارفع درجتهما،
+      واجمعنا بهما في الفردوس الأعلى.
+    </p>
+
+    <p data-lang="en">
+      O Allah, forgive them and have mercy upon them,
+      illuminate their graves, raise their ranks,
+      and reunite us with them in the highest Paradise.
+    </p>
+
+    <p>
+      <strong data-lang="ur">
+        ان کی زندگی ختم ہو گئی، مگر ان کی محبت، شفقت اور یادیں ہمیشہ باقی رہیں گی۔
+      </strong>
+
+      <strong data-lang="ar">
+        انتهت حياتهما، لكن محبتهما وطيبتهما وذكرياتهما ستبقى دائماً.
+      </strong>
+
+      <strong data-lang="en">
+        Their lives have ended, but their love, kindness, and memories remain.
+      </strong>
+    </p>
+
   </div>
 
 </div>
-    </div>
-
-
-    <div class="lang">
-  <h3>Remembering Two Beloved Brothers</h3>
-
-<p>
-  <strong>Imran Nazir — Elder Brother</strong><br>
-  Returned to Allah on <strong>26 August 2025</strong><br>
-  <span class="dates">One year of remembrance</span>
-</p>
-
-<p>
-  Imran was the eldest brother — a loving, caring, and soft-hearted soul
-  whose presence brought warmth and affection to those around him.
-</p>
-
-<p>
-  <strong>Mohsan Nazir — Younger Brother</strong><br>
-  Returned to Allah on <strong>26 July 2025</strong><br>
-  <span class="dates">One year and one month of remembrance</span>
-</p>
-
-<p>
-  Mohsan was the younger brother — equally loving, caring, and soft-hearted,
-  leaving behind memories that continue to live in the hearts of everyone
-  who knew and loved him.
-</p>
-
-<h3>Two Brothers, One Bond</h3>
-
-<p>
-  They were not only brothers by blood, but brothers whose love and bond
-  remain alive in the memories of their family.
-</p>
-
-<p>
-  Their lives have ended, but their love, kindness, and memories remain.
-</p>
-
-<h3>Our Beloved Brothers</h3>
-
-<p>
-  <strong>Imran Nazir</strong> — one year of remembrance
-  since his return to Allah on 26 August 2025.
-</p>
-
-<p>
-  <strong>Mohsan Nazir</strong> — one year and one month of remembrance
-  since his return to Allah on 26 July 2025.
-</p>
-
-<p>
-  Though they are no longer physically with us, their kindness,
-  love, care, and soft-hearted nature continue to live in our memories.
-</p>
-
-<h3>Quran</h3>
-
-  <p class="arabic">
-    إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ
-  </p>
-
-  <p>
-    Indeed, to Allah we belong and to Him we shall return.
-    (Surah Al-Baqarah 2:156)
-  </p>
-</div>
 
 
 
 
 
-<div class="lang">
-  <h3>Arabic</h3>
-  <p class="arabic">
-    اللهم اغفر لهم وارحمهم واجعل قبرهم روضة من رياض الجنة
-  </p>
-</div>
 
-    <div class="lang">
-  <h3>Urdu</h3>
-  <p class="arabic">
-    اللہ ان دونوں کو معاف فرمائے، ان پر رحم کرے اور جنت الفردوس عطا فرمائے۔
-  </p>
-</div>
-
-    <div class="lang">
-      <h3>English</h3>
-      <p>O Allah, forgive them, have mercy on them, and grant them Paradise without account.</p>
-    </div>
-
-
-
-<div class="prayer-action">
-  <button id="duaButton" onclick="rememberToday()">
-    🤲 I Made Dua Today
-  </button>
-
-  <p id="duaCounter">0 visitors offered a dua.</p>
-</div>
-
-
-
-<div class="lang">
-  <h3>Final Prayer</h3>
-
-<p class="arabic">
-اللهم اغفر لهما وارحمهما واجعل قبريهما روضة من رياض الجنة،
-ونوّر قبريهما، وارفع درجتهما في المهديين،
-واجمعنا بهم في الفردوس الأعلى.
-</p>
-
-<p>
-  O Allah, forgive Imran Nazir and Mohsan Nazir,
-  have mercy upon them, illuminate their graves,
-  expand their resting places, and grant them
-  Jannat-ul-Firdaws.
-</p>
-
-<p>
-  May Allah reunite them among the righteous and grant
-  patience, strength, and comfort to everyone who continues
-  to miss and remember them.
-</p>
-
-<p>
-  <strong>
-    Their lives have ended, but their love, kindness,
-    and memories remain.
-  </strong>
-</p>
-</div>
-</div>
-
-
-
-<script id="forever-global-language-controller">
-
-/*
-============================================================
-FOREVER IN PRAYER
-GLOBAL LANGUAGE CONTROLLER
-============================================================
-
-Supported:
-ur = Urdu
-ar = Arabic
-en = English
-
-Priority:
-1. Manually saved language
-2. Browser/device language
-3. Urdu fallback
-============================================================
-*/
-
-(function(){
-
+<script id="forever-prayer-final-controller">
+(function () {
     "use strict";
 
-    const SUPPORTED_LANGUAGES = ["ur", "ar", "en"];
-    const DEFAULT_LANGUAGE = "ur";
-    const STORAGE_KEY = "foreverInPrayerLanguage";
+    var KEY = "foreverInPrayerLanguage";
+    var SUPPORTED = ["ur", "ar", "en"];
+    var RTL = { ur: true, ar: true };
 
-    function normalizeLanguage(value){
-
-        if(!value){
-            return null;
-        }
+    function normalize(value) {
+        if (!value) return null;
 
         value = String(value)
             .trim()
-            .toLowerCase();
+            .toLowerCase()
+            .replace(/_/g, "-");
 
-        if(value === "ur" || value.startsWith("ur-")){
-            return "ur";
-        }
-
-        if(value === "ar" || value.startsWith("ar-")){
-            return "ar";
-        }
-
-        if(value === "en" || value.startsWith("en-")){
-            return "en";
-        }
+        if (value === "ur" || value.indexOf("ur-") === 0) return "ur";
+        if (value === "ar" || value.indexOf("ar-") === 0) return "ar";
+        if (value === "en" || value.indexOf("en-") === 0) return "en";
 
         return null;
     }
 
-    function getSavedLanguage(){
-
-        try{
-
-            const saved =
-                localStorage.getItem(STORAGE_KEY);
-
-            return normalizeLanguage(saved);
-
-        }catch(error){
-
-            return null;
-
-        }
-
-    }
-
-    function getBrowserLanguage(){
-
-        const candidates = [];
-
-        if(
-            navigator.languages &&
-            Array.isArray(navigator.languages)
-        ){
-            candidates.push(...navigator.languages);
-        }
-
-        if(navigator.language){
-            candidates.push(navigator.language);
-        }
-
-        for(const candidate of candidates){
-
-            const language =
-                normalizeLanguage(candidate);
-
-            if(language){
-                return language;
-            }
-
-        }
-
-        return null;
-
-    }
-
-    function getInitialLanguage(){
-
-        const saved =
-            getSavedLanguage();
-
-        if(saved){
-            return saved;
-        }
-
-        const browser =
-            getBrowserLanguage();
-
-        if(browser){
-            return browser;
-        }
-
-        return DEFAULT_LANGUAGE;
-
-    }
-
-    function saveLanguage(language){
-
-        try{
-
-            localStorage.setItem(
-                STORAGE_KEY,
-                language
-            );
-
-        }catch(error){
-
-            console.warn(
-                "Could not save language preference.",
-                error
-            );
-
-        }
-
-    }
-
-    function applyLanguage(language){
-
-        language =
-            normalizeLanguage(language) ||
-            DEFAULT_LANGUAGE;
-
-        /*
-        --------------------------------------------------------
-        Real multilingual sections
-        --------------------------------------------------------
-        */
-
-        document
-            .querySelectorAll(
-                "[data-memorial-language]"
-            )
-            .forEach(function(element){
-
-                const elementLanguage =
-                    normalizeLanguage(
-                        element.getAttribute(
-                            "data-memorial-language"
-                        )
-                    );
-
-                element.style.display =
-                    elementLanguage === language
-                        ? ""
-                        : "none";
-
-            });
-
-        /*
-        --------------------------------------------------------
-        Generic data-lang elements
-        --------------------------------------------------------
-        */
-
-        document
-            .querySelectorAll(
-                "[data-lang]"
-            )
-            .forEach(function(element){
-
-                const elementLanguage =
-                    normalizeLanguage(
-                        element.getAttribute(
-                            "data-lang"
-                        )
-                    );
-
-                element.style.display =
-                    elementLanguage === language
-                        ? ""
-                        : "none";
-
-            });
-
-        /*
-        --------------------------------------------------------
-        Direction
-        --------------------------------------------------------
-        */
-
-        const isRTL =
-            language === "ur" ||
-            language === "ar";
-
-        document.documentElement.lang =
-            language;
-
-        document.documentElement.dir =
-            isRTL ? "rtl" : "ltr";
-
-        document.body.classList.toggle(
-            "language-rtl",
-            isRTL
-        );
-
-        document.body.classList.toggle(
-            "language-ltr",
-            !isRTL
-        );
-
-        /*
-        --------------------------------------------------------
-        Language selector
-        --------------------------------------------------------
-        */
-
-        const selector =
-            document.getElementById(
-                "globalLanguageSelector"
-            );
-
-        if(selector){
-
-            selector.value =
-                language;
-
-        }
-
-        /*
-        --------------------------------------------------------
-        Language label
-        --------------------------------------------------------
-        */
-
-        const label =
-            document.getElementById(
-                "globalLanguageLabel"
-            );
-
-        if(label){
-
-            const labels = {
-
-                ur: "زبان",
-                ar: "اللغة",
-                en: "Language"
-
-            };
-
-            label.textContent =
-                labels[language] ||
-                labels[DEFAULT_LANGUAGE];
-
-        }
-
-        /*
-        --------------------------------------------------------
-        Notify the rest of the site
-        --------------------------------------------------------
-        */
-
-        window.foreverInPrayerLanguage =
-            language;
-
-        window.dispatchEvent(
-            new CustomEvent(
-                "foreverInPrayerLanguageChanged",
-                {
-                    detail: {
-                        language: language
-                    }
-                }
-            )
-        );
-
-    }
-
-    function setLanguage(language){
-
-        language =
-            normalizeLanguage(language);
-
-        if(
-            !language ||
-            !SUPPORTED_LANGUAGES.includes(language)
-        ){
-            language =
-                DEFAULT_LANGUAGE;
-        }
-
-        saveLanguage(language);
-
-        applyLanguage(language);
-
-        return language;
-
-    }
-
-    /*
-    ------------------------------------------------------------
-    PUBLIC API
-    ------------------------------------------------------------
-    */
-
-    window.setForeverLanguage =
-        setLanguage;
-
-    window.getForeverLanguage =
-        function(){
-
-            return (
-                window.foreverInPrayerLanguage ||
-                getInitialLanguage()
-            );
-
-        };
-
-    window.foreverInPrayerLanguages =
-        SUPPORTED_LANGUAGES.slice();
-
-    /*
-    ------------------------------------------------------------
-    SELECTOR EVENT
-    ------------------------------------------------------------
-    */
-
-    document.addEventListener(
-        "change",
-        function(event){
-
-            if(
-                event.target &&
-                event.target.id ===
-                "globalLanguageSelector"
-            ){
-
-                setLanguage(
-                    event.target.value
-                );
-
-            }
-
-        }
-    );
-
-    /*
-    ------------------------------------------------------------
-    APPLY AFTER DOM IS READY
-    ------------------------------------------------------------
-    */
-
-    function initialize(){
-
-        applyLanguage(
-            getInitialLanguage()
-        );
-
-    }
-
-    if(
-        document.readyState ===
-        "loading"
-    ){
-
-        document.addEventListener(
-            "DOMContentLoaded",
-            initialize,
-            {
-                once: true
-            }
-        );
-
-    }else{
-
-        initialize();
-
-    }
-
-})();
-
-/* ============================================================
-   FOREVER IN PRAYER - AUDIO ENGINE
-   Start Prayer -> Al-Fatihah -> Dua
-   ============================================================ */
-
-const tap = document.getElementById("tapScreen");
-const startButton = document.getElementById("startPrayerButton");
-const f = document.getElementById("fatihah");
-const d = document.getElementById("dua");
-const status = document.getElementById("status");
-
-let prayerStarted = false;
-
-function setPrayerStatus(message) {
-    if (status) {
-        status.textContent = message;
-    }
-}
-
-function showTap() {
-    if (tap) {
-        tap.style.display = "flex";
-    }
-}
-
-function hideTap() {
-    if (tap) {
-        tap.style.display = "none";
-    }
-}
-
-async function startPrayer() {
-
-    if (prayerStarted) {
-        return;
-    }
-
-    prayerStarted = true;
-
-    try {
-
-        hideTap();
-
-        f.pause();
-        d.pause();
-
-        f.currentTime = 0;
-        d.currentTime = 0;
-
-        setPrayerStatus("Playing Al-Fatihah...");
-
-        await f.play();
-
-    } catch (error) {
-
-        console.error("Al-Fatihah playback failed:", error);
-
-        prayerStarted = false;
-
-        setPrayerStatus(
-            "Please press Start Prayer again."
-        );
-
-        showTap();
-    }
-}
-
-if (startButton) {
-    startButton.addEventListener("click", startPrayer);
-}
-
-if (tap) {
-    tap.addEventListener("click", function(event) {
-        if (event.target === tap) {
-            startPrayer();
-        }
-    });
-}
-
-if (f) {
-
-    f.addEventListener("play", function() {
-        setPrayerStatus("Playing Al-Fatihah...");
-    });
-
-    f.addEventListener("ended", async function() {
-
+    function getSaved() {
         try {
-
-            setPrayerStatus("Making Dua...");
-
-            d.currentTime = 0;
-
-            await d.play();
-
-        } catch (error) {
-
-            console.error("Dua playback failed:", error);
-
-            prayerStarted = false;
-
-            setPrayerStatus(
-                "Unable to continue to Dua. Please press Start Prayer again."
-            );
-
-            showTap();
+            return normalize(localStorage.getItem(KEY));
+        } catch (e) {
+            return null;
         }
-    });
-
-    f.addEventListener("error", function() {
-
-        console.error("Al-Fatihah error:", f.error);
-
-        prayerStarted = false;
-
-        setPrayerStatus(
-            "Al-Fatihah could not be loaded."
-        );
-
-        showTap();
-    });
-}
-
-if (d) {
-
-    d.addEventListener("play", function() {
-        setPrayerStatus("Making Dua...");
-    });
-
-    d.addEventListener("ended", function() {
-
-        prayerStarted = false;
-
-        setPrayerStatus(
-            "🤲 May Allah grant them Jannah. Ameen."
-        );
-    });
-
-    d.addEventListener("error", function() {
-
-        console.error("Dua error:", d.error);
-
-        prayerStarted = false;
-
-        setPrayerStatus(
-            "Dua could not be loaded."
-        );
-
-        showTap();
-    });
-}
-
-</script>
-<!-- URDU DISPLAY BEHAVIOR REPAIR -->
-<script>
-(function(){
-    const KEY = "foreverInPrayerLanguage";
-    const SUPPORTED = ["ur","ar","en"];
-    const RTL = ["ur","ar"];
-
-    function normalize(value){
-        if(!value) return null;
-        value = String(value).toLowerCase().replace("_","-");
-        if(value.indexOf("ur") === 0) return "ur";
-        if(value.indexOf("ar") === 0) return "ar";
-        if(value.indexOf("en") === 0) return "en";
-        return null;
     }
 
-    function browserLanguage(){
-        const candidates = [];
-        if(navigator.languages && Array.isArray(navigator.languages)){
-            candidates.push.apply(candidates,navigator.languages);
+    function getBrowser() {
+        var candidates = [];
+
+        if (navigator.languages && navigator.languages.length) {
+            candidates = candidates.concat(Array.prototype.slice.call(navigator.languages));
         }
-        if(navigator.language){
+
+        if (navigator.language) {
             candidates.push(navigator.language);
         }
-        for(const value of candidates){
-            const lang = normalize(value);
-            if(lang) return lang;
-        }
-        return "ur";
-    }
 
-    function getLanguage(){
-        try{
-            const saved = normalize(localStorage.getItem(KEY));
-            if(saved) return saved;
-        }catch(e){}
-        return browserLanguage() || "ur";
-    }
-
-    function applyLanguage(language){
-        language = normalize(language) || "ur";
-
-        document.querySelectorAll("[data-memorial-language]").forEach(function(section){
-            const sectionLanguage =
-                normalize(section.getAttribute("data-memorial-language"));
-
-            section.hidden = sectionLanguage !== language;
-            section.style.display =
-                sectionLanguage === language ? "" : "none";
-        });
-
-        document.documentElement.lang = language;
-        document.documentElement.dir =
-            RTL.indexOf(language) >= 0 ? "rtl" : "ltr";
-
-        document.querySelectorAll("[data-lang]").forEach(function(element){
-            const elementLanguage =
-                normalize(element.getAttribute("data-lang"));
-            element.hidden = elementLanguage !== language;
-            element.style.display =
-                elementLanguage === language ? "" : "none";
-        });
-
-        const selector =
-            document.getElementById("globalLanguageSelector");
-
-        if(selector){
-            selector.value = language;
-        }
-
-        window.foreverInPrayerLanguage = language;
-    }
-
-    window.setForeverLanguage = function(language){
-        language = normalize(language) || "ur";
-        try{
-            localStorage.setItem(KEY,language);
-        }catch(e){}
-        applyLanguage(language);
-        window.dispatchEvent(
-            new CustomEvent("foreverInPrayerLanguageChanged",{
-                detail:{language:language}
-            })
-        );
-    };
-
-    function start(){
-        applyLanguage(getLanguage());
-
-        const selector =
-            document.getElementById("globalLanguageSelector");
-
-        if(selector && !selector.dataset.languageRepairBound){
-            selector.dataset.languageRepairBound = "1";
-            selector.addEventListener("change",function(){
-                window.setForeverLanguage(this.value);
-            });
-        }
-    }
-
-    if(document.readyState === "loading"){
-        document.addEventListener("DOMContentLoaded",start);
-    }else{
-        start();
-    }
-})();
-</script>
-<!-- END URDU DISPLAY BEHAVIOR REPAIR -->
-<!-- URDU DISPLAY BEHAVIOR REPAIR -->
-<script>
-(function(){
-    const KEY = "foreverInPrayerLanguage";
-    const SUPPORTED = ["ur","ar","en"];
-    const RTL = ["ur","ar"];
-
-    function normalize(value){
-        if(!value) return null;
-        value = String(value).toLowerCase().replace("_","-");
-        if(value.indexOf("ur") === 0) return "ur";
-        if(value.indexOf("ar") === 0) return "ar";
-        if(value.indexOf("en") === 0) return "en";
-        return null;
-    }
-
-    function browserLanguage(){
-        const candidates = [];
-        if(navigator.languages && Array.isArray(navigator.languages)){
-            candidates.push.apply(candidates,navigator.languages);
-        }
-        if(navigator.language){
-            candidates.push(navigator.language);
-        }
-        for(const value of candidates){
-            const lang = normalize(value);
-            if(lang) return lang;
-        }
-        return "ur";
-    }
-
-    function getLanguage(){
-        try{
-            const saved = normalize(localStorage.getItem(KEY));
-            if(saved) return saved;
-        }catch(e){}
-        return browserLanguage() || "ur";
-    }
-
-    function applyLanguage(language){
-        language = normalize(language) || "ur";
-
-        document.querySelectorAll("[data-memorial-language]").forEach(function(section){
-            const sectionLanguage =
-                normalize(section.getAttribute("data-memorial-language"));
-
-            section.hidden = sectionLanguage !== language;
-            section.style.display =
-                sectionLanguage === language ? "" : "none";
-        });
-
-        document.documentElement.lang = language;
-        document.documentElement.dir =
-            RTL.indexOf(language) >= 0 ? "rtl" : "ltr";
-
-        document.querySelectorAll("[data-lang]").forEach(function(element){
-            const elementLanguage =
-                normalize(element.getAttribute("data-lang"));
-            element.hidden = elementLanguage !== language;
-            element.style.display =
-                elementLanguage === language ? "" : "none";
-        });
-
-        const selector =
-            document.getElementById("globalLanguageSelector");
-
-        if(selector){
-            selector.value = language;
-        }
-
-        window.foreverInPrayerLanguage = language;
-    }
-
-    window.setForeverLanguage = function(language){
-        language = normalize(language) || "ur";
-        try{
-            localStorage.setItem(KEY,language);
-        }catch(e){}
-        applyLanguage(language);
-        window.dispatchEvent(
-            new CustomEvent("foreverInPrayerLanguageChanged",{
-                detail:{language:language}
-            })
-        );
-    };
-
-    function start(){
-        applyLanguage(getLanguage());
-
-        const selector =
-            document.getElementById("globalLanguageSelector");
-
-        if(selector && !selector.dataset.languageRepairBound){
-            selector.dataset.languageRepairBound = "1";
-            selector.addEventListener("change",function(){
-                window.setForeverLanguage(this.value);
-            });
-        }
-    }
-
-    if(document.readyState === "loading"){
-        document.addEventListener("DOMContentLoaded",start);
-    }else{
-        start();
-    }
-})();
-</script>
-<!-- END URDU DISPLAY BEHAVIOR REPAIR -->
-<!-- SAFE URDU DISPLAY OVERRIDE -->
-<script id="safe-urdu-display-override">
-(function(){
-    "use strict";
-
-    var KEY = "foreverInPrayerLanguage";
-    var RTL = { ur:true, ar:true };
-
-    function normalize(v){
-        if(!v){ return null; }
-        v=String(v).toLowerCase().replace("_","-");
-        if(v.indexOf("ur")===0){ return "ur"; }
-        if(v.indexOf("ar")===0){ return "ar"; }
-        if(v.indexOf("en")===0){ return "en"; }
-        return null;
-    }
-
-    function detect(){
-        var saved=null;
-        try{
-            saved=normalize(localStorage.getItem(KEY));
-        }catch(e){}
-
-        if(saved){ return saved; }
-
-        var list=[];
-        if(navigator.languages && navigator.languages.length){
-            list=navigator.languages;
-        }
-
-        if(navigator.language){
-            list=list.concat([navigator.language]);
-        }
-
-        for(var i=0;i<list.length;i++){
-            var detected=normalize(list[i]);
-            if(detected){ return detected; }
+        for (var i = 0; i < candidates.length; i++) {
+            var lang = normalize(candidates[i]);
+            if (lang) return lang;
         }
 
         return "ur";
     }
 
-    function apply(lang){
-        lang=normalize(lang)||"ur";
-
-        var sections=document.querySelectorAll("[data-memorial-language]");
-
-        for(var i=0;i<sections.length;i++){
-            var sectionLang=normalize(
-                sections[i].getAttribute("data-memorial-language")
-            );
-
-            if(sectionLang===lang){
-                sections[i].hidden=false;
-                sections[i].style.display="";
-            }else{
-                sections[i].hidden=true;
-                sections[i].style.display="none";
-            }
-        }
-
-        document.documentElement.lang=lang;
-        document.documentElement.dir=RTL[lang] ? "rtl" : "ltr";
-
-        var selector=document.getElementById("globalLanguageSelector");
-
-        if(selector){
-            selector.value=lang;
-
-            if(!selector.getAttribute("data-safe-urdu-bound")){
-                selector.setAttribute("data-safe-urdu-bound","1");
-
-                selector.addEventListener("change",function(){
-                    var selected=normalize(this.value)||"ur";
-
-                    try{
-                        localStorage.setItem(KEY,selected);
-                    }catch(e){}
-
-                    apply(selected);
-                });
-            }
-        }
-
-        window.foreverInPrayerLanguage=lang;
+    function getInitialLanguage() {
+        return getSaved() || getBrowser() || "ur";
     }
 
-    function start(){
-        apply(detect());
-    }
-
-    if(document.readyState==="loading"){
-        document.addEventListener("DOMContentLoaded",start);
-    }else{
-        start();
-    }
-})();
-</script>
-<!-- END SAFE URDU DISPLAY OVERRIDE --><!-- SAFE LANGUAGE SWITCH FIX -->
-<style id="safe-language-switch-css">
-.real-language-content[data-memorial-language] { display: none; }
-.real-language-content[data-memorial-language="ur"] { display: none; }
-</style>
-<script id="safe-language-switch-js">
-(function(){
-    "use strict";
-
-    var LANGS = ["ur","ar","en"];
-    var KEY = "foreverInPrayerLanguage";
-
-    function normalize(v){
-        v = String(v || "").toLowerCase().trim();
-        if(v.indexOf("ur") === 0) return "ur";
-        if(v.indexOf("ar") === 0) return "ar";
-        if(v.indexOf("en") === 0) return "en";
-        return "ur";
-    }
-
-    function applyLanguage(lang){
-        lang = normalize(lang);
-
-        var sections = document.querySelectorAll(
-            ".real-language-content[data-memorial-language]"
-        );
-
-        sections.forEach(function(section){
-            var sectionLang = normalize(
-                section.getAttribute("data-memorial-language")
-            );
-            section.style.display =
-                sectionLang === lang ? "" : "none";
-        });
-
-        document.documentElement.lang = lang;
-        document.documentElement.dir =
-            (lang === "ur" || lang === "ar") ? "rtl" : "ltr";
-
-        var selector = document.getElementById("globalLanguageSelector");
-        if(selector) selector.value = lang;
-
+    function save(lang) {
         try {
             localStorage.setItem(KEY, lang);
-        } catch(e) {}
-
-        window.dispatchEvent(new CustomEvent(
-            "foreverInPrayerLanguageChanged",
-            { detail: { language: lang } }
-        ));
+        } catch (e) {}
     }
 
-    function getSavedLanguage(){
-        try {
-            var saved = localStorage.getItem(KEY);
-            if(saved && LANGS.indexOf(normalize(saved)) !== -1){
-                return normalize(saved);
-            }
-        } catch(e) {}
-
-        var candidates = [];
-        if(navigator.languages && navigator.languages.length){
-            candidates = candidates.concat(navigator.languages);
-        }
-        if(navigator.language){
-            candidates.push(navigator.language);
-        }
-
-        for(var i=0;i<candidates.length;i++){
-            var detected = normalize(candidates[i]);
-            if(LANGS.indexOf(detected) !== -1){
-                return detected;
-            }
-        }
-
-        return "ur";
+    function setVisibility(element, visible) {
+        element.hidden = !visible;
+        element.style.display = visible ? "" : "none";
     }
 
-    function connectSelector(){
+    function applyLanguage(language) {
+        language = normalize(language) || "ur";
+
+        /*
+         * Canonical complete language sections.
+         */
+        document.querySelectorAll("[data-memorial-language]").forEach(function (section) {
+            var sectionLanguage =
+                normalize(section.getAttribute("data-memorial-language"));
+
+            setVisibility(section, sectionLanguage === language);
+        });
+
+        /*
+         * Generic language elements, if any remain.
+         */
+        document.querySelectorAll("[data-lang]").forEach(function (element) {
+            var elementLanguage =
+                normalize(element.getAttribute("data-lang"));
+
+            setVisibility(element, elementLanguage === language);
+        });
+
+        /*
+         * Global document direction.
+         */
+        document.documentElement.lang = language;
+        document.documentElement.dir = RTL[language] ? "rtl" : "ltr";
+
+        document.body.classList.toggle("language-rtl", !!RTL[language]);
+        document.body.classList.toggle("language-ltr", !RTL[language]);
+
+        /*
+         * Language selector.
+         */
+        var selector = document.getElementById("globalLanguageSelector");
+
+        if (selector) {
+            selector.value = language;
+        }
+
+        /*
+         * Translate global interface text that exists outside
+         * the language sections.
+         */
+        var labels = {
+            ur: {
+                selector: "زبان",
+                duaButton: "🤲 آج میں نے دعا کی",
+                duaCounter: "0 افراد نے دعا کی۔",
+                tap: "دعا شروع کرنے کے لیے دبائیں",
+                start: "دعا شروع کریں",
+                status: "دعا کی تیاری ہو رہی ہے..."
+            },
+            ar: {
+                selector: "اللغة",
+                duaButton: "🤲 دعوتُ اليوم",
+                duaCounter: "0 زائراً قدّموا دعاءً.",
+                tap: "اضغط لبدء الدعاء",
+                start: "ابدأ الدعاء",
+                status: "جارٍ تجهيز الدعاء..."
+            },
+            en: {
+                selector: "Language",
+                duaButton: "🤲 I Made Dua Today",
+                duaCounter: "0 visitors offered a dua.",
+                tap: "Tap to begin prayer",
+                start: "Start Prayer",
+                status: "Preparing prayer..."
+            }
+        };
+
+        var t = labels[language] || labels.ur;
+
+        var label = document.getElementById("globalLanguageLabel");
+        if (label) label.textContent = t.selector;
+
+        var duaButton = document.getElementById("duaButton");
+        if (duaButton) duaButton.textContent = t.duaButton;
+
+        var duaCounter = document.getElementById("duaCounter");
+        if (duaCounter && !duaCounter.dataset.countInitialized) {
+            duaCounter.textContent = t.duaCounter;
+        }
+
+        var tap = document.getElementById("tapScreen");
+        if (tap) {
+            var tapText = tap.querySelector("[data-language-text]") || tap;
+            if (tapText && !tapText.querySelector("audio")) {
+                tapText.textContent = t.tap;
+            }
+        }
+
+        var startButton = document.getElementById("startPrayerButton");
+        if (startButton) startButton.textContent = t.start;
+
+        window.foreverInPrayerLanguage = language;
+    }
+
+    window.setForeverLanguage = function (language) {
+        language = normalize(language) || "ur";
+
+        if (SUPPORTED.indexOf(language) === -1) {
+            language = "ur";
+        }
+
+        save(language);
+        applyLanguage(language);
+
+        window.dispatchEvent(
+            new CustomEvent("foreverInPrayerLanguageChanged", {
+                detail: { language: language }
+            })
+        );
+
+        return language;
+    };
+
+    window.getForeverLanguage = function () {
+        return window.foreverInPrayerLanguage || getInitialLanguage();
+    };
+
+    window.foreverInPrayerLanguages = SUPPORTED.slice();
+
+    function initialize() {
+        applyLanguage(getInitialLanguage());
+
         var selector =
             document.getElementById("globalLanguageSelector");
 
-        if(!selector) return;
+        if (selector && !selector.dataset.foreverLanguageBound) {
+            selector.dataset.foreverLanguageBound = "1";
 
-        selector.onchange = function(){
-            applyLanguage(this.value);
-        };
-
-        selector.addEventListener("input", function(){
-            applyLanguage(this.value);
-        });
-
-        applyLanguage(selector.value || getSavedLanguage());
+            selector.addEventListener("change", function () {
+                window.setForeverLanguage(this.value);
+            });
+        }
     }
 
-    window.setForeverLanguage = applyLanguage;
-    window.getForeverLanguage = getSavedLanguage;
-
-    if(document.readyState === "loading"){
-        document.addEventListener("DOMContentLoaded", connectSelector);
-    }else{
-        connectSelector();
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initialize, { once: true });
+    } else {
+        initialize();
     }
 })();
 </script>
-<!-- END SAFE LANGUAGE SWITCH FIX -->
 </body>
 </html>
 
@@ -2103,3 +1364,52 @@ if (d) {
 
 
 
+
+<script id="forever-rose-runtime">
+(function(){
+    "use strict";
+
+    function startRoses(){
+        var container = document.getElementById("rosePetalContainer");
+        if(!container) return;
+
+        if(container.dataset.roseRuntimeStarted === "1") return;
+        container.dataset.roseRuntimeStarted = "1";
+
+        function createRose(){
+            var petal = document.createElement("span");
+            petal.className = "forever-rose-petal";
+
+            petal.style.left = (Math.random() * 100) + "vw";
+            petal.style.animationDuration = (7 + Math.random() * 7) + "s";
+            petal.style.animationDelay = (Math.random() * 2) + "s";
+            petal.style.transform =
+                "rotate(" + (Math.random() * 360) + "deg)";
+
+            var size = 16 + Math.random() * 14;
+            petal.style.width = size + "px";
+            petal.style.height = size + "px";
+
+            container.appendChild(petal);
+
+            window.setTimeout(function(){
+                if(petal.parentNode){
+                    petal.parentNode.removeChild(petal);
+                }
+            }, 16000);
+        }
+
+        for(var i = 0; i < 12; i++){
+            window.setTimeout(createRose, i * 350);
+        }
+
+        window.setInterval(createRose, 850);
+    }
+
+    if(document.readyState === "loading"){
+        document.addEventListener("DOMContentLoaded", startRoses, {once:true});
+    }else{
+        startRoses();
+    }
+})();
+</script>
