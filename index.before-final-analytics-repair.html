@@ -1,0 +1,2123 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Prayer & Remembrance</title>
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:Arial, sans-serif;
+  background: radial-gradient(circle at top, #050816 0%, #02040f 60%, #000 100%);
+  color:white;
+  overflow-y:auto;  overflow-x:hidden;
+}
+
+/* STARFIELD */
+.star{
+  position:fixed;
+  width:2px;
+  height:2px;
+  background:white;
+  border-radius:50%;
+  opacity:0.6;
+  animation:twinkle 3s infinite ease-in-out;
+}
+
+@keyframes twinkle{
+  0%,100%{opacity:0.2;}
+  50%{opacity:1;}
+}
+
+/* MOON */
+.moon{
+  position:fixed;
+  top:10%;
+  left:-100px;
+  width:80px;
+  height:80px;
+  background:radial-gradient(circle,#fff 20%,rgba(255,255,255,0.4));
+  border-radius:50%;
+  box-shadow:0 0 40px rgba(255,255,255,0.25);
+  animation:moonMove 25s linear infinite;
+}
+
+@keyframes moonMove{
+  0%{transform:translateX(0);}
+  100%{transform:translateX(120vw);}
+}
+
+/* MOSQUE */
+.mosque-layer{
+  position:fixed;
+  bottom:0;
+  width:100%;
+  height:60%;
+  background-repeat:no-repeat;
+  background-position:bottom center;
+  background-size:cover;
+  opacity:0.25;
+}
+
+.layer1{background:url("https://i.ibb.co/2Yy0p7k/mosque-silhouette.png");}
+.layer2{background:url("https://i.ibb.co/2Yy0p7k/mosque-silhouette.png");opacity:0.15;transform:scale(1.1) translateY(10px);filter:blur(1px);}
+.layer3{background:url("https://i.ibb.co/2Yy0p7k/mosque-silhouette.png");opacity:0.1;transform:scale(1.2) translateY(20px);filter:blur(2px);}
+
+/* CONTAINER */
+.container{
+  position:relative;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+  z-index:2;
+}
+
+.box{
+  width:100%;
+  max-width:850px;
+  background:rgba(5,10,25,0.72);
+  border-radius:25px;
+  padding:30px 20px;
+  text-align:center;
+  backdrop-filter:blur(18px);
+}
+
+/* TEXT */
+h1{
+  font-size:28px;
+  margin-bottom:10px;
+}
+
+.names{
+  font-size:16px;
+  color:#cbd5e1;
+  margin-bottom:5px;
+}
+
+.dates{
+  font-size:14px;
+  color:#94a3b8;
+  margin-bottom:20px;
+}
+
+.portraits{
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  flex-wrap:wrap;
+  margin-bottom:15px;
+}
+
+.person img{
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  object-fit:cover;
+}
+
+.lang{
+  margin-top:15px;
+}
+
+p{font-size:15px;color:#cbd5e1;line-height:1.8;}
+
+.arabic{
+  direction:rtl;
+  font-size:16px;
+  color:#fff;
+}
+
+/* STATUS */
+#status{
+  margin-top:15px;
+  font-size:13px;
+  color:#cbd5e1;
+}
+
+/* TAP SCREEN */
+.tap{
+  position:fixed;
+  inset:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:rgba(0,0,0,0.6);
+  font-size:18px;
+  z-index:999;
+  cursor:pointer;
+}
+
+.subtitle{
+  font-size:15px;
+  color:#cbd5e1;
+  margin-bottom:20px;
+}
+.prayer-action{
+  margin-top:20px;
+  padding-top:15px;
+  border-top:1px solid rgba(255,255,255,0.1);
+}
+
+.prayer-action button{
+  padding:13px 22px;
+  border:none;
+  border-radius:14px;
+  background:rgba(255,255,255,0.12);
+  color:white;
+  font-size:15px;
+  cursor:pointer;
+  transition:all .25s ease;
+}
+
+.prayer-action button:hover{
+  background:rgba(255,255,255,0.2);
+  transform:translateY(-1px);
+}
+
+.prayer-action button:active{
+  transform:scale(.98);
+}
+
+#duaCounter{
+  margin-top:10px;
+  font-size:13px;
+  color:#94a3b8;
+}
+@media (max-width:600px){
+  .container{
+    align-items:flex-start;
+    padding:15px;
+    padding-top:30px;
+    padding-bottom:30px;
+  }
+
+  .box{
+    padding:25px 17px;
+    border-radius:20px;
+  }
+
+  h1{
+    font-size:26px;
+  }
+
+  .names{
+    font-size:17px;
+  }
+
+  .person img{
+    width:105px;
+    height:105px;
+  }
+
+  .arabic{
+    font-size:20px;
+  }
+}
+#startPrayerButton{
+  border:0;
+  border-radius:18px;
+  padding:16px 30px;
+  font-size:18px;
+  font-weight:600;
+  color:white;
+  background:rgba(255,255,255,0.14);
+  cursor:pointer;
+  box-shadow:0 8px 30px rgba(0,0,0,0.35);
+}
+
+#startPrayerButton:hover{
+  background:rgba(255,255,255,0.24);
+}
+
+#startPrayerButton:active{
+  transform:scale(0.97);
+}
+
+/*
+============================================================
+GLOBAL LANGUAGE PRESENTATION
+============================================================
+*/
+
+.language-rtl{
+    direction:rtl;
+}
+
+.language-ltr{
+    direction:ltr;
+}
+
+.real-language-content{
+    width:100%;
+}
+
+.real-language-content[dir="rtl"]{
+    direction:rtl;
+    text-align:right;
+}
+
+.real-language-content[dir="ltr"]{
+    direction:ltr;
+    text-align:left;
+}
+
+#globalLanguageSelector{
+    min-width:150px;
+    padding:9px 12px;
+    border-radius:10px;
+    border:1px solid rgba(255,255,255,0.18);
+    background:rgba(0,0,0,0.25);
+    color:inherit;
+    cursor:pointer;
+}
+
+#globalLanguageSelector option{
+    background:#111827;
+    color:white;
+}
+
+/* ============================================================
+   GLOBAL LANGUAGE SELECTOR
+   ============================================================ */
+
+#globalLanguageSelectorContainer{
+  position:fixed;
+  top:18px;
+  right:18px;
+  z-index:9999;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 10px;
+  border-radius:14px;
+  background:rgba(5,8,22,.82);
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:0 8px 28px rgba(0,0,0,.35);
+  backdrop-filter:blur(10px);
+}
+
+#globalLanguageLabel{
+  color:#fff;
+  font-size:13px;
+  font-weight:600;
+}
+
+#globalLanguageSelector{
+  border:0;
+  outline:none;
+  border-radius:9px;
+  padding:7px 10px;
+  font-size:14px;
+  font-weight:600;
+  background:#fff;
+  color:#111827;
+  cursor:pointer;
+}
+
+#globalLanguageSelector:focus{
+  outline:2px solid rgba(255,255,255,.55);
+  outline-offset:2px;
+}
+
+@media(max-width:600px){
+
+  #globalLanguageSelectorContainer{
+    top:10px;
+    right:10px;
+    padding:6px 8px;
+  }
+
+  #globalLanguageLabel{
+    display:none;
+  }
+
+  #globalLanguageSelector{
+    font-size:13px;
+    padding:6px 8px;
+  }
+}
+</style>
+<style id="global-language-content-style">
+
+#multilingualMemorialContent{
+  width:100%;
+}
+
+.language-content{
+  width:100%;
+}
+
+.language-content h1{
+  margin-bottom:10px;
+}
+
+.language-content h2{
+  margin-top:22px;
+  margin-bottom:10px;
+  font-size:20px;
+}
+
+.language-content p{
+  margin-bottom:12px;
+}
+
+.language-content .subtitle{
+  margin-bottom:22px;
+  color:#cbd5e1;
+}
+
+.language-content .dates{
+  margin:18px 0;
+  line-height:1.8;
+}
+
+html[dir="rtl"] .language-content{
+  text-align:right;
+}
+
+html[dir="rtl"] .language-content .dates{
+  text-align:center;
+}
+
+
+/*
+============================================================
+GLOBAL LANGUAGE PRESENTATION
+============================================================
+*/
+
+.language-rtl{
+    direction:rtl;
+}
+
+.language-ltr{
+    direction:ltr;
+}
+
+.real-language-content{
+    width:100%;
+}
+
+.real-language-content[dir="rtl"]{
+    direction:rtl;
+    text-align:right;
+}
+
+.real-language-content[dir="ltr"]{
+    direction:ltr;
+    text-align:left;
+}
+
+#globalLanguageSelector{
+    min-width:150px;
+    padding:9px 12px;
+    border-radius:10px;
+    border:1px solid rgba(255,255,255,0.18);
+    background:rgba(0,0,0,0.25);
+    color:inherit;
+    cursor:pointer;
+}
+
+#globalLanguageSelector option{
+    background:#111827;
+    color:white;
+}
+
+/* ============================================================
+   GLOBAL LANGUAGE SELECTOR
+   ============================================================ */
+
+#globalLanguageSelectorContainer{
+  position:fixed;
+  top:18px;
+  right:18px;
+  z-index:9999;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 10px;
+  border-radius:14px;
+  background:rgba(5,8,22,.82);
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:0 8px 28px rgba(0,0,0,.35);
+  backdrop-filter:blur(10px);
+}
+
+#globalLanguageLabel{
+  color:#fff;
+  font-size:13px;
+  font-weight:600;
+}
+
+#globalLanguageSelector{
+  border:0;
+  outline:none;
+  border-radius:9px;
+  padding:7px 10px;
+  font-size:14px;
+  font-weight:600;
+  background:#fff;
+  color:#111827;
+  cursor:pointer;
+}
+
+#globalLanguageSelector:focus{
+  outline:2px solid rgba(255,255,255,.55);
+  outline-offset:2px;
+}
+
+@media(max-width:600px){
+
+  #globalLanguageSelectorContainer{
+    top:10px;
+    right:10px;
+    padding:6px 8px;
+  }
+
+  #globalLanguageLabel{
+    display:none;
+  }
+
+  #globalLanguageSelector{
+    font-size:13px;
+    padding:6px 8px;
+  }
+}
+</style>
+<style id="real-multilingual-style">
+
+#realMultilingualMemorial{
+  width:100%;
+}
+
+.real-language-content{
+  display:none;
+  width:100%;
+  animation:languageFade .35s ease;
+}
+
+.real-language-content h1{
+  margin-bottom:10px;
+}
+
+.real-language-content h2{
+  margin-top:24px;
+  margin-bottom:10px;
+  font-size:20px;
+}
+
+.real-language-content p{
+  margin-bottom:14px;
+  line-height:1.9;
+}
+
+.language-subtitle{
+  color:#cbd5e1;
+  margin-bottom:25px !important;
+}
+
+.memorial-dates{
+  margin:22px 0;
+  line-height:2;
+  text-align:center;
+}
+
+html[dir="rtl"] .real-language-content{
+  text-align:right;
+}
+
+html[dir="ltr"] .real-language-content{
+  text-align:center;
+}
+
+@keyframes languageFade{
+  from{
+    opacity:0;
+    transform:translateY(5px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+
+/*
+============================================================
+GLOBAL LANGUAGE PRESENTATION
+============================================================
+*/
+
+.language-rtl{
+    direction:rtl;
+}
+
+.language-ltr{
+    direction:ltr;
+}
+
+.real-language-content{
+    width:100%;
+}
+
+.real-language-content[dir="rtl"]{
+    direction:rtl;
+    text-align:right;
+}
+
+.real-language-content[dir="ltr"]{
+    direction:ltr;
+    text-align:left;
+}
+
+#globalLanguageSelector{
+    min-width:150px;
+    padding:9px 12px;
+    border-radius:10px;
+    border:1px solid rgba(255,255,255,0.18);
+    background:rgba(0,0,0,0.25);
+    color:inherit;
+    cursor:pointer;
+}
+
+#globalLanguageSelector option{
+    background:#111827;
+    color:white;
+}
+
+/* ============================================================
+   GLOBAL LANGUAGE SELECTOR
+   ============================================================ */
+
+#globalLanguageSelectorContainer{
+  position:fixed;
+  top:18px;
+  right:18px;
+  z-index:9999;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 10px;
+  border-radius:14px;
+  background:rgba(5,8,22,.82);
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:0 8px 28px rgba(0,0,0,.35);
+  backdrop-filter:blur(10px);
+}
+
+#globalLanguageLabel{
+  color:#fff;
+  font-size:13px;
+  font-weight:600;
+}
+
+#globalLanguageSelector{
+  border:0;
+  outline:none;
+  border-radius:9px;
+  padding:7px 10px;
+  font-size:14px;
+  font-weight:600;
+  background:#fff;
+  color:#111827;
+  cursor:pointer;
+}
+
+#globalLanguageSelector:focus{
+  outline:2px solid rgba(255,255,255,.55);
+  outline-offset:2px;
+}
+
+@media(max-width:600px){
+
+  #globalLanguageSelectorContainer{
+    top:10px;
+    right:10px;
+    padding:6px 8px;
+  }
+
+  #globalLanguageLabel{
+    display:none;
+  }
+
+  #globalLanguageSelector{
+    font-size:13px;
+    padding:6px 8px;
+  }
+}
+</style>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-R54SFM6NZH"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-R54SFM6NZH');
+</script>
+
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "y9nfw65ifl");
+</script>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-R54SFM6NZH"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-R54SFM6NZH');
+</script>
+
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);
+    t.async=1;
+    t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];
+    y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "y9nfw65ifl");
+</script>
+</head>
+
+<body>
+<div id="globalLanguageSelectorContainer" class="language-selector">
+  <label id="globalLanguageLabel" for="globalLanguageSelector">Ø²Ø¨Ø§Ù†</label>
+  <select id="globalLanguageSelector" aria-label="Language">
+    <option value="ur">Ø§Ø±Ø¯Ùˆ</option>
+    <option value="ar">Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©</option>
+    <option value="en">English</option>
+  </select>
+</div>
+
+<div id="stars"></div>
+
+<div class="moon"></div>
+
+<div class="mosque-layer layer1"></div>
+<div class="mosque-layer layer2"></div>
+<div class="mosque-layer layer3"></div>
+
+<div class="tap" id="tapScreen">
+  <button id="startPrayerButton" type="button">
+    ðŸ¤² Start Prayer
+  </button>
+</div>
+
+<audio id="fatihah" preload="auto" src="AlFatihah.mp3"></audio>
+<audio id="dua" preload="auto" src="Dua.mp3"></audio>
+
+<div class="container">
+  <div class="box">
+<div id="realMultilingualMemorial">
+
+  <!-- URDU -->
+  <section data-memorial-language="ur" class="real-language-content">
+
+    <h1>ÛÙ…ÛŒØ´Û Ø¯Ø¹Ø§Ø¤Úº Ù…ÛŒÚº</h1>
+
+    <p class="language-subtitle">
+      Ù…Ø­Ø¨ØªØŒ ÛŒØ§Ø¯ Ø§ÙˆØ± Ø¯Ø¹Ø§ Ú©Û’ Ù†Ø§Ù… Ø§ÛŒÚ© Ø®Ø±Ø§Ø¬Ù Ø¹Ù‚ÛŒØ¯Øª
+    </p>
+
+    <h2>ÛÙ…Ø§Ø±ÛŒ ÛŒØ§Ø¯ÙˆÚº Ù…ÛŒÚº</h2>
+
+    <p>
+      ÛÙ…Ø§Ø±Û’ Ù¾ÛŒØ§Ø±Û’ Ø¨Ú¾Ø§Ø¦ÛŒ
+      <strong>Ø¹Ù…Ø±Ø§Ù† Ù†Ø°ÛŒØ±</strong> Ø§ÙˆØ±
+      <strong>Ù…Ø­Ø³Ù† Ù†Ø°ÛŒØ±</strong>
+      Ø­Ù‚ÛŒÙ‚ÛŒ Ø¨Ú¾Ø§Ø¦ÛŒ ØªÚ¾Û’Û”
+    </p>
+
+    <p>
+      Ø¹Ù…Ø±Ø§Ù† Ù†Ø°ÛŒØ± Ø¨Ú‘Û’ Ø¨Ú¾Ø§Ø¦ÛŒ ØªÚ¾Û’ Ø¬Ø¨Ú©Û Ù…Ø­Ø³Ù† Ù†Ø°ÛŒØ± Ú†Ú¾ÙˆÙ¹Û’ Ø¨Ú¾Ø§Ø¦ÛŒ ØªÚ¾Û’Û”
+      Ø¯ÙˆÙ†ÙˆÚº Ø¨ÛØª Ù…Ø­Ø¨Øª Ú©Ø±Ù†Û’ ÙˆØ§Ù„Û’ØŒ Ø®ÛŒØ§Ù„ Ø±Ú©Ú¾Ù†Û’ ÙˆØ§Ù„Û’ Ø§ÙˆØ± Ù†Ø±Ù… Ø¯Ù„ Ø§Ù†Ø³Ø§Ù† ØªÚ¾Û’Û”
+      Ø§Ù† Ú©ÛŒ Ù…Ø­Ø¨ØªØŒ Ø´ÙÙ‚ØªØŒ Ø®Ù„ÙˆØµ Ø§ÙˆØ± Ø®ÙˆØ¨ØµÙˆØ±Øª ÛŒØ§Ø¯ÛŒÚº ÛÙ…ÛŒØ´Û ÛÙ…Ø§Ø±Û’ Ø¯Ù„ÙˆÚº Ù…ÛŒÚº Ø²Ù†Ø¯Û Ø±ÛÛŒÚº Ú¯ÛŒÛ”
+    </p>
+
+    <div class="memorial-dates">
+      <strong>Ø¹Ù…Ø±Ø§Ù† Ù†Ø°ÛŒØ± â€” Ø¨Ú‘Û’ Ø¨Ú¾Ø§Ø¦ÛŒ</strong><br>
+      Ø§Ù„Ù„Û Ú©ÛŒ Ø·Ø±Ù ÙˆØ§Ù¾Ø³ÛŒ: <strong>26 Ø§Ú¯Ø³Øª 2025</strong>
+      <br><br>
+      <strong>Ù…Ø­Ø³Ù† Ù†Ø°ÛŒØ± â€” Ú†Ú¾ÙˆÙ¹Û’ Ø¨Ú¾Ø§Ø¦ÛŒ</strong><br>
+      Ø§Ù„Ù„Û Ú©ÛŒ Ø·Ø±Ù ÙˆØ§Ù¾Ø³ÛŒ: <strong>26 Ø¬ÙˆÙ„Ø§Ø¦ÛŒ 2025</strong>
+    </div>
+
+    <h2>ÛŒØ§Ø¯ Ú©Ø§ Ø§ÛŒÚ© Ø³Ø§Ù„</h2>
+
+    <p>
+      Ø¹Ù…Ø±Ø§Ù† Ù†Ø°ÛŒØ± Ú©Ùˆ Ø§Ù„Ù„Û Ú©ÛŒ Ø·Ø±Ù ÙˆØ§Ù¾Ø³ Ú¯Ø¦Û’ Ø§ÛŒÚ© Ø³Ø§Ù„ Ù…Ú©Ù…Ù„ ÛÙˆ Ú†Ú©Ø§ ÛÛ’Û”
+    </p>
+
+    <p>
+      Ù…Ø­Ø³Ù† Ù†Ø°ÛŒØ± Ú©Ùˆ Ø§Ù„Ù„Û Ú©ÛŒ Ø·Ø±Ù ÙˆØ§Ù¾Ø³ Ú¯Ø¦Û’ Ø§ÛŒÚ© Ø³Ø§Ù„ Ø§ÙˆØ± Ø§ÛŒÚ© Ù…Ø§Û Ú¯Ø²Ø± Ú†Ú©Ø§ ÛÛ’Û”
+    </p>
+
+    <p>
+      ÙˆÙ‚Øª Ú¯Ø²Ø± Ø¬Ø§ØªØ§ ÛÛ’ØŒ Ù…Ú¯Ø± Ø§Ù¾Ù†Û’ Ù¾ÛŒØ§Ø±ÙˆÚº Ú©ÛŒ Ù…Ø­Ø¨Øª Ø§ÙˆØ± Ø§Ù† Ú©ÛŒ ÛŒØ§Ø¯ÛŒÚº
+      ÛÙ…Ø§Ø±Û’ Ø¯Ù„ÙˆÚº Ù…ÛŒÚº ÛÙ…ÛŒØ´Û Ø²Ù†Ø¯Û Ø±ÛØªÛŒ ÛÛŒÚºÛ”
+    </p>
+
+    <h2>Ù‚Ø±Ø¢Ù† Ú©Ø±ÛŒÙ…</h2>
+
+    <p class="arabic">
+      Ø¥ÙÙ†ÙŽÙ‘Ø§ Ù„ÙÙ„ÙŽÙ‘Ù‡Ù ÙˆÙŽØ¥ÙÙ†ÙŽÙ‘Ø§ Ø¥ÙÙ„ÙŽÙŠÙ’Ù‡Ù Ø±ÙŽØ§Ø¬ÙØ¹ÙÙˆÙ†ÙŽ
+    </p>
+
+    <p>
+      Ø¨Û’ Ø´Ú© ÛÙ… Ø§Ù„Ù„Û ÛÛŒ Ú©Û’ ÛÛŒÚº Ø§ÙˆØ± Ø§Ø³ÛŒ Ú©ÛŒ Ø·Ø±Ù Ù„ÙˆÙ¹ Ú©Ø± Ø¬Ø§Ù†Û’ ÙˆØ§Ù„Û’ ÛÛŒÚºÛ”
+    </p>
+
+    <p>
+      Ø³ÙˆØ±Ûƒ Ø§Ù„Ø¨Ù‚Ø±Û â€” 2:156
+    </p>
+
+    <h2>Ø¯Ø¹Ø§</h2>
+
+    <p class="arabic">
+      Ø§Ù„Ù„Ù‡Ù… Ø§ØºÙØ± Ù„Ù‡Ù… ÙˆØ§Ø±Ø­Ù…Ù‡Ù… ÙˆØ§Ø¬Ø¹Ù„ Ù‚Ø¨ÙˆØ±Ù‡Ù… Ø±ÙˆØ¶Ø© Ù…Ù† Ø±ÙŠØ§Ø¶ Ø§Ù„Ø¬Ù†Ø©
+    </p>
+
+    <p>
+      Ø§Û’ Ø§Ù„Ù„Û! Ø¹Ù…Ø±Ø§Ù† Ù†Ø°ÛŒØ± Ø§ÙˆØ± Ù…Ø­Ø³Ù† Ù†Ø°ÛŒØ± Ú©ÛŒ Ù…ØºÙØ±Øª ÙØ±Ù…Ø§ØŒ
+      Ø§Ù† Ù¾Ø± Ø±Ø­Ù… ÙØ±Ù…Ø§ØŒ Ø§Ù† Ú©ÛŒ Ù‚Ø¨Ø±ÙˆÚº Ú©Ùˆ Ø¬Ù†Øª Ú©Û’ Ø¨Ø§ØºÙˆÚº Ù…ÛŒÚº Ø³Û’ Ø§ÛŒÚ© Ø¨Ø§Øº Ø¨Ù†Ø§ Ø¯Û’ØŒ
+      Ø§Ù† Ú©ÛŒ Ù‚Ø¨Ø±ÙˆÚº Ù…ÛŒÚº Ù†ÙˆØ±ØŒ Ø³Ú©ÙˆÙ† Ø§ÙˆØ± Ø±Ø§Ø­Øª Ø¹Ø·Ø§ ÙØ±Ù…Ø§ØŒ
+      Ø§ÙˆØ± Ø§Ù†ÛÛŒÚº Ø¬Ù†Øª Ø§Ù„ÙØ±Ø¯ÙˆØ³ Ù…ÛŒÚº Ø§Ø¹Ù„ÛŒÙ° Ù…Ù‚Ø§Ù… Ø¹Ø·Ø§ ÙØ±Ù…Ø§Û”
+    </p>
+
+    <p>
+      ÛŒØ§ Ø§Ù„Ù„Û! Ø§Ù† Ú©ÛŒ Ù†ÛŒÚ©ÛŒÙˆÚº Ú©Ùˆ Ù‚Ø¨ÙˆÙ„ ÙØ±Ù…Ø§ØŒ Ø§Ù† Ú©ÛŒ Ø®Ø·Ø§Ø¤Úº Ø³Û’ Ø¯Ø±Ú¯Ø²Ø± ÙØ±Ù…Ø§ØŒ
+      Ø§Ù† Ú©Û’ Ø¯Ø±Ø¬Ø§Øª Ø¨Ù„Ù†Ø¯ ÙØ±Ù…Ø§ Ø§ÙˆØ± ÛÙ…ÛŒÚº Ø¨Ú¾ÛŒ Ø§Ù† Ø³Û’ Ø¬Ù†Øª Ø§Ù„ÙØ±Ø¯ÙˆØ³ Ù…ÛŒÚº Ù…Ù„Ø§ Ø¯Û’Û”
+      Ø¢Ù…ÛŒÙ†Û”
+    </p>
+
+  </section>
+
+
+  <!-- ARABIC -->
+  <section data-memorial-language="ar" class="real-language-content">
+
+    <h1>ÙÙŠ Ø§Ù„Ø¯Ø¹Ø§Ø¡ Ø¯Ø§Ø¦Ù…Ø§Ù‹</h1>
+
+    <p class="language-subtitle">
+      Ø°ÙƒØ±Ù‰ Ù…Ø­Ø¨Ø© ÙˆÙˆÙØ§Ø¡ ÙˆØ¯Ø¹Ø§Ø¡
+    </p>
+
+    <h2>ÙÙŠ Ø°ÙƒØ±Ø§Ù‡Ù…</h2>
+
+    <p>
+      ÙƒØ§Ù† <strong>Ø¹Ù…Ø±Ø§Ù† Ù†Ø°ÙŠØ±</strong> Ùˆ<strong>Ù…Ø­Ø³Ù† Ù†Ø°ÙŠØ±</strong>
+      Ø£Ø®ÙˆÙŠÙ† Ø´Ù‚ÙŠÙ‚ÙŠÙ† Ø­Ù‚ÙŠÙ‚ÙŠÙŠÙ†.
+    </p>
+
+    <p>
+      ÙƒØ§Ù† Ø¹Ù…Ø±Ø§Ù† Ù†Ø°ÙŠØ± Ø§Ù„Ø£Ø® Ø§Ù„Ø£ÙƒØ¨Ø±ØŒ ÙˆÙ…Ø­Ø³Ù† Ù†Ø°ÙŠØ± Ø§Ù„Ø£Ø® Ø§Ù„Ø£ØµØºØ±.
+      ÙƒØ§Ù†Ø§ Ø´Ø®ØµÙŠÙ† Ù…Ø­Ø¨ÙŠÙ†ØŒ Ø­Ø±ÙŠØµÙŠÙ† Ø¹Ù„Ù‰ Ù…Ù† Ø­ÙˆÙ„Ù‡Ù…Ø§ØŒ Ø·ÙŠØ¨ÙŠ Ø§Ù„Ù‚Ù„Ø¨ ÙˆØ±Ù‚ÙŠÙ‚ÙŠ Ø§Ù„Ù…Ø´Ø§Ø¹Ø±.
+      ÙˆØ³ØªØ¨Ù‚Ù‰ Ù…Ø­Ø¨ØªÙ‡Ù…Ø§ ÙˆØ·ÙŠØ¨ØªÙ‡Ù…Ø§ ÙˆØ°ÙƒØ±ÙŠØ§ØªÙ‡Ù…Ø§ Ø§Ù„Ø¬Ù…ÙŠÙ„Ø© Ø­ÙŠØ© ÙÙŠ Ù‚Ù„ÙˆØ¨Ù†Ø§ Ø¯Ø§Ø¦Ù…Ø§Ù‹.
+    </p>
+
+    <div class="memorial-dates">
+      <strong>Ø¹Ù…Ø±Ø§Ù† Ù†Ø°ÙŠØ± â€” Ø§Ù„Ø£Ø® Ø§Ù„Ø£ÙƒØ¨Ø±</strong><br>
+      Ø¹Ø§Ø¯ Ø¥Ù„Ù‰ Ø±Ø­Ù…Ø© Ø§Ù„Ù„Ù‡ ÙÙŠ <strong>26 Ø£ØºØ³Ø·Ø³ 2025</strong>
+      <br><br>
+      <strong>Ù…Ø­Ø³Ù† Ù†Ø°ÙŠØ± â€” Ø§Ù„Ø£Ø® Ø§Ù„Ø£ØµØºØ±</strong><br>
+      Ø¹Ø§Ø¯ Ø¥Ù„Ù‰ Ø±Ø­Ù…Ø© Ø§Ù„Ù„Ù‡ ÙÙŠ <strong>26 ÙŠÙˆÙ„ÙŠÙˆ 2025</strong>
+    </div>
+
+    <h2>Ø°ÙƒØ±Ù‰ Ø¹Ø§Ù…</h2>
+
+    <p>
+      Ù…Ø¶Ù‰ Ø¹Ø§Ù… Ø¹Ù„Ù‰ ÙˆÙØ§Ø© Ø¹Ù…Ø±Ø§Ù† Ù†Ø°ÙŠØ± ÙˆØ¹ÙˆØ¯ØªÙ‡ Ø¥Ù„Ù‰ Ø§Ù„Ù„Ù‡ Ø³Ø¨Ø­Ø§Ù†Ù‡ ÙˆØªØ¹Ø§Ù„Ù‰.
+    </p>
+
+    <p>
+      ÙˆÙ…Ø¶Ù‰ Ø¹Ø§Ù… ÙˆØ´Ù‡Ø± Ø¹Ù„Ù‰ ÙˆÙØ§Ø© Ù…Ø­Ø³Ù† Ù†Ø°ÙŠØ± ÙˆØ¹ÙˆØ¯ØªÙ‡ Ø¥Ù„Ù‰ Ø§Ù„Ù„Ù‡ Ø³Ø¨Ø­Ø§Ù†Ù‡ ÙˆØªØ¹Ø§Ù„Ù‰.
+    </p>
+
+    <p>
+      ØªÙ…Ø± Ø§Ù„Ø£ÙŠØ§Ù…ØŒ ÙˆÙ„ÙƒÙ† Ù…Ø­Ø¨Ø© Ù…Ù† Ù†Ø­Ø¨ ÙˆØ°ÙƒØ±ÙŠØ§ØªÙ‡Ù… Ø§Ù„Ø¬Ù…ÙŠÙ„Ø© ØªØ¨Ù‚Ù‰ Ø­ÙŠØ© ÙÙŠ Ø§Ù„Ù‚Ù„ÙˆØ¨.
+    </p>
+
+    <h2>Ø§Ù„Ù‚Ø±Ø¢Ù† Ø§Ù„ÙƒØ±ÙŠÙ…</h2>
+
+    <p class="arabic">
+      Ø¥ÙÙ†ÙŽÙ‘Ø§ Ù„ÙÙ„ÙŽÙ‘Ù‡Ù ÙˆÙŽØ¥ÙÙ†ÙŽÙ‘Ø§ Ø¥ÙÙ„ÙŽÙŠÙ’Ù‡Ù Ø±ÙŽØ§Ø¬ÙØ¹ÙÙˆÙ†ÙŽ
+    </p>
+
+    <p>
+      Ø¥Ù†Ø§ Ù„Ù„Ù‡ ÙˆØ¥Ù†Ø§ Ø¥Ù„ÙŠÙ‡ Ø±Ø§Ø¬Ø¹ÙˆÙ†.
+    </p>
+
+    <p>
+      Ø³ÙˆØ±Ø© Ø§Ù„Ø¨Ù‚Ø±Ø© â€” 2:156
+    </p>
+
+    <h2>Ø§Ù„Ø¯Ø¹Ø§Ø¡</h2>
+
+    <p class="arabic">
+      Ø§Ù„Ù„Ù‡Ù… Ø§ØºÙØ± Ù„Ù‡Ù… ÙˆØ§Ø±Ø­Ù…Ù‡Ù… ÙˆØ§Ø¬Ø¹Ù„ Ù‚Ø¨ÙˆØ±Ù‡Ù… Ø±ÙˆØ¶Ø© Ù…Ù† Ø±ÙŠØ§Ø¶ Ø§Ù„Ø¬Ù†Ø©
+    </p>
+
+    <p>
+      Ø§Ù„Ù„Ù‡Ù… Ø§ØºÙØ± Ù„Ø¹Ù…Ø±Ø§Ù† Ù†Ø°ÙŠØ± ÙˆÙ„Ù…Ø­Ø³Ù† Ù†Ø°ÙŠØ± ÙˆØ§Ø±Ø­Ù…Ù‡Ù…Ø§ØŒ
+      ÙˆØ§Ø¬Ø¹Ù„ Ù‚Ø¨ÙˆØ±Ù‡Ù…Ø§ Ø±ÙˆØ¶Ø© Ù…Ù† Ø±ÙŠØ§Ø¶ Ø§Ù„Ø¬Ù†Ø©ØŒ
+      ÙˆØ£Ù†Ø± Ù‚Ø¨Ø±ÙŠÙ‡Ù…Ø§ØŒ ÙˆØ¢Ù†Ø³ ÙˆØ­Ø´ØªÙ‡Ù…Ø§ØŒ ÙˆØ§Ø¬Ø¹Ù„ Ù„Ù‡Ù…Ø§ ÙÙŠÙ‡Ù…Ø§ Ù†ÙˆØ±Ø§Ù‹ ÙˆØ³ÙƒÙŠÙ†Ø© ÙˆØ±Ø§Ø­Ø©.
+    </p>
+
+    <p>
+      Ø§Ù„Ù„Ù‡Ù… Ø§Ø±ÙØ¹ Ø¯Ø±Ø¬Ø§ØªÙ‡Ù…Ø§ØŒ ÙˆØªØ¬Ø§ÙˆØ² Ø¹Ù† Ø³ÙŠØ¦Ø§ØªÙ‡Ù…Ø§ØŒ
+      ÙˆØ£ÙƒØ±Ù… Ù†Ø²Ù„Ù‡Ù…Ø§ØŒ ÙˆØ§Ø¬Ù…Ø¹Ù†Ø§ Ø¨Ù‡Ù…Ø§ ÙÙŠ Ø§Ù„ÙØ±Ø¯ÙˆØ³ Ø§Ù„Ø£Ø¹Ù„Ù‰.
+      Ø¢Ù…ÙŠÙ†.
+    </p>
+
+  </section>
+
+
+  <!-- ENGLISH -->
+  <section data-memorial-language="en" class="real-language-content">
+
+    <h1>Forever In Prayer</h1>
+
+    <p class="language-subtitle">
+      A tribute of love, remembrance, and dua
+    </p>
+
+    <h2>Remembering Them</h2>
+
+    <p>
+      <strong>Imran Nazir</strong> and
+      <strong>Mohsan Nazir</strong> were real brothers.
+    </p>
+
+    <p>
+      Imran Nazir was the elder brother, and Mohsan Nazir was the younger brother.
+      Both were loving, caring, soft-hearted people.
+      Their kindness, affection, and beautiful memories
+      will always remain alive in our hearts.
+    </p>
+
+    <div class="memorial-dates">
+      <strong>Imran Nazir â€” Elder Brother</strong><br>
+      Returned to Allah on <strong>26 August 2025</strong>
+      <br><br>
+      <strong>Mohsan Nazir â€” Younger Brother</strong><br>
+      Returned to Allah on <strong>26 July 2025</strong>
+    </div>
+
+    <h2>One Year of Remembrance</h2>
+
+    <p>
+      One year has passed since Imran Nazir returned to Allah.
+    </p>
+
+    <p>
+      One year and one month has passed since Mohsan Nazir returned to Allah.
+    </p>
+
+    <p>
+      Time passes, but the love we have for those we lost
+      and the memories they left behind remain forever in our hearts.
+    </p>
+
+    <h2>Quran</h2>
+
+    <p class="arabic">
+      Ø¥ÙÙ†ÙŽÙ‘Ø§ Ù„ÙÙ„ÙŽÙ‘Ù‡Ù ÙˆÙŽØ¥ÙÙ†ÙŽÙ‘Ø§ Ø¥ÙÙ„ÙŽÙŠÙ’Ù‡Ù Ø±ÙŽØ§Ø¬ÙØ¹ÙÙˆÙ†ÙŽ
+    </p>
+
+    <p>
+      Indeed, to Allah we belong and to Him we shall return.
+    </p>
+
+    <p>
+      Surah Al-Baqarah â€” 2:156
+    </p>
+
+    <h2>Prayer</h2>
+
+    <p class="arabic">
+      Ø§Ù„Ù„Ù‡Ù… Ø§ØºÙØ± Ù„Ù‡Ù… ÙˆØ§Ø±Ø­Ù…Ù‡Ù… ÙˆØ§Ø¬Ø¹Ù„ Ù‚Ø¨ÙˆØ±Ù‡Ù… Ø±ÙˆØ¶Ø© Ù…Ù† Ø±ÙŠØ§Ø¶ Ø§Ù„Ø¬Ù†Ø©
+    </p>
+
+    <p>
+      O Allah, forgive Imran Nazir and Mohsan Nazir,
+      have mercy upon them, make their graves gardens from the gardens of Paradise,
+      fill their graves with light, peace, and comfort,
+      and grant them the highest place in Jannat-ul-Firdaws.
+    </p>
+
+    <p>
+      O Allah, accept their good deeds, forgive their shortcomings,
+      raise their ranks, and reunite us with them in the highest Paradise.
+      Ameen.
+    </p>
+
+  </section>
+
+</div>
+
+    <h1>Forever In Prayer</h1><p style="margin-bottom:20px;color:#cbd5e1;">A tribute of love, remembrance, and dua</p>
+
+    <div class="names">
+      In loving memory of:<br>
+      Imran Nazir â€” Elder Brother<br>Mohsan Nazir â€” Younger Brother
+    </div>
+
+    <div style="margin-top:12px;">
+<div class="portraits">
+
+  <div class="person">
+    <img
+      src="brother2.jpeg"
+      alt="Imran Nazir â€” Elder Brother"
+    >
+    <p><strong>Imran Nazir</strong></p>
+    <p>Elder Brother</p>
+  </div>
+
+  <div class="person">
+    <img
+      src="brother1.jpeg"
+      alt="Mohsan Nazir â€” Younger Brother"
+    >
+    <p><strong>Mohsan Nazir</strong></p>
+    <p>Younger Brother</p>
+  </div>
+
+</div>
+    </div>
+    
+
+    <div class="lang">
+  <h3>Remembering Two Beloved Brothers</h3>
+
+<p>
+  <strong>Imran Nazir â€” Elder Brother</strong><br>
+  Returned to Allah on <strong>26 August 2025</strong><br>
+  <span class="dates">One year of remembrance</span>
+</p>
+
+<p>
+  Imran was the eldest brother â€” a loving, caring, and soft-hearted soul
+  whose presence brought warmth and affection to those around him.
+</p>
+
+<p>
+  <strong>Mohsan Nazir â€” Younger Brother</strong><br>
+  Returned to Allah on <strong>26 July 2025</strong><br>
+  <span class="dates">One year and one month of remembrance</span>
+</p>
+
+<p>
+  Mohsan was the younger brother â€” equally loving, caring, and soft-hearted,
+  leaving behind memories that continue to live in the hearts of everyone
+  who knew and loved him.
+</p>
+
+<h3>Two Brothers, One Bond</h3>
+
+<p>
+  They were not only brothers by blood, but brothers whose love and bond
+  remain alive in the memories of their family.
+</p>
+
+<p>
+  Their lives have ended, but their love, kindness, and memories remain.
+</p>
+
+<h3>Our Beloved Brothers</h3>
+
+<p>
+  <strong>Imran Nazir</strong> â€” one year of remembrance
+  since his return to Allah on 26 August 2025.
+</p>
+
+<p>
+  <strong>Mohsan Nazir</strong> â€” one year and one month of remembrance
+  since his return to Allah on 26 July 2025.
+</p>
+
+<p>
+  Though they are no longer physically with us, their kindness,
+  love, care, and soft-hearted nature continue to live in our memories.
+</p>
+
+<h3>Quran</h3>
+
+  <p class="arabic">
+    Ø¥ÙÙ†ÙŽÙ‘Ø§ Ù„ÙÙ„ÙŽÙ‘Ù‡Ù ÙˆÙŽØ¥ÙÙ†ÙŽÙ‘Ø§ Ø¥ÙÙ„ÙŽÙŠÙ’Ù‡Ù Ø±ÙŽØ§Ø¬ÙØ¹ÙÙˆÙ†ÙŽ
+  </p>
+
+  <p>
+    Indeed, to Allah we belong and to Him we shall return.
+    (Surah Al-Baqarah 2:156)
+  </p>
+</div>
+
+
+
+
+
+<div class="lang">
+  <h3>Arabic</h3>
+  <p class="arabic">
+    Ø§Ù„Ù„Ù‡Ù… Ø§ØºÙØ± Ù„Ù‡Ù… ÙˆØ§Ø±Ø­Ù…Ù‡Ù… ÙˆØ§Ø¬Ø¹Ù„ Ù‚Ø¨Ø±Ù‡Ù… Ø±ÙˆØ¶Ø© Ù…Ù† Ø±ÙŠØ§Ø¶ Ø§Ù„Ø¬Ù†Ø©
+  </p>
+</div>
+
+    <div class="lang">
+  <h3>Urdu</h3>
+  <p class="arabic">
+    Ø§Ù„Ù„Û Ø§Ù† Ø¯ÙˆÙ†ÙˆÚº Ú©Ùˆ Ù…Ø¹Ø§Ù ÙØ±Ù…Ø§Ø¦Û’ØŒ Ø§Ù† Ù¾Ø± Ø±Ø­Ù… Ú©Ø±Û’ Ø§ÙˆØ± Ø¬Ù†Øª Ø§Ù„ÙØ±Ø¯ÙˆØ³ Ø¹Ø·Ø§ ÙØ±Ù…Ø§Ø¦Û’Û”
+  </p>
+</div>
+
+    <div class="lang">
+      <h3>English</h3>
+      <p>O Allah, forgive them, have mercy on them, and grant them Paradise without account.</p>
+    </div>
+
+    
+
+<div class="prayer-action">
+  <button id="duaButton" onclick="rememberToday()">
+    ðŸ¤² I Made Dua Today
+  </button>
+
+  <p id="duaCounter">0 visitors offered a dua.</p>
+</div>
+
+    
+
+<div class="lang">
+  <h3>Final Prayer</h3>
+
+<p class="arabic">
+Ø§Ù„Ù„Ù‡Ù… Ø§ØºÙØ± Ù„Ù‡Ù…Ø§ ÙˆØ§Ø±Ø­Ù…Ù‡Ù…Ø§ ÙˆØ§Ø¬Ø¹Ù„ Ù‚Ø¨Ø±ÙŠÙ‡Ù…Ø§ Ø±ÙˆØ¶Ø© Ù…Ù† Ø±ÙŠØ§Ø¶ Ø§Ù„Ø¬Ù†Ø©ØŒ
+ÙˆÙ†ÙˆÙ‘Ø± Ù‚Ø¨Ø±ÙŠÙ‡Ù…Ø§ØŒ ÙˆØ§Ø±ÙØ¹ Ø¯Ø±Ø¬ØªÙ‡Ù…Ø§ ÙÙŠ Ø§Ù„Ù…Ù‡Ø¯ÙŠÙŠÙ†ØŒ
+ÙˆØ§Ø¬Ù…Ø¹Ù†Ø§ Ø¨Ù‡Ù… ÙÙŠ Ø§Ù„ÙØ±Ø¯ÙˆØ³ Ø§Ù„Ø£Ø¹Ù„Ù‰.
+</p>
+
+<p>
+  O Allah, forgive Imran Nazir and Mohsan Nazir,
+  have mercy upon them, illuminate their graves,
+  expand their resting places, and grant them
+  Jannat-ul-Firdaws.
+</p>
+
+<p>
+  May Allah reunite them among the righteous and grant
+  patience, strength, and comfort to everyone who continues
+  to miss and remember them.
+</p>
+
+<p>
+  <strong>
+    Their lives have ended, but their love, kindness,
+    and memories remain.
+  </strong>
+</p>
+</div>
+</div>
+
+
+
+<script id="forever-global-language-controller">
+
+/*
+============================================================
+FOREVER IN PRAYER
+GLOBAL LANGUAGE CONTROLLER
+============================================================
+
+Supported:
+ur = Urdu
+ar = Arabic
+en = English
+
+Priority:
+1. Manually saved language
+2. Browser/device language
+3. Urdu fallback
+============================================================
+*/
+
+(function(){
+
+    "use strict";
+
+    const SUPPORTED_LANGUAGES = ["ur", "ar", "en"];
+    const DEFAULT_LANGUAGE = "ur";
+    const STORAGE_KEY = "foreverInPrayerLanguage";
+
+    function normalizeLanguage(value){
+
+        if(!value){
+            return null;
+        }
+
+        value = String(value)
+            .trim()
+            .toLowerCase();
+
+        if(value === "ur" || value.startsWith("ur-")){
+            return "ur";
+        }
+
+        if(value === "ar" || value.startsWith("ar-")){
+            return "ar";
+        }
+
+        if(value === "en" || value.startsWith("en-")){
+            return "en";
+        }
+
+        return null;
+    }
+
+    function getSavedLanguage(){
+
+        try{
+
+            const saved =
+                localStorage.getItem(STORAGE_KEY);
+
+            return normalizeLanguage(saved);
+
+        }catch(error){
+
+            return null;
+
+        }
+
+    }
+
+    function getBrowserLanguage(){
+
+        const candidates = [];
+
+        if(
+            navigator.languages &&
+            Array.isArray(navigator.languages)
+        ){
+            candidates.push(...navigator.languages);
+        }
+
+        if(navigator.language){
+            candidates.push(navigator.language);
+        }
+
+        for(const candidate of candidates){
+
+            const language =
+                normalizeLanguage(candidate);
+
+            if(language){
+                return language;
+            }
+
+        }
+
+        return null;
+
+    }
+
+    function getInitialLanguage(){
+
+        const saved =
+            getSavedLanguage();
+
+        if(saved){
+            return saved;
+        }
+
+        const browser =
+            getBrowserLanguage();
+
+        if(browser){
+            return browser;
+        }
+
+        return DEFAULT_LANGUAGE;
+
+    }
+
+    function saveLanguage(language){
+
+        try{
+
+            localStorage.setItem(
+                STORAGE_KEY,
+                language
+            );
+
+        }catch(error){
+
+            console.warn(
+                "Could not save language preference.",
+                error
+            );
+
+        }
+
+    }
+
+    function applyLanguage(language){
+
+        language =
+            normalizeLanguage(language) ||
+            DEFAULT_LANGUAGE;
+
+        /*
+        --------------------------------------------------------
+        Real multilingual sections
+        --------------------------------------------------------
+        */
+
+        document
+            .querySelectorAll(
+                "[data-memorial-language]"
+            )
+            .forEach(function(element){
+
+                const elementLanguage =
+                    normalizeLanguage(
+                        element.getAttribute(
+                            "data-memorial-language"
+                        )
+                    );
+
+                element.style.display =
+                    elementLanguage === language
+                        ? ""
+                        : "none";
+
+            });
+
+        /*
+        --------------------------------------------------------
+        Generic data-lang elements
+        --------------------------------------------------------
+        */
+
+        document
+            .querySelectorAll(
+                "[data-lang]"
+            )
+            .forEach(function(element){
+
+                const elementLanguage =
+                    normalizeLanguage(
+                        element.getAttribute(
+                            "data-lang"
+                        )
+                    );
+
+                element.style.display =
+                    elementLanguage === language
+                        ? ""
+                        : "none";
+
+            });
+
+        /*
+        --------------------------------------------------------
+        Direction
+        --------------------------------------------------------
+        */
+
+        const isRTL =
+            language === "ur" ||
+            language === "ar";
+
+        document.documentElement.lang =
+            language;
+
+        document.documentElement.dir =
+            isRTL ? "rtl" : "ltr";
+
+        document.body.classList.toggle(
+            "language-rtl",
+            isRTL
+        );
+
+        document.body.classList.toggle(
+            "language-ltr",
+            !isRTL
+        );
+
+        /*
+        --------------------------------------------------------
+        Language selector
+        --------------------------------------------------------
+        */
+
+        const selector =
+            document.getElementById(
+                "globalLanguageSelector"
+            );
+
+        if(selector){
+
+            selector.value =
+                language;
+
+        }
+
+        /*
+        --------------------------------------------------------
+        Language label
+        --------------------------------------------------------
+        */
+
+        const label =
+            document.getElementById(
+                "globalLanguageLabel"
+            );
+
+        if(label){
+
+            const labels = {
+
+                ur: "Ø²Ø¨Ø§Ù†",
+                ar: "Ø§Ù„Ù„ØºØ©",
+                en: "Language"
+
+            };
+
+            label.textContent =
+                labels[language] ||
+                labels[DEFAULT_LANGUAGE];
+
+        }
+
+        /*
+        --------------------------------------------------------
+        Notify the rest of the site
+        --------------------------------------------------------
+        */
+
+        window.foreverInPrayerLanguage =
+            language;
+
+        window.dispatchEvent(
+            new CustomEvent(
+                "foreverInPrayerLanguageChanged",
+                {
+                    detail: {
+                        language: language
+                    }
+                }
+            )
+        );
+
+    }
+
+    function setLanguage(language){
+
+        language =
+            normalizeLanguage(language);
+
+        if(
+            !language ||
+            !SUPPORTED_LANGUAGES.includes(language)
+        ){
+            language =
+                DEFAULT_LANGUAGE;
+        }
+
+        saveLanguage(language);
+
+        applyLanguage(language);
+
+        return language;
+
+    }
+
+    /*
+    ------------------------------------------------------------
+    PUBLIC API
+    ------------------------------------------------------------
+    */
+
+    window.setForeverLanguage =
+        setLanguage;
+
+    window.getForeverLanguage =
+        function(){
+
+            return (
+                window.foreverInPrayerLanguage ||
+                getInitialLanguage()
+            );
+
+        };
+
+    window.foreverInPrayerLanguages =
+        SUPPORTED_LANGUAGES.slice();
+
+    /*
+    ------------------------------------------------------------
+    SELECTOR EVENT
+    ------------------------------------------------------------
+    */
+
+    document.addEventListener(
+        "change",
+        function(event){
+
+            if(
+                event.target &&
+                event.target.id ===
+                "globalLanguageSelector"
+            ){
+
+                setLanguage(
+                    event.target.value
+                );
+
+            }
+
+        }
+    );
+
+    /*
+    ------------------------------------------------------------
+    APPLY AFTER DOM IS READY
+    ------------------------------------------------------------
+    */
+
+    function initialize(){
+
+        applyLanguage(
+            getInitialLanguage()
+        );
+
+    }
+
+    if(
+        document.readyState ===
+        "loading"
+    ){
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            initialize,
+            {
+                once: true
+            }
+        );
+
+    }else{
+
+        initialize();
+
+    }
+
+})();
+
+/* ============================================================
+   FOREVER IN PRAYER - AUDIO ENGINE
+   Start Prayer -> Al-Fatihah -> Dua
+   ============================================================ */
+
+const tap = document.getElementById("tapScreen");
+const startButton = document.getElementById("startPrayerButton");
+const f = document.getElementById("fatihah");
+const d = document.getElementById("dua");
+const status = document.getElementById("status");
+
+let prayerStarted = false;
+
+function setPrayerStatus(message) {
+    if (status) {
+        status.textContent = message;
+    }
+}
+
+function showTap() {
+    if (tap) {
+        tap.style.display = "flex";
+    }
+}
+
+function hideTap() {
+    if (tap) {
+        tap.style.display = "none";
+    }
+}
+
+async function startPrayer() {
+
+    if (prayerStarted) {
+        return;
+    }
+
+    prayerStarted = true;
+
+    try {
+
+        hideTap();
+
+        f.pause();
+        d.pause();
+
+        f.currentTime = 0;
+        d.currentTime = 0;
+
+        setPrayerStatus("Playing Al-Fatihah...");
+
+        await f.play();
+
+    } catch (error) {
+
+        console.error("Al-Fatihah playback failed:", error);
+
+        prayerStarted = false;
+
+        setPrayerStatus(
+            "Please press Start Prayer again."
+        );
+
+        showTap();
+    }
+}
+
+if (startButton) {
+    startButton.addEventListener("click", startPrayer);
+}
+
+if (tap) {
+    tap.addEventListener("click", function(event) {
+        if (event.target === tap) {
+            startPrayer();
+        }
+    });
+}
+
+if (f) {
+
+    f.addEventListener("play", function() {
+        setPrayerStatus("Playing Al-Fatihah...");
+    });
+
+    f.addEventListener("ended", async function() {
+
+        try {
+
+            setPrayerStatus("Making Dua...");
+
+            d.currentTime = 0;
+
+            await d.play();
+
+        } catch (error) {
+
+            console.error("Dua playback failed:", error);
+
+            prayerStarted = false;
+
+            setPrayerStatus(
+                "Unable to continue to Dua. Please press Start Prayer again."
+            );
+
+            showTap();
+        }
+    });
+
+    f.addEventListener("error", function() {
+
+        console.error("Al-Fatihah error:", f.error);
+
+        prayerStarted = false;
+
+        setPrayerStatus(
+            "Al-Fatihah could not be loaded."
+        );
+
+        showTap();
+    });
+}
+
+if (d) {
+
+    d.addEventListener("play", function() {
+        setPrayerStatus("Making Dua...");
+    });
+
+    d.addEventListener("ended", function() {
+
+        prayerStarted = false;
+
+        setPrayerStatus(
+            "ðŸ¤² May Allah grant them Jannah. Ameen."
+        );
+    });
+
+    d.addEventListener("error", function() {
+
+        console.error("Dua error:", d.error);
+
+        prayerStarted = false;
+
+        setPrayerStatus(
+            "Dua could not be loaded."
+        );
+
+        showTap();
+    });
+}
+
+</script>
+<!-- URDU DISPLAY BEHAVIOR REPAIR -->
+<script>
+(function(){
+    const KEY = "foreverInPrayerLanguage";
+    const SUPPORTED = ["ur","ar","en"];
+    const RTL = ["ur","ar"];
+
+    function normalize(value){
+        if(!value) return null;
+        value = String(value).toLowerCase().replace("_","-");
+        if(value.indexOf("ur") === 0) return "ur";
+        if(value.indexOf("ar") === 0) return "ar";
+        if(value.indexOf("en") === 0) return "en";
+        return null;
+    }
+
+    function browserLanguage(){
+        const candidates = [];
+        if(navigator.languages && Array.isArray(navigator.languages)){
+            candidates.push.apply(candidates,navigator.languages);
+        }
+        if(navigator.language){
+            candidates.push(navigator.language);
+        }
+        for(const value of candidates){
+            const lang = normalize(value);
+            if(lang) return lang;
+        }
+        return "ur";
+    }
+
+    function getLanguage(){
+        try{
+            const saved = normalize(localStorage.getItem(KEY));
+            if(saved) return saved;
+        }catch(e){}
+        return browserLanguage() || "ur";
+    }
+
+    function applyLanguage(language){
+        language = normalize(language) || "ur";
+
+        document.querySelectorAll("[data-memorial-language]").forEach(function(section){
+            const sectionLanguage =
+                normalize(section.getAttribute("data-memorial-language"));
+
+            section.hidden = sectionLanguage !== language;
+            section.style.display =
+                sectionLanguage === language ? "" : "none";
+        });
+
+        document.documentElement.lang = language;
+        document.documentElement.dir =
+            RTL.indexOf(language) >= 0 ? "rtl" : "ltr";
+
+        document.querySelectorAll("[data-lang]").forEach(function(element){
+            const elementLanguage =
+                normalize(element.getAttribute("data-lang"));
+            element.hidden = elementLanguage !== language;
+            element.style.display =
+                elementLanguage === language ? "" : "none";
+        });
+
+        const selector =
+            document.getElementById("globalLanguageSelector");
+
+        if(selector){
+            selector.value = language;
+        }
+
+        window.foreverInPrayerLanguage = language;
+    }
+
+    window.setForeverLanguage = function(language){
+        language = normalize(language) || "ur";
+        try{
+            localStorage.setItem(KEY,language);
+        }catch(e){}
+        applyLanguage(language);
+        window.dispatchEvent(
+            new CustomEvent("foreverInPrayerLanguageChanged",{
+                detail:{language:language}
+            })
+        );
+    };
+
+    function start(){
+        applyLanguage(getLanguage());
+
+        const selector =
+            document.getElementById("globalLanguageSelector");
+
+        if(selector && !selector.dataset.languageRepairBound){
+            selector.dataset.languageRepairBound = "1";
+            selector.addEventListener("change",function(){
+                window.setForeverLanguage(this.value);
+            });
+        }
+    }
+
+    if(document.readyState === "loading"){
+        document.addEventListener("DOMContentLoaded",start);
+    }else{
+        start();
+    }
+})();
+</script>
+<!-- END URDU DISPLAY BEHAVIOR REPAIR -->
+<!-- URDU DISPLAY BEHAVIOR REPAIR -->
+<script>
+(function(){
+    const KEY = "foreverInPrayerLanguage";
+    const SUPPORTED = ["ur","ar","en"];
+    const RTL = ["ur","ar"];
+
+    function normalize(value){
+        if(!value) return null;
+        value = String(value).toLowerCase().replace("_","-");
+        if(value.indexOf("ur") === 0) return "ur";
+        if(value.indexOf("ar") === 0) return "ar";
+        if(value.indexOf("en") === 0) return "en";
+        return null;
+    }
+
+    function browserLanguage(){
+        const candidates = [];
+        if(navigator.languages && Array.isArray(navigator.languages)){
+            candidates.push.apply(candidates,navigator.languages);
+        }
+        if(navigator.language){
+            candidates.push(navigator.language);
+        }
+        for(const value of candidates){
+            const lang = normalize(value);
+            if(lang) return lang;
+        }
+        return "ur";
+    }
+
+    function getLanguage(){
+        try{
+            const saved = normalize(localStorage.getItem(KEY));
+            if(saved) return saved;
+        }catch(e){}
+        return browserLanguage() || "ur";
+    }
+
+    function applyLanguage(language){
+        language = normalize(language) || "ur";
+
+        document.querySelectorAll("[data-memorial-language]").forEach(function(section){
+            const sectionLanguage =
+                normalize(section.getAttribute("data-memorial-language"));
+
+            section.hidden = sectionLanguage !== language;
+            section.style.display =
+                sectionLanguage === language ? "" : "none";
+        });
+
+        document.documentElement.lang = language;
+        document.documentElement.dir =
+            RTL.indexOf(language) >= 0 ? "rtl" : "ltr";
+
+        document.querySelectorAll("[data-lang]").forEach(function(element){
+            const elementLanguage =
+                normalize(element.getAttribute("data-lang"));
+            element.hidden = elementLanguage !== language;
+            element.style.display =
+                elementLanguage === language ? "" : "none";
+        });
+
+        const selector =
+            document.getElementById("globalLanguageSelector");
+
+        if(selector){
+            selector.value = language;
+        }
+
+        window.foreverInPrayerLanguage = language;
+    }
+
+    window.setForeverLanguage = function(language){
+        language = normalize(language) || "ur";
+        try{
+            localStorage.setItem(KEY,language);
+        }catch(e){}
+        applyLanguage(language);
+        window.dispatchEvent(
+            new CustomEvent("foreverInPrayerLanguageChanged",{
+                detail:{language:language}
+            })
+        );
+    };
+
+    function start(){
+        applyLanguage(getLanguage());
+
+        const selector =
+            document.getElementById("globalLanguageSelector");
+
+        if(selector && !selector.dataset.languageRepairBound){
+            selector.dataset.languageRepairBound = "1";
+            selector.addEventListener("change",function(){
+                window.setForeverLanguage(this.value);
+            });
+        }
+    }
+
+    if(document.readyState === "loading"){
+        document.addEventListener("DOMContentLoaded",start);
+    }else{
+        start();
+    }
+})();
+</script>
+<!-- END URDU DISPLAY BEHAVIOR REPAIR -->
+<!-- SAFE URDU DISPLAY OVERRIDE -->
+<script id="safe-urdu-display-override">
+(function(){
+    "use strict";
+
+    var KEY = "foreverInPrayerLanguage";
+    var RTL = { ur:true, ar:true };
+
+    function normalize(v){
+        if(!v){ return null; }
+        v=String(v).toLowerCase().replace("_","-");
+        if(v.indexOf("ur")===0){ return "ur"; }
+        if(v.indexOf("ar")===0){ return "ar"; }
+        if(v.indexOf("en")===0){ return "en"; }
+        return null;
+    }
+
+    function detect(){
+        var saved=null;
+        try{
+            saved=normalize(localStorage.getItem(KEY));
+        }catch(e){}
+
+        if(saved){ return saved; }
+
+        var list=[];
+        if(navigator.languages && navigator.languages.length){
+            list=navigator.languages;
+        }
+
+        if(navigator.language){
+            list=list.concat([navigator.language]);
+        }
+
+        for(var i=0;i<list.length;i++){
+            var detected=normalize(list[i]);
+            if(detected){ return detected; }
+        }
+
+        return "ur";
+    }
+
+    function apply(lang){
+        lang=normalize(lang)||"ur";
+
+        var sections=document.querySelectorAll("[data-memorial-language]");
+
+        for(var i=0;i<sections.length;i++){
+            var sectionLang=normalize(
+                sections[i].getAttribute("data-memorial-language")
+            );
+
+            if(sectionLang===lang){
+                sections[i].hidden=false;
+                sections[i].style.display="";
+            }else{
+                sections[i].hidden=true;
+                sections[i].style.display="none";
+            }
+        }
+
+        document.documentElement.lang=lang;
+        document.documentElement.dir=RTL[lang] ? "rtl" : "ltr";
+
+        var selector=document.getElementById("globalLanguageSelector");
+
+        if(selector){
+            selector.value=lang;
+
+            if(!selector.getAttribute("data-safe-urdu-bound")){
+                selector.setAttribute("data-safe-urdu-bound","1");
+
+                selector.addEventListener("change",function(){
+                    var selected=normalize(this.value)||"ur";
+
+                    try{
+                        localStorage.setItem(KEY,selected);
+                    }catch(e){}
+
+                    apply(selected);
+                });
+            }
+        }
+
+        window.foreverInPrayerLanguage=lang;
+    }
+
+    function start(){
+        apply(detect());
+    }
+
+    if(document.readyState==="loading"){
+        document.addEventListener("DOMContentLoaded",start);
+    }else{
+        start();
+    }
+})();
+</script>
+<!-- END SAFE URDU DISPLAY OVERRIDE --><!-- SAFE LANGUAGE SWITCH FIX -->
+<style id="safe-language-switch-css">
+.real-language-content[data-memorial-language] { display: none; }
+.real-language-content[data-memorial-language="ur"] { display: none; }
+</style>
+<script id="safe-language-switch-js">
+(function(){
+    "use strict";
+
+    var LANGS = ["ur","ar","en"];
+    var KEY = "foreverInPrayerLanguage";
+
+    function normalize(v){
+        v = String(v || "").toLowerCase().trim();
+        if(v.indexOf("ur") === 0) return "ur";
+        if(v.indexOf("ar") === 0) return "ar";
+        if(v.indexOf("en") === 0) return "en";
+        return "ur";
+    }
+
+    function applyLanguage(lang){
+        lang = normalize(lang);
+
+        var sections = document.querySelectorAll(
+            ".real-language-content[data-memorial-language]"
+        );
+
+        sections.forEach(function(section){
+            var sectionLang = normalize(
+                section.getAttribute("data-memorial-language")
+            );
+            section.style.display =
+                sectionLang === lang ? "" : "none";
+        });
+
+        document.documentElement.lang = lang;
+        document.documentElement.dir =
+            (lang === "ur" || lang === "ar") ? "rtl" : "ltr";
+
+        var selector = document.getElementById("globalLanguageSelector");
+        if(selector) selector.value = lang;
+
+        try {
+            localStorage.setItem(KEY, lang);
+        } catch(e) {}
+
+        window.dispatchEvent(new CustomEvent(
+            "foreverInPrayerLanguageChanged",
+            { detail: { language: lang } }
+        ));
+    }
+
+    function getSavedLanguage(){
+        try {
+            var saved = localStorage.getItem(KEY);
+            if(saved && LANGS.indexOf(normalize(saved)) !== -1){
+                return normalize(saved);
+            }
+        } catch(e) {}
+
+        var candidates = [];
+        if(navigator.languages && navigator.languages.length){
+            candidates = candidates.concat(navigator.languages);
+        }
+        if(navigator.language){
+            candidates.push(navigator.language);
+        }
+
+        for(var i=0;i<candidates.length;i++){
+            var detected = normalize(candidates[i]);
+            if(LANGS.indexOf(detected) !== -1){
+                return detected;
+            }
+        }
+
+        return "ur";
+    }
+
+    function connectSelector(){
+        var selector =
+            document.getElementById("globalLanguageSelector");
+
+        if(!selector) return;
+
+        selector.onchange = function(){
+            applyLanguage(this.value);
+        };
+
+        selector.addEventListener("input", function(){
+            applyLanguage(this.value);
+        });
+
+        applyLanguage(selector.value || getSavedLanguage());
+    }
+
+    window.setForeverLanguage = applyLanguage;
+    window.getForeverLanguage = getSavedLanguage;
+
+    if(document.readyState === "loading"){
+        document.addEventListener("DOMContentLoaded", connectSelector);
+    }else{
+        connectSelector();
+    }
+})();
+</script>
+<!-- END SAFE LANGUAGE SWITCH FIX -->
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
