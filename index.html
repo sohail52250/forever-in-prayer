@@ -2080,6 +2080,90 @@ rahman.addEventListener("error", function() {
 
 })();
 </script>
+<div id="forever-global-sharing" class="sharing-tools" aria-label="Share Forever In Prayer">
+  <button type="button" id="foreverNativeShare">🌹 Share</button>
+  <button type="button" id="foreverWhatsAppShare">WhatsApp</button>
+  <button type="button" id="foreverFacebookShare">Facebook</button>
+  <button type="button" id="foreverXShare">X</button>
+  <button type="button" id="foreverCopyLink">Copy Link</button>
+</div>
+<script id="forever-global-sharing-controller">
+(function () {
+  "use strict";
+
+  var pageUrl = window.location.href;
+  var pageTitle = document.title || "Forever In Prayer";
+  var shareText = "Forever In Prayer — In loving remembrance of Imran Nazir and Mohsan Nazir.";
+
+  var nativeButton = document.getElementById("foreverNativeShare");
+  var whatsappButton = document.getElementById("foreverWhatsAppShare");
+  var facebookButton = document.getElementById("foreverFacebookShare");
+  var xButton = document.getElementById("foreverXShare");
+  var copyButton = document.getElementById("foreverCopyLink");
+
+  if (nativeButton) {
+    if (navigator.share) {
+      nativeButton.addEventListener("click", function () {
+        navigator.share({
+          title: pageTitle,
+          text: shareText,
+          url: pageUrl
+        }).catch(function () {});
+      });
+    } else {
+      nativeButton.style.display = "none";
+    }
+  }
+
+  if (whatsappButton) {
+    whatsappButton.addEventListener("click", function () {
+      window.open(
+        "https://wa.me/?text=" +
+        encodeURIComponent(shareText + " " + pageUrl),
+        "_blank",
+        "noopener,noreferrer"
+      );
+    });
+  }
+
+  if (facebookButton) {
+    facebookButton.addEventListener("click", function () {
+      window.open(
+        "https://www.facebook.com/sharer/sharer.php?u=" +
+        encodeURIComponent(pageUrl),
+        "_blank",
+        "noopener,noreferrer"
+      );
+    });
+  }
+
+  if (xButton) {
+    xButton.addEventListener("click", function () {
+      window.open(
+        "https://x.com/intent/post?text=" +
+        encodeURIComponent(shareText) +
+        "&url=" +
+        encodeURIComponent(pageUrl),
+        "_blank",
+        "noopener,noreferrer"
+      );
+    });
+  }
+
+  if (copyButton) {
+    copyButton.addEventListener("click", function () {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(pageUrl).then(function () {
+          copyButton.textContent = "Copied ✓";
+          setTimeout(function () {
+            copyButton.textContent = "Copy Link";
+          }, 2000);
+        }).catch(function () {});
+      }
+    });
+  }
+})();
+</script>
 </body>
 </html>
 
