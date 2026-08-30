@@ -1,0 +1,4 @@
+﻿User-agent: *
+Allow: /
+
+Sitemap: https://sohail52250.github.io/forever-in-prayer/sitemap.xml
