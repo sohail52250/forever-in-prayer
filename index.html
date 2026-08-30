@@ -775,8 +775,7 @@ gtag('config', 'G-R54SFM6NZH');
   </button>
 </div>
 
-<audio id="fatihah" preload="auto" src="AlFatihah.mp3"></audio>
-<audio id="dua" preload="auto" src="Dua.mp3"></audio>
+<audio id="fatihah" preload="auto" src="AlFatihah.mp3"></audio>`r`n<audio id="dua" preload="auto" src="Dua.mp3"></audio>`r`n<audio id="ikhlas" preload="none" src="https://github.com/The-Quran-Project/Quran-Audio-Chapters/raw/refs/heads/main/Data/1/112.mp3"></audio>`r`n<audio id="yasin" preload="none" src="https://github.com/The-Quran-Project/Quran-Audio-Chapters/raw/refs/heads/main/Data/1/36.mp3"></audio>`r`n<audio id="rahman" preload="none" src="https://github.com/The-Quran-Project/Quran-Audio-Chapters/raw/refs/heads/main/Data/1/55.mp3"></audio>
 
 <div class="container">
   <div class="box">
@@ -1699,34 +1698,7 @@ if (f) {
     });
 }
 
-if (d) {
-
-    d.addEventListener("play", function() {
-        setPrayerStatus("Making Dua...");
-    });
-
-    d.addEventListener("ended", function() {
-
-        prayerStarted = false;
-
-        setPrayerStatus(
-            "🤲 May Allah grant them Jannah. Ameen."
-        );
-    });
-
-    d.addEventListener("error", function() {
-
-        console.error("Dua error:", d.error);
-
-        prayerStarted = false;
-
-        setPrayerStatus(
-            "Dua could not be loaded."
-        );
-
-        showTap();
-    });
-}
+if (d) {`r`n`rn    d.addEventListener("play", function() {`r`n        setPrayerStatus("Making Dua...");`r`n    });`r`n`rn    d.addEventListener("ended", async function() {`r`n        try {`r`n            setPrayerStatus("Playing Surah Al-Ikhlas...");`r`n            ikhlas.currentTime = 0;`r`n            await ikhlas.play();`r`n        } catch (error) {`r`n            console.error("Al-Ikhlas playback failed:", error);`r`n            prayerStarted = false;`r`n            setPrayerStatus("Unable to continue to Surah Al-Ikhlas.");`r`n            showTap();`r`n        }`r`n    });`r`n`rn    d.addEventListener("error", function() {`r`n        console.error("Dua error:", d.error);`r`n        prayerStarted = false;`r`n        setPrayerStatus("Dua could not be loaded.");`r`n        showTap();`r`n    });`r`n}`r`n`rnconst ikhlas = document.getElementById("ikhlas");`r`nconst yasin = document.getElementById("yasin");`r`nconst rahman = document.getElementById("rahman");`r`n`rnikhlas.addEventListener("play", function() {`r`n    setPrayerStatus("Playing Surah Al-Ikhlas...");`r`n});`r`nikhlas.addEventListener("ended", async function() {`r`n    try {`r`n        setPrayerStatus("Playing Surah Ya-Sin...");`r`n        yasin.currentTime = 0;`r`n        await yasin.play();`r`n    } catch (error) {`r`n        console.error("Ya-Sin playback failed:", error);`r`n        prayerStarted = false;`r`n        setPrayerStatus("Unable to continue to Surah Ya-Sin.");`r`n        showTap();`r`n    }`r`n});`r`nikhlas.addEventListener("error", function() {`r`n    console.error("Al-Ikhlas error:", ikhlas.error);`r`n    prayerStarted = false;`r`n    setPrayerStatus("Surah Al-Ikhlas could not be loaded.");`r`n    showTap();`r`n});`r`nyasin.addEventListener("play", function() {`r`n    setPrayerStatus("Playing Surah Ya-Sin...");`r`n});`r`nyasin.addEventListener("ended", async function() {`r`n    try {`r`n        setPrayerStatus("Playing Surah Ar-Rahman...");`r`n        rahman.currentTime = 0;`r`n        await rahman.play();`r`n    } catch (error) {`r`n        console.error("Ar-Rahman playback failed:", error);`r`n        prayerStarted = false;`r`n        setPrayerStatus("Unable to continue to Surah Ar-Rahman.");`r`n        showTap();`r`n    }`r`n});`r`nyasin.addEventListener("error", function() {`r`n    console.error("Ya-Sin error:", yasin.error);`r`n    prayerStarted = false;`r`n    setPrayerStatus("Surah Ya-Sin could not be loaded.");`r`n    showTap();`r`n});`r`nrahman.addEventListener("play", function() {`r`n    setPrayerStatus("Playing Surah Ar-Rahman...");`r`n});`r`nrahman.addEventListener("ended", function() {`r`n    prayerStarted = false;`r`n    setPrayerStatus("🤲 May Allah grant them Jannah. Ameen.");`r`n});`r`nrahman.addEventListener("error", function() {`r`n    console.error("Ar-Rahman error:", rahman.error);`r`n    prayerStarted = false;`r`n    setPrayerStatus("Surah Ar-Rahman could not be loaded.");`r`n    showTap();`r`n});
 
 </script>
 <script id="forever-prayer-final-controller">
